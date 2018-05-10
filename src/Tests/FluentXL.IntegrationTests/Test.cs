@@ -1,6 +1,9 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using FluentXL.Specifications.Columns;
+using FluentXL.Specifications.Sheets;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace FluentXL.IntegrationTests
@@ -9,11 +12,31 @@ namespace FluentXL.IntegrationTests
     public class Test
     {
         [TestMethod]
+        public void Other()
+        {
+            var sheet = SheetSpecification
+                .Sheet()
+                .WithName("sheet 1")
+                .WithColumn(
+                    ColumnSpecification
+                        .Column()
+                        .With(index: 1, width: 100))
+                //.WithRows(null)
+                //.WithMergedCell(null)
+                .Build();
+
+            Assert.IsNotNull(sheet);
+            Assert.AreEqual("sheet 1", sheet.Name);
+            Assert.IsNotNull(sheet.Columns);
+            Assert.IsNotNull(sheet.Columns.SingleOrDefault());
+        }
+
+        [TestMethod]
         public void Method()
         {
             //TODO:
 
-            //defining client interface
+            //desired client interface
             dynamic builder = null;
             dynamic sheetSpecification = null;
             dynamic columnSpecification = null;
