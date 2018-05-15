@@ -4,6 +4,28 @@ namespace FluentXL.Models
 {
     public class Row
     {
+        public Row(
+            uint index, 
+            IEnumerable<Cell> cells, 
+            double? height = null,
+            bool? collapsed = null,
+            bool? hidden = null,
+            byte? outlineLevel = null,
+            uint? style = null,
+            bool? thickBottom = null,
+            bool? thickTop = null)
+        {
+            Index = index;
+            Cells = cells;
+            Height = height;
+            Collapsed = collapsed;
+            Hidden = hidden;
+            OutlineLevel = outlineLevel;
+            Style = style;
+            ThickBottom = thickBottom;
+            ThickTop = thickTop;
+        }
+
         public uint Index { get; }
         public bool? Collapsed { get; }
         public double? Height { get; }

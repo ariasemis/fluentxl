@@ -1,4 +1,6 @@
-﻿using FluentXL.Specifications.Columns;
+﻿using FluentXL.Specifications.Cells;
+using FluentXL.Specifications.Columns;
+using FluentXL.Specifications.Rows;
 using FluentXL.Specifications.Sheets;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
@@ -21,17 +23,27 @@ namespace FluentXL.IntegrationTests
                     ColumnSpecification
                         .Column()
                         .With(index: 1, width: 100))
-                //.WithRows(null)
+                .WithRow(
+                    RowSpecification
+                        .Row()
+                        .WithIndex(1)
+                        .WithCell(
+                            CellSpecification
+                                .Cell(1)
+                                .WithColumn(1)
+                                .WithContent("test")))
                 //.WithMergedCell(null)
                 .Build();
 
             Assert.IsNotNull(sheet);
             Assert.AreEqual("sheet 1", sheet.Name);
             Assert.IsNotNull(sheet.Columns);
-            Assert.IsNotNull(sheet.Columns.SingleOrDefault());
+            Assert.IsNotNull(sheet.Columns?.SingleOrDefault());
+            Assert.IsNotNull(sheet.Rows);
+            Assert.IsNotNull(sheet.Rows?.SingleOrDefault());
+            Assert.IsNotNull(sheet.Rows?.SingleOrDefault()?.Cells);
         }
 
-        [TestMethod]
         public void Method()
         {
             //TODO:

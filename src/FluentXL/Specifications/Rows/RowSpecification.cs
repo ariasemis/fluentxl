@@ -1,34 +1,51 @@
 ﻿using FluentXL.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace FluentXL.Specifications.Rows
 {
-    public class RowSpecification : IBuilderSpecification<Row>
+    public class RowSpecification : IRowSpecification
     {
-        private uint index;
-        private IEnumerable<IBuilderSpecification<Cell>> cellSpecifications;
+        private uint Index { get; set; }
+        private IEnumerable<IBuilderSpecification<Cell>> CellSpecifications { get; set; }
 
-        public void WithIndex(uint index)
+        private RowSpecification() { }
+
+        public static IRowSpecification Row()
+            => new RowSpecification { CellSpecifications = Enumerable.Empty<IBuilderSpecification<Cell>>() };
+
+        public IRowSpecification WithIndex(uint index)
         {
-            this.index = index;
+            return new RowSpecification
+            {
+                Index = index,
+                CellSpecifications = CellSpecifications
+            };
         }
 
-        public void WithCell(IBuilderSpecification<Cell> cellSpecification)
+        public IRowSpecification WithCell(IBuilderSpecification<Cell> cellSpecification)
         {
-            cellSpecifications = cellSpecifications.Append(cellSpecification);
+            return new RowSpecification
+            {
+                Index = Index,
+                CellSpecifications = CellSpecifications.Append(cellSpecification)
+            };
         }
 
-        public void WithCells(IEnumerable<IBuilderSpecification<Cell>> specifications)
+        public IRowSpecification WithCells(IEnumerable<IBuilderSpecification<Cell>> specifications)
         {
-            cellSpecifications = cellSpecifications.Concat(specifications);
+            return new RowSpecification
+            {
+                Index = Index,
+                CellSpecifications = CellSpecifications.Concat(specifications)
+            };
         }
 
         public Row Build()
         {
-            throw new NotImplementedException();
+            return new Row(
+                Index,
+                CellSpecifications.Select(x => x.Build()));
         }
     }
 }

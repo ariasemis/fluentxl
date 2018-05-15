@@ -16,4 +16,8 @@
     <ProjectReference Include="..\..\FluentXL\FluentXL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Output\" />
+  </ItemGroup>
+
 </Project>
