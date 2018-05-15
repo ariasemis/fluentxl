@@ -5,20 +5,20 @@
         public Cell(
             uint row,
             uint column,
-            CellType cellType,
+            CellType type,
             string value,
             uint? style = null)
         {
             Row = row;
             Column = column;
-            CellType = cellType;
+            Type = type;
             Value = value;
             Style = style;
         }
 
         public uint Row { get; }
         public uint Column { get; }
-        public CellType CellType { get; }
+        public CellType Type { get; }
         public string Value { get; }
         public uint? Style { get; }
     }
