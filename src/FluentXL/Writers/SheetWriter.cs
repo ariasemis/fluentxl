@@ -64,7 +64,8 @@ namespace FluentXL.Writers
 
         void Write(IEnumerable<MergeCell> mergeCells)
         {
-            throw new NotImplementedException();
+            //TODO
+            //throw new NotImplementedException();
         }
     }
 }

@@ -2,9 +2,11 @@
 using FluentXL.Specifications.Columns;
 using FluentXL.Specifications.Rows;
 using FluentXL.Specifications.Sheets;
+using FluentXL.Writers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -42,6 +44,37 @@ namespace FluentXL.IntegrationTests
             Assert.IsNotNull(sheet.Rows);
             Assert.IsNotNull(sheet.Rows?.SingleOrDefault());
             Assert.IsNotNull(sheet.Rows?.SingleOrDefault()?.Cells);
+        }
+
+        [TestMethod]
+        public void CreateExcel()
+        {
+            Func<Stream> export =
+                DocumentWriter
+                    .Create()
+                    .WithSheet(
+                        SheetSpecification
+                            .Sheet()
+                            .WithName("test sheet")
+                            .WithRow(
+                                RowSpecification
+                                    .Row()
+                                    .WithIndex(2)
+                                    .WithCell(
+                                        CellSpecification
+                                            .Cell(2)
+                                            .WithColumn(2)
+                                            .WithContent("value"))))
+                    .Write;
+
+            var filename = "C:\\Workspace\\Personal\\fluentxl\\src\\Tests\\FluentXL.IntegrationTests\\Output\\test.xlsx";
+
+            using (var spreadsheet = export())
+            using (var file = new FileStream(filename, FileMode.Create, FileAccess.Write))
+            {
+                spreadsheet.Seek(0, SeekOrigin.Begin);
+                spreadsheet.CopyTo(file);
+            }
         }
 
         public void Method()
