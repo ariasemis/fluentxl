@@ -1,6 +1,3 @@
-# Integration-test files
-src/Tests/FluentXL.IntegrationTests/Output/*
-
 # User-specific files
 *.suo
 *.user

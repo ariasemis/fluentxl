@@ -15,6 +15,13 @@ namespace FluentXL.IntegrationTests
     [TestClass]
     public class Test
     {
+        [TestInitialize]
+        public void Init()
+        {
+            if (!Directory.Exists(GetOutputDirectory()))
+                Directory.CreateDirectory(GetOutputDirectory());
+        }
+
         [TestMethod]
         public void Other()
         {
@@ -67,7 +74,7 @@ namespace FluentXL.IntegrationTests
                                             .WithContent("value"))))
                     .Write;
 
-            var filename = "C:\\Workspace\\Personal\\fluentxl\\src\\Tests\\FluentXL.IntegrationTests\\Output\\test.xlsx";
+            var filename = Path.Combine(GetOutputDirectory(), "test.xlsx");
 
             using (var spreadsheet = export())
             using (var file = new FileStream(filename, FileMode.Create, FileAccess.Write))
@@ -128,5 +135,8 @@ namespace FluentXL.IntegrationTests
 
             Assert.Fail();
         }
+
+        private string GetOutputDirectory()
+            => Path.Combine(Environment.CurrentDirectory, @"Output\");
     }
 }
