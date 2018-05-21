@@ -84,11 +84,13 @@ namespace FluentXL.Specifications.Sheets
 
         public Sheet Build()
         {
+            var mergeCells = mergeCellSpecifications.Select(x => x.Build()).ToList();
+
             return new Sheet(
                 name,
                 columnSpecifications.Select(x => x.Build()),
                 rowSpecifications.Select(x => x.Build()),
-                mergeCellSpecifications.Select(x => x.Build()));
+                new MergeCellCollection(mergeCells.Count, mergeCells));
         }
     }
 }

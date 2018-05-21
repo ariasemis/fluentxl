@@ -3,6 +3,7 @@ using DocumentFormat.OpenXml.Validation;
 using FluentXL.IntegrationTests.Utils;
 using FluentXL.Specifications.Cells;
 using FluentXL.Specifications.Columns;
+using FluentXL.Specifications.MergeCells;
 using FluentXL.Specifications.Rows;
 using FluentXL.Specifications.Sheets;
 using FluentXL.Writers;
@@ -42,7 +43,11 @@ namespace FluentXL.IntegrationTests
                                 .Cell(1)
                                 .WithColumn(1)
                                 .WithContent("test")))
-                //.WithMergedCell(null)
+                .WithMergedCell(
+                    MergeCellSpecification
+                        .MergeCell()
+                        .From(row: 1, column: 1)
+                        .To(row: 1, column: 2))
                 .Build();
 
             Assert.IsNotNull(sheet);
@@ -52,6 +57,9 @@ namespace FluentXL.IntegrationTests
             Assert.IsNotNull(sheet.Rows);
             Assert.IsNotNull(sheet.Rows?.SingleOrDefault());
             Assert.IsNotNull(sheet.Rows?.SingleOrDefault()?.Cells);
+            Assert.IsNotNull(sheet.MergeCells);
+            Assert.IsNotNull(sheet.MergeCells?.SingleOrDefault());
+            Assert.AreEqual(1, sheet.MergeCells?.Count);
         }
 
         [TestMethod]
@@ -75,7 +83,7 @@ namespace FluentXL.IntegrationTests
                             .WithColumn(
                                 ColumnSpecification
                                     .Column()
-                                    .With(index: 2, width: 50))
+                                    .With(index: 1, width: 50))
                             .WithRow(
                                 RowSpecification
                                     .Row()
@@ -84,7 +92,12 @@ namespace FluentXL.IntegrationTests
                                         CellSpecification
                                             .Cell(2)
                                             .WithColumn(2)
-                                            .WithContent("value"))))
+                                            .WithContent("value")))
+                            .WithMergedCell(
+                                MergeCellSpecification
+                                    .MergeCell()
+                                    .From(row: 2, column: 2)
+                                    .To(row: 2, column: 3)))
                     .Write;
 
             // act

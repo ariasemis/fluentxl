@@ -13,7 +13,6 @@ namespace FluentXL.Writers
         static readonly OpenXml.Worksheet sheetTemplate = new OpenXml.Worksheet();
         static readonly OpenXml.Columns columnsTemplate = new OpenXml.Columns();
         static readonly OpenXml.SheetData dataTemplate = new OpenXml.SheetData();
-        static readonly OpenXml.MergeCells mergeCellsTemplate = new OpenXml.MergeCells();
 
         readonly OpenXmlWriter writer;
 
@@ -63,10 +62,10 @@ namespace FluentXL.Writers
             writer.WriteEndElement();
         }
 
-        void Write(IEnumerable<MergeCell> mergeCells)
+        void Write(MergeCellCollection mergeCells)
         {
-            //TODO
-            //throw new NotImplementedException();
+            IWriter<MergeCellCollection> mergeCellWriter = new MergeCellWriter(writer);
+            mergeCellWriter.Write(mergeCells);
         }
     }
 }
