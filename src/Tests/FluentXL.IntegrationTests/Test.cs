@@ -1,14 +1,15 @@
-﻿using FluentXL.Specifications.Cells;
+﻿using DocumentFormat.OpenXml.Packaging;
+using DocumentFormat.OpenXml.Validation;
+using FluentXL.IntegrationTests.Utils;
+using FluentXL.Specifications.Cells;
 using FluentXL.Specifications.Columns;
 using FluentXL.Specifications.Rows;
 using FluentXL.Specifications.Sheets;
 using FluentXL.Writers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 
 namespace FluentXL.IntegrationTests
 {
@@ -18,8 +19,8 @@ namespace FluentXL.IntegrationTests
         [TestInitialize]
         public void Init()
         {
-            if (!Directory.Exists(GetOutputDirectory()))
-                Directory.CreateDirectory(GetOutputDirectory());
+            if (!Directory.Exists(FileHelper.GetOutputDirectory()))
+                Directory.CreateDirectory(FileHelper.GetOutputDirectory());
         }
 
         [TestMethod]
@@ -56,6 +57,14 @@ namespace FluentXL.IntegrationTests
         [TestMethod]
         public void CreateExcel()
         {
+            // arrange
+            var filename = Path.Combine(FileHelper.GetOutputDirectory(), "test.xlsx");
+
+            if (FileHelper.IsFileLocked(filename))
+            {
+                Assert.Inconclusive("test cannot be performed because the output file is locked");
+            }
+
             Func<Stream> export =
                 DocumentWriter
                     .Create()
@@ -63,6 +72,10 @@ namespace FluentXL.IntegrationTests
                         SheetSpecification
                             .Sheet()
                             .WithName("test sheet")
+                            .WithColumn(
+                                ColumnSpecification
+                                    .Column()
+                                    .With(index: 2, width: 50))
                             .WithRow(
                                 RowSpecification
                                     .Row()
@@ -74,13 +87,22 @@ namespace FluentXL.IntegrationTests
                                             .WithContent("value"))))
                     .Write;
 
-            var filename = Path.Combine(GetOutputDirectory(), "test.xlsx");
-
+            // act
             using (var spreadsheet = export())
             using (var file = new FileStream(filename, FileMode.Create, FileAccess.Write))
             {
                 spreadsheet.Seek(0, SeekOrigin.Begin);
                 spreadsheet.CopyTo(file);
+            }
+
+            // assert
+            using (var document = SpreadsheetDocument.Open(filename, false))
+            {
+                var validator = new OpenXmlValidator();
+                var errors = validator.Validate(document);
+
+                Assert.IsNotNull(errors);
+                Assert.IsFalse(errors.Any());
             }
         }
 
@@ -135,8 +157,5 @@ namespace FluentXL.IntegrationTests
 
             Assert.Fail();
         }
-
-        private string GetOutputDirectory()
-            => Path.Combine(Environment.CurrentDirectory, @"Output\");
     }
 }
