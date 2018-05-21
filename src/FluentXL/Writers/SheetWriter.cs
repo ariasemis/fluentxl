@@ -3,6 +3,7 @@ using DocumentFormat.OpenXml.Packaging;
 using FluentXL.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using OpenXml = DocumentFormat.OpenXml.Spreadsheet;
 
 namespace FluentXL.Writers
@@ -28,9 +29,9 @@ namespace FluentXL.Writers
 
             writer.WriteStartElement(sheetTemplate);
 
-            if (sheet.Columns != null) Write(sheet.Columns);
-            if (sheet.Rows != null) Write(sheet.Rows);
-            if (sheet.MergeCells != null) Write(sheet.MergeCells);
+            if (sheet.Columns?.Any() ?? false) Write(sheet.Columns);
+            if (sheet.Rows?.Any() ?? false) Write(sheet.Rows);
+            if (sheet.MergeCells?.Any() ?? false) Write(sheet.MergeCells);
 
             writer.WriteEndElement();
             writer.Close();
