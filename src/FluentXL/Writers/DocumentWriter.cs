@@ -2,11 +2,9 @@
 using DocumentFormat.OpenXml.Packaging;
 using FluentXL.Models;
 using FluentXL.Specifications;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using OpenXml = DocumentFormat.OpenXml.Spreadsheet;
 
 namespace FluentXL.Writers
@@ -31,12 +29,37 @@ namespace FluentXL.Writers
         public Stream Write()
         {
             var stream = new MemoryStream();
-            var document = SpreadsheetDocument.Create(stream, SpreadsheetDocumentType.Workbook);
-            var workbookPart = document.AddWorkbookPart();
 
-            // WRITE WORKSHEETS
+            using (var document = SpreadsheetDocument.Create(stream, SpreadsheetDocumentType.Workbook))
+            {
+                var workbookPart = document.AddWorkbookPart();
 
-            // keep track of worksheets to reference later in workbook
+                var sheets = WriteWorksheet(workbookPart);
+                WriteWorkbook(workbookPart, sheets);
+            }
+
+            stream.Seek(0, SeekOrigin.Begin);
+            return stream;
+        }
+
+        private static void WriteWorkbook(WorkbookPart workbookPart, List<OpenXml.Sheet> sheets)
+        {
+            using (var workbookWriter = OpenXmlWriter.Create(workbookPart))
+            {
+                workbookWriter.WriteStartElement(new OpenXml.Workbook());
+                workbookWriter.WriteStartElement(new OpenXml.Sheets());
+                foreach (var sheet in sheets)
+                {
+                    workbookWriter.WriteElement(sheet);
+                }
+                workbookWriter.WriteEndElement();
+                workbookWriter.WriteEndElement();
+                workbookWriter.Close();
+            }
+        }
+
+        private List<OpenXml.Sheet> WriteWorksheet(WorkbookPart workbookPart)
+        {
             var workbookSheets = new List<OpenXml.Sheet>();
 
             foreach (var sheet in WorkSheets.Select(x => x.Build()))
@@ -54,22 +77,7 @@ namespace FluentXL.Writers
                 sheetWriter.Write(sheet);
             }
 
-            // WRITE WORKBOOK
-            var workbookWriter = OpenXmlWriter.Create(workbookPart);
-            workbookWriter.WriteStartElement(new OpenXml.Workbook());
-            workbookWriter.WriteStartElement(new OpenXml.Sheets());
-            foreach (var sheet in workbookSheets)
-            {
-                workbookWriter.WriteElement(sheet);
-            }
-            workbookWriter.WriteEndElement();
-            workbookWriter.WriteEndElement();
-            workbookWriter.Close();
-
-            // END
-            document.Dispose();
-            stream.Seek(0, SeekOrigin.Begin);
-            return stream;
+            return workbookSheets;
         }
     }
 }
