@@ -9,6 +9,7 @@ using FluentXL.Specifications.Sheets;
 using FluentXL.Writers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
@@ -92,7 +93,7 @@ namespace FluentXL.IntegrationTests
                                         CellSpecification
                                             .Cell(2)
                                             .WithColumn(2)
-                                            .WithContent("value")))
+                                            .WithContent("Hello World!!")))
                             .WithMergedCell(
                                 MergeCellSpecification
                                     .MergeCell()
@@ -119,7 +120,68 @@ namespace FluentXL.IntegrationTests
             }
         }
 
-        public void Method()
+        [TestMethod]
+        public void CreateBigExcel()
+        {
+            // arrange
+            var filename = Path.Combine(FileHelper.GetOutputDirectory(), "big.xlsx");
+
+            if (FileHelper.IsFileLocked(filename))
+            {
+                Assert.Inconclusive("test cannot be performed because the output file is locked");
+            }
+
+            var data = GetData(1000);
+            var document = DocumentWriter
+                .Create()
+                .WithSheet(
+                    SheetSpecification
+                        .Sheet()
+                        .WithName("sheet 1")
+                        .WithColumns(Enumerable.Range(0, 5), (item, index) => ColumnSpecification.Column().With(index: index, width: 30))
+                        .WithRows(data, (item, index) => RowSpecification
+                            .Row()
+                            .WithIndex(index)
+                            .WithCell(CellSpecification.Cell(index).WithColumn(1).WithContent(item.Name))
+                            .WithCell(CellSpecification.Cell(index).WithColumn(2).WithContent(item.Description))
+                            .WithCell(CellSpecification.Cell(index).WithColumn(3).WithContent(item.Number))
+                            .WithCell(CellSpecification.Cell(index).WithColumn(4).WithContent(item.Money))
+                            .WithCell(CellSpecification.Cell(index).WithColumn(5).WithContent(item.Date))
+                            ));
+
+            // act
+            using (var spreadsheet = document.Write())
+            using (var file = new FileStream(filename, FileMode.Create, FileAccess.Write))
+            {
+                spreadsheet.Seek(0, SeekOrigin.Begin);
+                spreadsheet.CopyTo(file);
+            }
+
+            // assert
+            using (var doc = SpreadsheetDocument.Open(filename, false))
+            {
+                var validator = new OpenXmlValidator();
+                var errors = validator.Validate(doc);
+
+                Assert.IsNotNull(errors);
+                Assert.IsFalse(errors.Any());
+            }
+        }
+
+        private IEnumerable<Dummy> GetData(int size)
+        {
+            for (int i = 0; i < size; i++)
+                yield return new Dummy
+                {
+                    Name = "something",
+                    Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin id maximus justo, tempor feugiat quam. Praesent turpis nunc, semper non neque nec, semper scelerisque nulla.",
+                    Number = 999,
+                    Money = 99.9M,
+                    Date = DateTime.Today
+                };
+        }
+
+        private void Contract()
         {
             //TODO:
 
@@ -169,6 +231,15 @@ namespace FluentXL.IntegrationTests
                     .Build();
 
             Assert.Fail();
+        }
+
+        class Dummy
+        {
+            public string Name { get; set; }
+            public string Description { get; set; }
+            public int Number { get; set; }
+            public decimal Money { get; set; }
+            public DateTime Date { get; set; }
         }
     }
 }

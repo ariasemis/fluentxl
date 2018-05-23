@@ -1,5 +1,6 @@
 ﻿using FluentXL.Models;
 using System;
+using System.Globalization;
 
 namespace FluentXL.Specifications.Cells
 {
@@ -20,15 +21,15 @@ namespace FluentXL.Specifications.Cells
             => new CellSpecification { Row = Row, Column = index };
 
         public IBuilderSpecification<Cell> WithContent(DateTime value)
-            => WithContent(value.ToOADate().ToString(), CellType.Date);
+            => WithContent(value.ToOADate().ToString(CultureInfo.InvariantCulture), CellType.Date);
 
         public IBuilderSpecification<Cell> WithContent(int value)
-            => WithContent(value.ToString(), CellType.Number);
+            => WithContent(value.ToString(CultureInfo.InvariantCulture), CellType.Number);
 
         public IBuilderSpecification<Cell> WithContent(decimal value)
         {
             if (value == 0) value = Math.Truncate(value);
-            return WithContent(value.ToString(), CellType.Number);
+            return WithContent(value.ToString(CultureInfo.InvariantCulture), CellType.Number);
         }
 
         public IBuilderSpecification<Cell> WithContent(bool value)

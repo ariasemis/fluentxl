@@ -40,9 +40,12 @@ namespace FluentXL.Specifications.Sheets
             return new SheetSpecification(name, cols, rowSpecifications, mergeCellSpecifications);
         }
 
-        public ISheetSpecification WithColumns<T>(IEnumerable<T> source, Func<T, IBuilderSpecification<Column>> toSpecification)
+        public ISheetSpecification WithColumns<T>(IEnumerable<T> source, Func<T, uint, IBuilderSpecification<Column>> toSpecification)
         {
-            var cols = columnSpecifications.Concat(source.Select(x => toSpecification(x)));
+            // we add 1 to the index because it must start with 1
+            var cols = columnSpecifications
+                .Concat(source
+                .Select((item, index) => toSpecification(item, (uint)index + 1)));
             return new SheetSpecification(name, cols, rowSpecifications, mergeCellSpecifications);
         }
 
@@ -58,9 +61,12 @@ namespace FluentXL.Specifications.Sheets
             return new SheetSpecification(name, columnSpecifications, rows, mergeCellSpecifications);
         }
 
-        public ISheetSpecification WithRows<T>(IEnumerable<T> source, Func<T, IBuilderSpecification<Row>> toSpecification)
+        public ISheetSpecification WithRows<T>(IEnumerable<T> source, Func<T, uint, IBuilderSpecification<Row>> toSpecification)
         {
-            var rows = rowSpecifications.Concat(source.Select(x => toSpecification(x)));
+            // we add 1 to the index because it must start with 1
+            var rows = rowSpecifications
+                .Concat(source
+                .Select((item, index) => toSpecification(item, (uint)index + 1)));
             return new SheetSpecification(name, columnSpecifications, rows, mergeCellSpecifications);
         }
 

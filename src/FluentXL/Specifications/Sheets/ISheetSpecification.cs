@@ -10,13 +10,13 @@ namespace FluentXL.Specifications.Sheets
 
         ISheetSpecification WithColumn(IBuilderSpecification<Column> columnSpecification);
 
-        ISheetSpecification WithColumns<T>(IEnumerable<T> source, Func<T, IBuilderSpecification<Column>> toSpecification);
+        ISheetSpecification WithColumns<T>(IEnumerable<T> source, Func<T, uint, IBuilderSpecification<Column>> toSpecification);
 
         ISheetSpecification WithColumns(IEnumerable<IBuilderSpecification<Column>> specifications);
 
         ISheetSpecification WithRow(IBuilderSpecification<Row> rowSpecification);
 
-        ISheetSpecification WithRows<T>(IEnumerable<T> source, Func<T, IBuilderSpecification<Row>> toSpecification);
+        ISheetSpecification WithRows<T>(IEnumerable<T> source, Func<T, uint, IBuilderSpecification<Row>> toSpecification);
 
         ISheetSpecification WithRows(IEnumerable<IBuilderSpecification<Row>> specifications);
 
