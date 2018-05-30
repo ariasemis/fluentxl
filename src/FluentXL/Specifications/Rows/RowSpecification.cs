@@ -7,12 +7,12 @@ namespace FluentXL.Specifications.Rows
     public class RowSpecification : IRowSpecification
     {
         private uint Index { get; set; }
-        private IEnumerable<IBuilderSpecification<Cell>> CellSpecifications { get; set; }
+        private IEnumerable<IBuilderSpecification<CellDefinition>> CellSpecifications { get; set; }
 
         private RowSpecification() { }
 
         public static IRowSpecification Row()
-            => new RowSpecification { CellSpecifications = Enumerable.Empty<IBuilderSpecification<Cell>>() };
+            => new RowSpecification { CellSpecifications = Enumerable.Empty<IBuilderSpecification<CellDefinition>>() };
 
         public IRowSpecification WithIndex(uint index)
         {
@@ -23,7 +23,7 @@ namespace FluentXL.Specifications.Rows
             };
         }
 
-        public IRowSpecification WithCell(IBuilderSpecification<Cell> cellSpecification)
+        public IRowSpecification WithCell(IBuilderSpecification<CellDefinition> cellSpecification)
         {
             return new RowSpecification
             {
@@ -32,7 +32,7 @@ namespace FluentXL.Specifications.Rows
             };
         }
 
-        public IRowSpecification WithCells(IEnumerable<IBuilderSpecification<Cell>> specifications)
+        public IRowSpecification WithCells(IEnumerable<IBuilderSpecification<CellDefinition>> specifications)
         {
             return new RowSpecification
             {
@@ -45,7 +45,7 @@ namespace FluentXL.Specifications.Rows
         {
             return new Row(
                 Index,
-                CellSpecifications.Select(x => x.Build()));
+                CellSpecifications.Select(x => new Cell(Index, x.Build())));
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace FluentXL.Models
 {
-    public class Cell
+    public class Cell : CellDefinition
     {
         public Cell(
             uint row,
@@ -8,28 +8,19 @@
             CellType type,
             string value,
             uint? style = null)
+            : base(column, type, value, style)
         {
             Row = row;
-            Column = column;
-            Type = type;
-            Value = value;
-            Style = style;
+        }
+
+        public Cell(
+            uint row,
+            CellDefinition definition)
+            : base(definition)
+        {
+            Row = row;
         }
 
         public uint Row { get; }
-        public uint Column { get; }
-        public CellType Type { get; }
-        public string Value { get; }
-        public uint? Style { get; }
-    }
-
-    public enum CellType
-    {
-        Boolean,
-        Number,
-        SharedString,
-        String,
-        InlineString,
-        Date
     }
 }

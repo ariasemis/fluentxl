@@ -10,16 +10,16 @@ namespace FluentXL.Specifications.Cells
 
     public interface IExpectCellContent
     {
-        IBuilderSpecification<Cell> WithContent(DateTime value);
+        IBuilderSpecification<CellDefinition> WithContent(DateTime value);
 
-        IBuilderSpecification<Cell> WithContent(int value);
+        IBuilderSpecification<CellDefinition> WithContent(int value);
 
-        IBuilderSpecification<Cell> WithContent(decimal value);
+        IBuilderSpecification<CellDefinition> WithContent(decimal value);
 
-        IBuilderSpecification<Cell> WithContent(bool value);
+        IBuilderSpecification<CellDefinition> WithContent(bool value);
 
-        IBuilderSpecification<Cell> WithContent(string value);
+        IBuilderSpecification<CellDefinition> WithContent(string value);
 
-        IBuilderSpecification<Cell> WithContent(string value, CellType type);
+        IBuilderSpecification<CellDefinition> WithContent(string value, CellType type);
     }
 }

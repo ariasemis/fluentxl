@@ -41,7 +41,7 @@ namespace FluentXL.IntegrationTests
                         .WithIndex(1)
                         .WithCell(
                             CellSpecification
-                                .Cell(1)
+                                .Cell()
                                 .WithColumn(1)
                                 .WithContent("test")))
                 .WithMergedCell(
@@ -91,7 +91,7 @@ namespace FluentXL.IntegrationTests
                                     .WithIndex(2)
                                     .WithCell(
                                         CellSpecification
-                                            .Cell(2)
+                                            .Cell()
                                             .WithColumn(2)
                                             .WithContent("Hello World!!")))
                             .WithMergedCell(
@@ -142,11 +142,11 @@ namespace FluentXL.IntegrationTests
                         .WithRows(data, (item, index) => RowSpecification
                             .Row()
                             .WithIndex(index)
-                            .WithCell(CellSpecification.Cell(index).WithColumn(1).WithContent(item.Name))
-                            .WithCell(CellSpecification.Cell(index).WithColumn(2).WithContent(item.Description))
-                            .WithCell(CellSpecification.Cell(index).WithColumn(3).WithContent(item.Number))
-                            .WithCell(CellSpecification.Cell(index).WithColumn(4).WithContent(item.Money))
-                            .WithCell(CellSpecification.Cell(index).WithColumn(5).WithContent(item.Date))
+                            .WithCell(CellSpecification.Cell().WithColumn(1).WithContent(item.Name))
+                            .WithCell(CellSpecification.Cell().WithColumn(2).WithContent(item.Description))
+                            .WithCell(CellSpecification.Cell().WithColumn(3).WithContent(item.Number))
+                            .WithCell(CellSpecification.Cell().WithColumn(4).WithContent(item.Money))
+                            .WithCell(CellSpecification.Cell().WithColumn(5).WithContent(item.Date))
                             ));
 
             // act

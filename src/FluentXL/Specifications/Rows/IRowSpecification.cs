@@ -7,8 +7,8 @@ namespace FluentXL.Specifications.Rows
     {
         IRowSpecification WithIndex(uint index);
 
-        IRowSpecification WithCell(IBuilderSpecification<Cell> cellSpecification);
+        IRowSpecification WithCell(IBuilderSpecification<CellDefinition> cellSpecification);
 
-        IRowSpecification WithCells(IEnumerable<IBuilderSpecification<Cell>> specifications);
+        IRowSpecification WithCells(IEnumerable<IBuilderSpecification<CellDefinition>> specifications);
     }
 }

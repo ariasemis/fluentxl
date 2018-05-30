@@ -4,47 +4,44 @@ using System.Globalization;
 
 namespace FluentXL.Specifications.Cells
 {
-    public class CellSpecification : IExpectCellColumn, IExpectCellContent, IBuilderSpecification<Cell>
+    public class CellSpecification : IExpectCellColumn, IExpectCellContent, IBuilderSpecification<CellDefinition>
     {
-        private uint Row { get; set; }
         private uint Column { get; set; }
         private CellType CellType { get; set; }
         private string Content { get; set; }
 
         private CellSpecification() { }
 
-        // TODO: find a way to get the row index from the parent so we dont need to specify it again
-        public static IExpectCellColumn Cell(uint row)
-            => new CellSpecification { Row = row };
+        public static IExpectCellColumn Cell()
+            => new CellSpecification();
 
         public IExpectCellContent WithColumn(uint index)
-            => new CellSpecification { Row = Row, Column = index };
+            => new CellSpecification { Column = index };
 
-        public IBuilderSpecification<Cell> WithContent(DateTime value)
+        public IBuilderSpecification<CellDefinition> WithContent(DateTime value)
             => WithContent(value.ToOADate().ToString(CultureInfo.InvariantCulture), CellType.Date);
 
-        public IBuilderSpecification<Cell> WithContent(int value)
+        public IBuilderSpecification<CellDefinition> WithContent(int value)
             => WithContent(value.ToString(CultureInfo.InvariantCulture), CellType.Number);
 
-        public IBuilderSpecification<Cell> WithContent(decimal value)
+        public IBuilderSpecification<CellDefinition> WithContent(decimal value)
         {
             if (value == 0) value = Math.Truncate(value);
             return WithContent(value.ToString(CultureInfo.InvariantCulture), CellType.Number);
         }
 
-        public IBuilderSpecification<Cell> WithContent(bool value)
+        public IBuilderSpecification<CellDefinition> WithContent(bool value)
             => WithContent(value ? "1" : "0", CellType.Boolean);
 
-        public IBuilderSpecification<Cell> WithContent(string value)
+        public IBuilderSpecification<CellDefinition> WithContent(string value)
             => WithContent(value, CellType.String);
 
-        public IBuilderSpecification<Cell> WithContent(string value, CellType type)
-            => new CellSpecification { Row = Row, Column = Column, CellType = type, Content = value };
+        public IBuilderSpecification<CellDefinition> WithContent(string value, CellType type)
+            => new CellSpecification { Column = Column, CellType = type, Content = value };
 
-        public Cell Build()
+        public CellDefinition Build()
         {
-            return new Cell(
-                Row,
+            return new CellDefinition(
                 Column,
                 CellType,
                 Content);
