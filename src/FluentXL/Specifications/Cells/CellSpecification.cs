@@ -12,10 +12,10 @@ namespace FluentXL.Specifications.Cells
 
         private CellSpecification() { }
 
-        public static IExpectCellColumn Cell()
+        public static IExpectCellColumn New()
             => new CellSpecification();
 
-        public IExpectCellContent WithColumn(uint index)
+        public IExpectCellContent OnColumn(uint index)
             => new CellSpecification { Column = index };
 
         public IBuilderSpecification<CellDefinition> WithContent(DateTime value)

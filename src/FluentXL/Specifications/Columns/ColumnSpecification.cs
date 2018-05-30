@@ -11,7 +11,7 @@ namespace FluentXL.Specifications.Columns
 
         private ColumnSpecification() { }
 
-        public static IColumnSpecification Column()
+        public static IColumnSpecification New()
             => new ColumnSpecification();
 
         public IBuilderSpecification<Column> With(uint index, double width)

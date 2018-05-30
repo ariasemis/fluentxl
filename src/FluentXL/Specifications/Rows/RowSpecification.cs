@@ -4,17 +4,17 @@ using System.Linq;
 
 namespace FluentXL.Specifications.Rows
 {
-    public class RowSpecification : IRowSpecification
+    public class RowSpecification : IExpectRowIndex, IExpectCells
     {
         private uint Index { get; set; }
         private IEnumerable<IBuilderSpecification<CellDefinition>> CellSpecifications { get; set; }
 
         private RowSpecification() { }
 
-        public static IRowSpecification Row()
+        public static IExpectRowIndex New()
             => new RowSpecification { CellSpecifications = Enumerable.Empty<IBuilderSpecification<CellDefinition>>() };
 
-        public IRowSpecification WithIndex(uint index)
+        public IExpectCells OnIndex(uint index)
         {
             return new RowSpecification
             {
@@ -23,7 +23,7 @@ namespace FluentXL.Specifications.Rows
             };
         }
 
-        public IRowSpecification WithCell(IBuilderSpecification<CellDefinition> cellSpecification)
+        public IExpectCells WithCell(IBuilderSpecification<CellDefinition> cellSpecification)
         {
             return new RowSpecification
             {
@@ -32,7 +32,7 @@ namespace FluentXL.Specifications.Rows
             };
         }
 
-        public IRowSpecification WithCells(IEnumerable<IBuilderSpecification<CellDefinition>> specifications)
+        public IExpectCells WithCells(IEnumerable<IBuilderSpecification<CellDefinition>> specifications)
         {
             return new RowSpecification
             {

@@ -3,12 +3,15 @@ using System.Collections.Generic;
 
 namespace FluentXL.Specifications.Rows
 {
-    public interface IRowSpecification : IBuilderSpecification<Row>
+    public interface IExpectRowIndex
     {
-        IRowSpecification WithIndex(uint index);
+        IExpectCells OnIndex(uint index);
+    }
 
-        IRowSpecification WithCell(IBuilderSpecification<CellDefinition> cellSpecification);
+    public interface IExpectCells : IBuilderSpecification<Row>
+    {
+        IExpectCells WithCell(IBuilderSpecification<CellDefinition> cellSpecification);
 
-        IRowSpecification WithCells(IEnumerable<IBuilderSpecification<CellDefinition>> specifications);
+        IExpectCells WithCells(IEnumerable<IBuilderSpecification<CellDefinition>> specifications);
     }
 }

@@ -13,7 +13,7 @@ namespace FluentXL.Specifications.MergeCells
 
         private MergeCellSpecification() { }
 
-        public static IExpectFrom MergeCell()
+        public static IExpectFrom New()
             => new MergeCellSpecification();
 
         public IExpectTo From(uint row, uint column)

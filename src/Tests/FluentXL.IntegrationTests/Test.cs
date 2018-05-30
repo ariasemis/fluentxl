@@ -1,11 +1,7 @@
 ﻿using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Validation;
 using FluentXL.IntegrationTests.Utils;
-using FluentXL.Specifications.Cells;
-using FluentXL.Specifications.Columns;
-using FluentXL.Specifications.MergeCells;
-using FluentXL.Specifications.Rows;
-using FluentXL.Specifications.Sheets;
+using FluentXL.Specifications;
 using FluentXL.Writers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
@@ -28,24 +24,24 @@ namespace FluentXL.IntegrationTests
         [TestMethod]
         public void Other()
         {
-            var sheet = SheetSpecification
+            var sheet = Specification
                 .Sheet()
                 .WithName("sheet 1")
                 .WithColumn(
-                    ColumnSpecification
+                    Specification
                         .Column()
                         .With(index: 1, width: 100))
                 .WithRow(
-                    RowSpecification
+                    Specification
                         .Row()
-                        .WithIndex(1)
+                        .OnIndex(1)
                         .WithCell(
-                            CellSpecification
+                            Specification
                                 .Cell()
-                                .WithColumn(1)
+                                .OnColumn(1)
                                 .WithContent("test")))
                 .WithMergedCell(
-                    MergeCellSpecification
+                    Specification
                         .MergeCell()
                         .From(row: 1, column: 1)
                         .To(row: 1, column: 2))
@@ -78,24 +74,24 @@ namespace FluentXL.IntegrationTests
                 DocumentWriter
                     .Create()
                     .WithSheet(
-                        SheetSpecification
+                        Specification
                             .Sheet()
                             .WithName("test sheet")
                             .WithColumn(
-                                ColumnSpecification
+                                Specification
                                     .Column()
                                     .With(index: 1, width: 50))
                             .WithRow(
-                                RowSpecification
+                                Specification
                                     .Row()
-                                    .WithIndex(2)
+                                    .OnIndex(2)
                                     .WithCell(
-                                        CellSpecification
+                                        Specification
                                             .Cell()
-                                            .WithColumn(2)
+                                            .OnColumn(2)
                                             .WithContent("Hello World!!")))
                             .WithMergedCell(
-                                MergeCellSpecification
+                                Specification
                                     .MergeCell()
                                     .From(row: 2, column: 2)
                                     .To(row: 2, column: 3)))
@@ -135,18 +131,18 @@ namespace FluentXL.IntegrationTests
             var document = DocumentWriter
                 .Create()
                 .WithSheet(
-                    SheetSpecification
+                    Specification
                         .Sheet()
                         .WithName("sheet 1")
-                        .WithColumns(Enumerable.Range(0, 5), (item, index) => ColumnSpecification.Column().With(index: index, width: 30))
-                        .WithRows(data, (item, index) => RowSpecification
+                        .WithColumns(Enumerable.Range(0, 5), (item, index) => Specification.Column().With(index: index, width: 30))
+                        .WithRows(data, (item, index) => Specification
                             .Row()
-                            .WithIndex(index)
-                            .WithCell(CellSpecification.Cell().WithColumn(1).WithContent(item.Name))
-                            .WithCell(CellSpecification.Cell().WithColumn(2).WithContent(item.Description))
-                            .WithCell(CellSpecification.Cell().WithColumn(3).WithContent(item.Number))
-                            .WithCell(CellSpecification.Cell().WithColumn(4).WithContent(item.Money))
-                            .WithCell(CellSpecification.Cell().WithColumn(5).WithContent(item.Date))
+                            .OnIndex(index)
+                            .WithCell(Specification.Cell().OnColumn(1).WithContent(item.Name))
+                            .WithCell(Specification.Cell().OnColumn(2).WithContent(item.Description))
+                            .WithCell(Specification.Cell().OnColumn(3).WithContent(item.Number))
+                            .WithCell(Specification.Cell().OnColumn(4).WithContent(item.Money))
+                            .WithCell(Specification.Cell().OnColumn(5).WithContent(item.Date))
                             ));
 
             // act

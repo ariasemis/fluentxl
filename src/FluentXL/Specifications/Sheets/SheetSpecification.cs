@@ -24,7 +24,7 @@ namespace FluentXL.Specifications.Sheets
             this.mergeCellSpecifications = mergeCellSpecifications;
         }
 
-        public static ISheetSpecification Sheet()
+        public static ISheetSpecification New()
             => new SheetSpecification(
                 string.Empty,
                 Enumerable.Empty<IBuilderSpecification<Column>>(),

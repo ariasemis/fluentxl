@@ -5,7 +5,7 @@ namespace FluentXL.Specifications.Cells
 {
     public interface IExpectCellColumn
     {
-        IExpectCellContent WithColumn(uint index);
+        IExpectCellContent OnColumn(uint index);
     }
 
     public interface IExpectCellContent
