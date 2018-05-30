@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace FluentXL.Utils
 {
-    internal static class ReferenceHelper
+    public static class ReferenceHelper
     {
         static readonly string[] alphabet = { string.Empty, "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
 
@@ -22,7 +22,7 @@ namespace FluentXL.Utils
 
         public static string GetNextReference(uint row, uint column)
         {
-            return columnsByIndex[column++] + row;
+            return columnsByIndex[++column] + row;
         }
 
         public static string GetColumnLetter(uint index)
