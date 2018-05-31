@@ -8,8 +8,8 @@
         /// <summary>
         /// Creates a new sheet specification
         /// </summary>
-        /// <returns>an instance of ISheetSpecification</returns>
-        public static Sheets.ISheetSpecification Sheet()
+        /// <returns>an instance of IExpectSheetName</returns>
+        public static Sheets.IExpectSheetName Sheet()
             => Sheets.SheetSpecification.New();
 
         /// <summary>

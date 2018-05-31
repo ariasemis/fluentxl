@@ -4,24 +4,27 @@ using System.Collections.Generic;
 
 namespace FluentXL.Specifications.Sheets
 {
-    public interface ISheetSpecification : IBuilderSpecification<Sheet>
+    public interface IExpectSheetName
     {
-        ISheetSpecification WithName(string name);
+        IExpectSheetContent WithName(string name);
+    }
 
-        ISheetSpecification WithColumn(IBuilderSpecification<Column> columnSpecification);
+    public interface IExpectSheetContent : IBuilderSpecification<Sheet>
+    {
+        IExpectSheetContent WithColumn(IBuilderSpecification<Column> columnSpecification);
 
-        ISheetSpecification WithColumns<T>(IEnumerable<T> source, Func<T, uint, IBuilderSpecification<Column>> toSpecification);
+        IExpectSheetContent WithColumns<T>(IEnumerable<T> source, Func<T, uint, IBuilderSpecification<Column>> toSpecification);
 
-        ISheetSpecification WithColumns(IEnumerable<IBuilderSpecification<Column>> specifications);
+        IExpectSheetContent WithColumns(IEnumerable<IBuilderSpecification<Column>> specifications);
 
-        ISheetSpecification WithRow(IBuilderSpecification<Row> rowSpecification);
+        IExpectSheetContent WithRow(IBuilderSpecification<Row> rowSpecification);
 
-        ISheetSpecification WithRows<T>(IEnumerable<T> source, Func<T, uint, IBuilderSpecification<Row>> toSpecification);
+        IExpectSheetContent WithRows<T>(IEnumerable<T> source, Func<T, uint, IBuilderSpecification<Row>> toSpecification);
 
-        ISheetSpecification WithRows(IEnumerable<IBuilderSpecification<Row>> specifications);
+        IExpectSheetContent WithRows(IEnumerable<IBuilderSpecification<Row>> specifications);
 
-        ISheetSpecification WithMergedCell(IBuilderSpecification<MergeCell> specification);
+        IExpectSheetContent WithMergedCell(IBuilderSpecification<MergeCell> specification);
 
-        ISheetSpecification WithMergedCells(IEnumerable<IBuilderSpecification<MergeCell>> specifications);
+        IExpectSheetContent WithMergedCells(IEnumerable<IBuilderSpecification<MergeCell>> specifications);
     }
 }

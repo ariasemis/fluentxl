@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace FluentXL.Specifications.Sheets
 {
-    public class SheetSpecification : ISheetSpecification
+    public class SheetSpecification : IExpectSheetName, IExpectSheetContent
     {
         private string name;
         private IEnumerable<IBuilderSpecification<Column>> columnSpecifications;
@@ -24,23 +24,23 @@ namespace FluentXL.Specifications.Sheets
             this.mergeCellSpecifications = mergeCellSpecifications;
         }
 
-        public static ISheetSpecification New()
+        public static IExpectSheetName New()
             => new SheetSpecification(
                 string.Empty,
                 Enumerable.Empty<IBuilderSpecification<Column>>(),
                 Enumerable.Empty<IBuilderSpecification<Row>>(),
                 Enumerable.Empty<IBuilderSpecification<MergeCell>>());
 
-        public ISheetSpecification WithName(string name)
+        public IExpectSheetContent WithName(string name)
             => new SheetSpecification(name, columnSpecifications, rowSpecifications, mergeCellSpecifications);
 
-        public ISheetSpecification WithColumn(IBuilderSpecification<Column> columnSpecification)
+        public IExpectSheetContent WithColumn(IBuilderSpecification<Column> columnSpecification)
         {
             var cols = columnSpecifications.Append(columnSpecification);
             return new SheetSpecification(name, cols, rowSpecifications, mergeCellSpecifications);
         }
 
-        public ISheetSpecification WithColumns<T>(IEnumerable<T> source, Func<T, uint, IBuilderSpecification<Column>> toSpecification)
+        public IExpectSheetContent WithColumns<T>(IEnumerable<T> source, Func<T, uint, IBuilderSpecification<Column>> toSpecification)
         {
             // we add 1 to the index because it must start with 1
             var cols = columnSpecifications
@@ -49,19 +49,19 @@ namespace FluentXL.Specifications.Sheets
             return new SheetSpecification(name, cols, rowSpecifications, mergeCellSpecifications);
         }
 
-        public ISheetSpecification WithColumns(IEnumerable<IBuilderSpecification<Column>> specifications)
+        public IExpectSheetContent WithColumns(IEnumerable<IBuilderSpecification<Column>> specifications)
         {
             var cols = columnSpecifications.Concat(specifications);
             return new SheetSpecification(name, cols, rowSpecifications, mergeCellSpecifications);
         }
 
-        public ISheetSpecification WithRow(IBuilderSpecification<Row> rowSpecification)
+        public IExpectSheetContent WithRow(IBuilderSpecification<Row> rowSpecification)
         {
             var rows = rowSpecifications.Append(rowSpecification);
             return new SheetSpecification(name, columnSpecifications, rows, mergeCellSpecifications);
         }
 
-        public ISheetSpecification WithRows<T>(IEnumerable<T> source, Func<T, uint, IBuilderSpecification<Row>> toSpecification)
+        public IExpectSheetContent WithRows<T>(IEnumerable<T> source, Func<T, uint, IBuilderSpecification<Row>> toSpecification)
         {
             // we add 1 to the index because it must start with 1
             var rows = rowSpecifications
@@ -70,19 +70,19 @@ namespace FluentXL.Specifications.Sheets
             return new SheetSpecification(name, columnSpecifications, rows, mergeCellSpecifications);
         }
 
-        public ISheetSpecification WithRows(IEnumerable<IBuilderSpecification<Row>> specifications)
+        public IExpectSheetContent WithRows(IEnumerable<IBuilderSpecification<Row>> specifications)
         {
             var rows = rowSpecifications.Concat(specifications);
             return new SheetSpecification(name, columnSpecifications, rows, mergeCellSpecifications);
         }
 
-        public ISheetSpecification WithMergedCell(IBuilderSpecification<MergeCell> specification)
+        public IExpectSheetContent WithMergedCell(IBuilderSpecification<MergeCell> specification)
         {
             var merge = mergeCellSpecifications.Append(specification);
             return new SheetSpecification(name, columnSpecifications, rowSpecifications, merge);
         }
 
-        public ISheetSpecification WithMergedCells(IEnumerable<IBuilderSpecification<MergeCell>> specifications)
+        public IExpectSheetContent WithMergedCells(IEnumerable<IBuilderSpecification<MergeCell>> specifications)
         {
             var merge = mergeCellSpecifications.Concat(specifications);
             return new SheetSpecification(name, columnSpecifications, rowSpecifications, merge);
