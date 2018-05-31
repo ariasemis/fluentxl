@@ -32,7 +32,11 @@ namespace FluentXL.Specifications.Sheets
                 Enumerable.Empty<IBuilderSpecification<MergeCell>>());
 
         public IExpectSheetContent WithName(string name)
-            => new SheetSpecification(name, columnSpecifications, rowSpecifications, mergeCellSpecifications);
+        {
+            if (name == null) throw new ArgumentNullException(nameof(name));
+
+            return new SheetSpecification(name, columnSpecifications, rowSpecifications, mergeCellSpecifications);
+        }
 
         public IExpectSheetContent WithColumn(IBuilderSpecification<Column> columnSpecification)
         {

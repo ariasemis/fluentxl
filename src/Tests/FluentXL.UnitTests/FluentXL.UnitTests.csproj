@@ -13,10 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Specifications\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\FluentXL\FluentXL.csproj" />
   </ItemGroup>
 

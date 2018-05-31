@@ -37,7 +37,12 @@ namespace FluentXL.Specifications.Cells
             => WithContent(value, CellType.String);
 
         public IBuilderSpecification<CellDefinition> WithContent(string value, CellType type)
-            => new CellSpecification { Column = Column, CellType = type, Content = value };
+        {
+            if (value == null)
+                throw new ArgumentNullException(nameof(value));
+
+            return new CellSpecification { Column = Column, CellType = type, Content = value };
+        }
 
         public CellDefinition Build()
         {
