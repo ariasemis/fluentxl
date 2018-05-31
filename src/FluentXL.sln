@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentXL.IntegrationTests",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentXL.UnitTests", "Tests\FluentXL.UnitTests\FluentXL.UnitTests.csproj", "{9282F68D-0636-4378-A4AE-CA0A78BEFF94}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentXL.Benchmarks", "Tests\FluentXL.Benchmarks\FluentXL.Benchmarks.csproj", "{04B1BFF0-2CD1-4E4E-8771-DC01CC253087}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +31,10 @@ Global
 		{9282F68D-0636-4378-A4AE-CA0A78BEFF94}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9282F68D-0636-4378-A4AE-CA0A78BEFF94}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9282F68D-0636-4378-A4AE-CA0A78BEFF94}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04B1BFF0-2CD1-4E4E-8771-DC01CC253087}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04B1BFF0-2CD1-4E4E-8771-DC01CC253087}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04B1BFF0-2CD1-4E4E-8771-DC01CC253087}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04B1BFF0-2CD1-4E4E-8771-DC01CC253087}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -36,6 +42,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{E2A5A006-82CB-4022-8C75-E13D653DA040} = {088D74F4-39EF-40B7-AFFE-277CA2955B93}
 		{9282F68D-0636-4378-A4AE-CA0A78BEFF94} = {088D74F4-39EF-40B7-AFFE-277CA2955B93}
+		{04B1BFF0-2CD1-4E4E-8771-DC01CC253087} = {088D74F4-39EF-40B7-AFFE-277CA2955B93}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FE36BD79-9198-4D6F-A6F3-93422BA5DF6D}
