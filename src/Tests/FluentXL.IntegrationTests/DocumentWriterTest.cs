@@ -11,7 +11,7 @@ using System.Linq;
 namespace FluentXL.IntegrationTests
 {
     [TestClass]
-    public class Test
+    public class DocumentWriterTest
     {
         [TestInitialize]
         public void Init()
@@ -21,45 +21,7 @@ namespace FluentXL.IntegrationTests
         }
 
         [TestMethod]
-        public void Other()
-        {
-            var sheet = Specification
-                .Sheet()
-                .WithName("sheet 1")
-                .WithColumn(
-                    Specification
-                        .Column()
-                        .With(index: 1, width: 100))
-                .WithRow(
-                    Specification
-                        .Row()
-                        .OnIndex(1)
-                        .WithCell(
-                            Specification
-                                .Cell()
-                                .OnColumn(1)
-                                .WithContent("test")))
-                .WithMergedCell(
-                    Specification
-                        .MergeCell()
-                        .From(row: 1, column: 1)
-                        .To(row: 1, column: 2))
-                .Build();
-
-            Assert.IsNotNull(sheet);
-            Assert.AreEqual("sheet 1", sheet.Name);
-            Assert.IsNotNull(sheet.Columns);
-            Assert.IsNotNull(sheet.Columns?.SingleOrDefault());
-            Assert.IsNotNull(sheet.Rows);
-            Assert.IsNotNull(sheet.Rows?.SingleOrDefault());
-            Assert.IsNotNull(sheet.Rows?.SingleOrDefault()?.Cells);
-            Assert.IsNotNull(sheet.MergeCells);
-            Assert.IsNotNull(sheet.MergeCells?.SingleOrDefault());
-            Assert.AreEqual(1, sheet.MergeCells?.Count);
-        }
-
-        [TestMethod]
-        public void CreateExcel()
+        public void Write_WithValidData_Succeeds()
         {
             // arrange
             var filename = Path.Combine(FileHelper.GetOutputDirectory(), "test.xlsx");
@@ -69,7 +31,7 @@ namespace FluentXL.IntegrationTests
                 Assert.Inconclusive("test cannot be performed because the output file is locked");
             }
 
-            Func<Stream> export =
+            var doc =
                 DocumentWriter
                     .Create()
                     .WithSheet(
@@ -93,11 +55,10 @@ namespace FluentXL.IntegrationTests
                                 Specification
                                     .MergeCell()
                                     .From(row: 2, column: 2)
-                                    .To(row: 2, column: 3)))
-                    .Write;
+                                    .To(row: 2, column: 3)));
 
             // act
-            using (var spreadsheet = export())
+            using (var spreadsheet = doc.Write())
             using (var file = new FileStream(filename, FileMode.Create, FileAccess.Write))
             {
                 spreadsheet.Seek(0, SeekOrigin.Begin);
