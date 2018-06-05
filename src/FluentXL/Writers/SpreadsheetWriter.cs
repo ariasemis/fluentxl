@@ -9,7 +9,7 @@ using OpenXml = DocumentFormat.OpenXml.Spreadsheet;
 
 namespace FluentXL.Writers
 {
-    public class SpreadsheetWriter
+    public class SpreadsheetWriter : ISpreadsheetWriter
     {
         private IEnumerable<IBuilderSpecification<Sheet>> WorkSheets { get; set; }
 
@@ -18,7 +18,7 @@ namespace FluentXL.Writers
             WorkSheets = Enumerable.Empty<IBuilderSpecification<Sheet>>();
         }
 
-        public SpreadsheetWriter WithSheet(IBuilderSpecification<Sheet> specification)
+        public ISpreadsheetWriter WithSheet(IBuilderSpecification<Sheet> specification)
         {
             return new SpreadsheetWriter
             {

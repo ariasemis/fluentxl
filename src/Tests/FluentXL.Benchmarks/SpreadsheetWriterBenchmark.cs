@@ -1,5 +1,4 @@
 ﻿using BenchmarkDotNet.Attributes;
-using FluentXL.Specifications;
 using FluentXL.Writers;
 using System;
 using System.Collections.Generic;
@@ -9,7 +8,7 @@ namespace FluentXL.Benchmarks
 {
     public class SpreadsheetWriterBenchmark
     {
-        private SpreadsheetWriter documentWriter;
+        private ISpreadsheetWriter documentWriter;
 
         [Params(100, 1000, 10000)]
         public int RowSize { get; set; }
