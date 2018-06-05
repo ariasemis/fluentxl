@@ -9,27 +9,25 @@ using OpenXml = DocumentFormat.OpenXml.Spreadsheet;
 
 namespace FluentXL.Writers
 {
-    public class DocumentWriter
+    public class SpreadsheetWriter
     {
         private IEnumerable<IBuilderSpecification<Sheet>> WorkSheets { get; set; }
 
-        private DocumentWriter() { }
-
-        public static DocumentWriter Create()
-            => new DocumentWriter { WorkSheets = Enumerable.Empty<IBuilderSpecification<Sheet>>() };
-
-        public DocumentWriter WithSheet(IBuilderSpecification<Sheet> specification)
+        public SpreadsheetWriter()
         {
-            return new DocumentWriter
+            WorkSheets = Enumerable.Empty<IBuilderSpecification<Sheet>>();
+        }
+
+        public SpreadsheetWriter WithSheet(IBuilderSpecification<Sheet> specification)
+        {
+            return new SpreadsheetWriter
             {
                 WorkSheets = WorkSheets.Append(specification)
             };
         }
 
-        public Stream Write()
+        public void WriteTo(Stream stream)
         {
-            var stream = new MemoryStream();
-
             using (var document = SpreadsheetDocument.Create(stream, SpreadsheetDocumentType.Workbook))
             {
                 var workbookPart = document.AddWorkbookPart();
@@ -37,9 +35,6 @@ namespace FluentXL.Writers
                 var sheets = WriteWorksheet(workbookPart);
                 WriteWorkbook(workbookPart, sheets);
             }
-
-            stream.Seek(0, SeekOrigin.Begin);
-            return stream;
         }
 
         private static void WriteWorkbook(WorkbookPart workbookPart, List<OpenXml.Sheet> sheets)

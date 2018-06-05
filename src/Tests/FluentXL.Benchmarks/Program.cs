@@ -7,7 +7,7 @@ namespace FluentXL.Benchmarks
     {
         static void Main(string[] args)
         {
-            var summary = BenchmarkRunner.Run<DocumentWriterBenchmark>();
+            var summary = BenchmarkRunner.Run<SpreadsheetWriterBenchmark>();
 
             Console.ReadLine();
         }

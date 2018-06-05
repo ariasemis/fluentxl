@@ -3,12 +3,13 @@ using FluentXL.Specifications;
 using FluentXL.Writers;
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace FluentXL.Benchmarks
 {
-    public class DocumentWriterBenchmark
+    public class SpreadsheetWriterBenchmark
     {
-        private DocumentWriter documentWriter;
+        private SpreadsheetWriter documentWriter;
 
         [Params(100, 1000, 10000)]
         public int RowSize { get; set; }
@@ -18,8 +19,8 @@ namespace FluentXL.Benchmarks
         {
             var data = GetData(RowSize);
 
-            documentWriter = DocumentWriter
-                .Create()
+            documentWriter = Spreadsheet
+                .New()
                 .WithSheet(
                     Specification.Sheet()
                         .WithName("benchmark")
@@ -36,7 +37,10 @@ namespace FluentXL.Benchmarks
         [Benchmark]
         public void Measure_DocumentWriter_Write()
         {
-            using (var stream = documentWriter.Write()) { }
+            using (var stream = new MemoryStream())
+            {
+                documentWriter.WriteTo(stream);
+            }
         }
 
         private IEnumerable<Data> GetData(int size)

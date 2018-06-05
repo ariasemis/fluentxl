@@ -2,16 +2,14 @@
 using DocumentFormat.OpenXml.Validation;
 using FluentXL.IntegrationTests.Utils;
 using FluentXL.Specifications;
-using FluentXL.Writers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using System.IO;
 using System.Linq;
 
 namespace FluentXL.IntegrationTests
 {
     [TestClass]
-    public class DocumentWriterTest
+    public class SpreadsheetWriterTest
     {
         [TestInitialize]
         public void Init()
@@ -32,8 +30,8 @@ namespace FluentXL.IntegrationTests
             }
 
             var doc =
-                DocumentWriter
-                    .Create()
+                Spreadsheet
+                    .New()
                     .WithSheet(
                         Specification
                             .Sheet()
@@ -58,9 +56,12 @@ namespace FluentXL.IntegrationTests
                                     .To(row: 2, column: 3)));
 
             // act
-            using (var spreadsheet = doc.Write())
+            using (var spreadsheet = new MemoryStream())
             using (var file = new FileStream(filename, FileMode.Create, FileAccess.Write))
             {
+                //TODO: write on the filestream directly
+                doc.WriteTo(spreadsheet);
+
                 spreadsheet.Seek(0, SeekOrigin.Begin);
                 spreadsheet.CopyTo(file);
             }
