@@ -1,5 +1,4 @@
-﻿using FluentXL.Specifications;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace FluentXL.UnitTests.Specifications
 {
