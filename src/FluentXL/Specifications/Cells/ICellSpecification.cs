@@ -19,43 +19,53 @@ namespace FluentXL.Specifications.Cells
         /// Specifies the content of the cell to be built.
         /// </summary>
         /// <param name="value">The content of the cell.</param>
-        /// <returns>A new instancec of IBuilderSpecification<CellDefinition>.</returns>
-        IBuilderSpecification<CellDefinition> WithContent(DateTime value);
+        /// <returns>A new instancec of IExpectCellRow.</returns>
+        IExpectCellRow WithContent(DateTime value);
 
         /// <summary>
         /// Specifies the content of the cell to be built.
         /// </summary>
         /// <param name="value">The content of the cell.</param>
-        /// <returns>A new instancec of IBuilderSpecification<CellDefinition>.</returns>
-        IBuilderSpecification<CellDefinition> WithContent(int value);
+        /// <returns>A new instancec of IExpectCellRow.</returns>
+        IExpectCellRow WithContent(int value);
 
         /// <summary>
         /// Specifies the content of the cell to be built.
         /// </summary>
         /// <param name="value">The content of the cell.</param>
-        /// <returns>A new instancec of IBuilderSpecification<CellDefinition>.</returns>
-        IBuilderSpecification<CellDefinition> WithContent(decimal value);
+        /// <returns>A new instancec of IExpectCellRow.</returns>
+        IExpectCellRow WithContent(decimal value);
 
         /// <summary>
         /// Specifies the content of the cell to be built.
         /// </summary>
         /// <param name="value">The content of the cell.</param>
-        /// <returns>A new instancec of IBuilderSpecification<CellDefinition>.</returns>
-        IBuilderSpecification<CellDefinition> WithContent(bool value);
+        /// <returns>A new instancec of IExpectCellRow.</returns>
+        IExpectCellRow WithContent(bool value);
 
         /// <summary>
         /// Specifies the content of the cell to be built.
         /// </summary>
         /// <param name="value">The content of the cell.</param>
-        /// <returns>A new instancec of IBuilderSpecification<CellDefinition>.</returns>
-        IBuilderSpecification<CellDefinition> WithContent(string value);
+        /// <returns>A new instancec of IExpectCellRow.</returns>
+        IExpectCellRow WithContent(string value);
 
         /// <summary>
         /// Specifies the content of the cell to be built.
         /// </summary>
         /// <param name="value">The content of the cell.</param>
         /// <param name="type">The data type of the content.</param>
-        /// <returns>A new instancec of IBuilderSpecification<CellDefinition>.</returns>
-        IBuilderSpecification<CellDefinition> WithContent(string value, CellType type);
+        /// <returns>A new instancec of IExpectCellRow.</returns>
+        IExpectCellRow WithContent(string value, CellType type);
+    }
+
+    public interface IExpectCellRow
+    {
+        /// <summary>
+        /// Indicates the row index of the cell to be built.
+        /// </summary>
+        /// <param name="index">The index of the row.</param>
+        /// <returns>A new instancec of IBuilderSpecification<Cell>.</returns>
+        IBuilderSpecification<Cell> OnRow(uint index);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using FluentXL.Models;
 using FluentXL.Specifications;
+using FluentXL.Specifications.Cells;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System.Linq;
@@ -9,13 +10,16 @@ namespace FluentXL.UnitTests.Specifications
     [TestClass]
     public class RowSpecificationTest
     {
-        private Mock<IBuilderSpecification<CellDefinition>> cellSpecificationMock;
+        private Mock<IExpectCellRow> cellSpecificationMock;
 
         [TestInitialize]
         public void Init()
         {
-            cellSpecificationMock = new Mock<IBuilderSpecification<CellDefinition>>();
-            cellSpecificationMock.Setup(x => x.Build()).Returns(new CellDefinition(1u, CellType.String, "text"));
+            var specificationBuilderMock = new Mock<IBuilderSpecification<Cell>>();
+            specificationBuilderMock.Setup(x => x.Build()).Returns(new Cell(1u, 1u, CellType.String, "text"));
+
+            cellSpecificationMock = new Mock<IExpectCellRow>();
+            cellSpecificationMock.Setup(x => x.OnRow(It.IsAny<uint>())).Returns(specificationBuilderMock.Object);
         }
 
         [TestMethod]

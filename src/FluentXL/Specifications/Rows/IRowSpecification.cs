@@ -1,4 +1,5 @@
 ﻿using FluentXL.Models;
+using FluentXL.Specifications.Cells;
 using System.Collections.Generic;
 
 namespace FluentXL.Specifications.Rows
@@ -20,13 +21,13 @@ namespace FluentXL.Specifications.Rows
         /// </summary>
         /// <param name="cellSpecification">A Cell specification.</param>
         /// <returns>A new instance of IExpectCells.</returns>
-        IExpectCells WithCell(IBuilderSpecification<CellDefinition> cellSpecification);
+        IExpectCells WithCell(IExpectCellRow cellSpecification);
 
         /// <summary>
         /// Includes a series of cell specifications to the Row being built.
         /// </summary>
         /// <param name="specifications">A series of Cell specifications.</param>
         /// <returns>A new instance of IExpectCells.</returns>
-        IExpectCells WithCells(IEnumerable<IBuilderSpecification<CellDefinition>> specifications);
+        IExpectCells WithCells(IEnumerable<IExpectCellRow> specifications);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using FluentXL.Models;
+using FluentXL.Specifications.Cells;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -7,12 +8,12 @@ namespace FluentXL.Specifications.Rows
     public class RowSpecification : IExpectRowIndex, IExpectCells
     {
         private uint Index { get; set; }
-        private IEnumerable<IBuilderSpecification<CellDefinition>> CellSpecifications { get; set; }
+        private IEnumerable<IBuilderSpecification<Cell>> CellSpecifications { get; set; }
 
         private RowSpecification() { }
 
         public static IExpectRowIndex New()
-            => new RowSpecification { CellSpecifications = Enumerable.Empty<IBuilderSpecification<CellDefinition>>() };
+            => new RowSpecification { CellSpecifications = Enumerable.Empty<IBuilderSpecification<Cell>>() };
 
         public IExpectCells OnIndex(uint index)
         {
@@ -23,21 +24,21 @@ namespace FluentXL.Specifications.Rows
             };
         }
 
-        public IExpectCells WithCell(IBuilderSpecification<CellDefinition> cellSpecification)
+        public IExpectCells WithCell(IExpectCellRow cellSpecification)
         {
             return new RowSpecification
             {
                 Index = Index,
-                CellSpecifications = CellSpecifications.Append(cellSpecification)
+                CellSpecifications = CellSpecifications.Append(cellSpecification.OnRow(Index))
             };
         }
 
-        public IExpectCells WithCells(IEnumerable<IBuilderSpecification<CellDefinition>> specifications)
+        public IExpectCells WithCells(IEnumerable<IExpectCellRow> specifications)
         {
             return new RowSpecification
             {
                 Index = Index,
-                CellSpecifications = CellSpecifications.Concat(specifications)
+                CellSpecifications = CellSpecifications.Concat(specifications.Select(x => x.OnRow(Index)))
             };
         }
 
@@ -45,7 +46,7 @@ namespace FluentXL.Specifications.Rows
         {
             return new Row(
                 Index,
-                CellSpecifications.Select(x => new Cell(Index, x.Build())));
+                CellSpecifications.Select(x => x.Build()));
         }
     }
 }

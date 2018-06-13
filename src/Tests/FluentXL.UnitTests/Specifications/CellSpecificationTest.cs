@@ -1,5 +1,4 @@
 ﻿using FluentXL.Models;
-using FluentXL.Specifications;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
@@ -16,7 +15,8 @@ namespace FluentXL.UnitTests.Specifications
             var spec = Specification
                 .Cell()
                 .OnColumn(1)
-                .WithContent(null);
+                .WithContent(null)
+                .OnRow(1);
 
             // act
             var cell = spec.Build();
@@ -29,7 +29,8 @@ namespace FluentXL.UnitTests.Specifications
             var spec = Specification
                 .Cell()
                 .OnColumn(1)
-                .WithContent(true);
+                .WithContent(true)
+                .OnRow(1);
 
             // act
             var cell = spec.Build();
@@ -47,7 +48,8 @@ namespace FluentXL.UnitTests.Specifications
             var spec = Specification
                 .Cell()
                 .OnColumn(1)
-                .WithContent(false);
+                .WithContent(false)
+                .OnRow(1);
 
             // act
             var cell = spec.Build();
@@ -65,7 +67,8 @@ namespace FluentXL.UnitTests.Specifications
             var spec = Specification
                 .Cell()
                 .OnColumn(1)
-                .WithContent(3.14M);
+                .WithContent(3.14M)
+                .OnRow(1);
 
             // act
             var cell = spec.Build();
@@ -83,7 +86,8 @@ namespace FluentXL.UnitTests.Specifications
             var spec = Specification
                 .Cell()
                 .OnColumn(1)
-                .WithContent("text", CellType.InlineString);
+                .WithContent("text", CellType.InlineString)
+                .OnRow(1);
 
             // act
             var cell = spec.Build();
