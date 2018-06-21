@@ -1,19 +1,20 @@
 ﻿using FluentXL.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace FluentXL.Specifications.CellFormats
 {
     interface ICellFormatSpecification
     {
-        //TODO:
-        IBuildingCellFormatSpecification WithFont();
-        IBuildingCellFormatSpecification WithBackgroundColor();
-        IBuildingCellFormatSpecification WithForegroundColor();
-        IBuildingCellFormatSpecification WithBorder();
-        IBuildingCellFormatSpecification WithNumberFormat();
-        IBuildingCellFormatSpecification WithAlignment();
+        IBuildingCellFormatSpecification WithFont(IExpectFontName fontSpecification);
+
+        IBuildingCellFormatSpecification WithBackgroundColor(IColorSpecification colorSpecification);
+
+        IBuildingCellFormatSpecification WithForegroundColor(IColorSpecification colorSpecification);
+
+        IBuildingCellFormatSpecification WithBorder(IBorderSpecification borderSpecification);
+
+        IBuildingCellFormatSpecification WithNumberFormat(INumberFormatSpecification numberFormatSpecification);
+
+        IBuildingCellFormatSpecification WithAlignment(IAlignmentSpecification alignmentSpecification);
     }
 
     interface IBuildingCellFormatSpecification : IBuilderSpecification<CellFormat>, ICellFormatSpecification
