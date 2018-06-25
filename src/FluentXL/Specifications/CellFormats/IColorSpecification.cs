@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using FluentXL.Models;
 
 namespace FluentXL.Specifications.CellFormats
 {
     public interface IColorSpecification
     {
-        //TODO: from rgb
+        IBuilderSpecification<Color> FromRgb(string value);
     }
 }

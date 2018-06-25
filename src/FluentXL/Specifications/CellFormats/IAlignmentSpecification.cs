@@ -1,11 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using FluentXL.Models;
 
 namespace FluentXL.Specifications.CellFormats
 {
     public interface IAlignmentSpecification
     {
-        //TODO
+        IAlignmentSpecification WithHorizontal(HorizontalAlignment horizontalAlignment);
+
+        IAlignmentSpecification WithVertical(VerticalAlignment verticalAlignment);
+
+        IAlignmentSpecification WithOrientation(AlignmentOrientation orientation);
+
+        IAlignmentSpecification ShrinkToFit();
+
+        IAlignmentSpecification WrapText();
     }
 }

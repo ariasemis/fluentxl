@@ -6,9 +6,7 @@ namespace FluentXL.Specifications.CellFormats
     {
         IBuildingCellFormatSpecification WithFont(IExpectFontName fontSpecification);
 
-        IBuildingCellFormatSpecification WithBackgroundColor(IColorSpecification colorSpecification);
-
-        IBuildingCellFormatSpecification WithForegroundColor(IColorSpecification colorSpecification);
+        IBuildingCellFormatSpecification WithFill(IExpectFillPattern fillSpecification);
 
         IBuildingCellFormatSpecification WithBorder(IBorderSpecification borderSpecification);
 
