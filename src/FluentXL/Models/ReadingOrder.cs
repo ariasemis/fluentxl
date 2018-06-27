@@ -1,6 +1,6 @@
 ﻿namespace FluentXL.Models
 {
-    public enum AlignmentOrientation
+    public enum ReadingOrder
     {
         ContextDependent = 0,
         LeftToRight = 1,

@@ -2,20 +2,16 @@
 
 namespace FluentXL.Specifications.CellFormats
 {
-    public interface IAlignmentSpecification
+    public interface IAlignmentSpecification : IBuilderSpecification<Alignment>
     {
-        IBuildingAlignmentSpecification WithHorizontal(HorizontalAlignment horizontalAlignment);
+        IAlignmentSpecification WithHorizontal(HorizontalAlignment horizontalAlignment);
 
-        IBuildingAlignmentSpecification WithVertical(VerticalAlignment verticalAlignment);
+        IAlignmentSpecification WithVertical(VerticalAlignment verticalAlignment);
 
-        IBuildingAlignmentSpecification WithOrientation(AlignmentOrientation orientation);
+        IAlignmentSpecification WithReadingOrder(ReadingOrder readingOrder);
 
-        IBuildingAlignmentSpecification ShrinkToFit();
+        IAlignmentSpecification ShrinkToFit();
 
-        IBuildingAlignmentSpecification WrapText();
-    }
-
-    public interface IBuildingAlignmentSpecification : IBuilderSpecification<Alignment>, IAlignmentSpecification
-    {
+        IAlignmentSpecification WrapText();
     }
 }

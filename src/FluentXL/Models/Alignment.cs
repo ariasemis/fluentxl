@@ -2,24 +2,48 @@
 {
     public class Alignment
     {
-        public HorizontalAlignment Horizontal { get; set; }
+        public Alignment(
+            HorizontalAlignment horizontal,
+            VerticalAlignment vertical,
+            bool wrapText,
+            ReadingOrder readingOrder,
+            uint? textRotation = null,
+            uint? indent = null,
+            uint? relativeIndent = null,
+            bool? justifyLastLine = null,
+            bool? shrinkToFit = null,
+            string mergeCell = null)
+        {
+            Horizontal = horizontal;
+            Vertical = vertical;
+            Wrap = wrapText;
+            ReadingOrder = readingOrder;
+            TextRotation = textRotation;
+            Indent = indent;
+            RelativeIndent = relativeIndent;
+            JustifyLastLine = justifyLastLine;
+            Shrink = shrinkToFit;
+            MergeCell = mergeCell;
+        }
 
-        public VerticalAlignment Vertical { get; set; }
+        public HorizontalAlignment Horizontal { get; }
 
-        public uint TextRotation { get; set; }
+        public VerticalAlignment Vertical { get; }
 
-        public bool Wrap { get; set; }
+        public bool Wrap { get; }
 
-        public uint Indent { get; set; }
+        public ReadingOrder ReadingOrder { get; }
 
-        public uint RelativeIndent { get; set; }
+        public uint? TextRotation { get; }
 
-        public bool JustifyLastLine { get; set; }
+        public uint? Indent { get; }
 
-        public bool Shrink { get; set; }
+        public uint? RelativeIndent { get; }
 
-        public AlignmentOrientation ReadingOrder { get; set; }
+        public bool? JustifyLastLine { get; }
 
-        public string MergeCell { get; set; }
+        public bool? Shrink { get; }
+
+        public string MergeCell { get; }
     }
 }
