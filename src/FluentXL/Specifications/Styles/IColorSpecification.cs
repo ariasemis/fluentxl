@@ -1,6 +1,6 @@
 ﻿using FluentXL.Models;
 
-namespace FluentXL.Specifications.CellFormats
+namespace FluentXL.Specifications.Styles
 {
     public interface IColorSpecification
     {

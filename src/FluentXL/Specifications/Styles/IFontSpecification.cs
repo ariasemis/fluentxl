@@ -1,4 +1,4 @@
-﻿namespace FluentXL.Specifications.CellFormats
+﻿namespace FluentXL.Specifications.Styles
 {
     public interface IExpectFontName
     {

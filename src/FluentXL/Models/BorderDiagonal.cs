@@ -2,8 +2,8 @@
 {
     public enum BorderDiagonal
     {
-        Upward = 0,
-        Downward = 1,
+        Up = 0,
+        Down = 1,
         Both = 2
     }
 }
