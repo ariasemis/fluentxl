@@ -1,7 +1,8 @@
 ﻿namespace FluentXL.Models
 {
-    public class Fill
+    public sealed class Fill
     {
+        public uint Id { get; }
         public PatternFill PatternFill { get; set; }
         public GradientFill GradientFill { get; set; }
     }

@@ -1,7 +1,8 @@
 ﻿namespace FluentXL.Models
 {
-    public class Border
+    public sealed class Border
     {
+        public uint Id { get; }
         public BorderSide Top { get; set; }
         public BorderSide Bottom { get; set; }
         public BorderSide Left { get; set; }
@@ -12,12 +13,30 @@
 
     public class BorderSide
     {
-        public BorderStyle Style { get; set; }
-        public Color Color { get; set; }
+        public BorderSide(
+            BorderStyle style,
+            Color color)
+        {
+            Style = style;
+            Color = color;
+        }
+
+        public BorderStyle Style { get; }
+
+        public Color Color { get; }
     }
 
-    public class DiagonalBorderSide : BorderSide
+    public sealed class DiagonalBorderSide : BorderSide
     {
-        public BorderDiagonal Diagonal { get; set; }
+        public DiagonalBorderSide(
+            BorderStyle style,
+            Color color,
+            BorderDiagonal diagonal)
+            : base(style, color)
+        {
+            Diagonal = diagonal;
+        }
+
+        public BorderDiagonal Diagonal { get; }
     }
 }

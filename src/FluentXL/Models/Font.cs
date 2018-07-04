@@ -1,7 +1,8 @@
 ﻿namespace FluentXL.Models
 {
-    public class Font
+    public sealed class Font
     {
+        public uint Id { get; }
         public string Name { get; set; }
         public double? Size { get; set; }
         public int? FontFamily { get; set; }
