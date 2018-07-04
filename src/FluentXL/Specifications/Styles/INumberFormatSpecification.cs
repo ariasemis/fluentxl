@@ -1,11 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using FluentXL.Models;
 
 namespace FluentXL.Specifications.Styles
 {
-    public interface INumberFormatSpecification
+    public interface IExpectNumberFormatSpecification
     {
-        //TODO
+        IExpectNumberFormatStylesheetSpecification WithFormat(string format);
+
+        IBuilderSpecification<NumberFormat> WithFormat(StandardNumberFormat format);
+    }
+
+    public interface IExpectNumberFormatStylesheetSpecification
+    {
+        IBuilderSpecification<NumberFormat> OnStylesheet(IStylesheetSpecification stylesheet);
     }
 }

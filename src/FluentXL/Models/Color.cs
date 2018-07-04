@@ -2,14 +2,28 @@
 {
     public class Color
     {
-        public bool? Auto { get; set; }
+        public Color(
+            string rgb,
+            bool? auto = null,
+            uint? indexed = null,
+            uint? theme = null,
+            double? tint = null)
+        {
+            Rgb = rgb;
+            Auto = auto;
+            Indexed = indexed;
+            Theme = theme;
+            Tint = tint;
+        }
 
-        public uint? Indexed { get; set; }
+        public string Rgb { get; }
 
-        public string Rgb { get; set; }
+        public bool? Auto { get; }
 
-        public uint? Theme { get; set; }
+        public uint? Indexed { get; }
 
-        public double? Tint { get; set; }
+        public uint? Theme { get; }
+
+        public double? Tint { get; }
     }
 }

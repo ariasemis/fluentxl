@@ -8,9 +8,9 @@ namespace FluentXL.Specifications.Styles
 
         IBuildingCellFormatSpecification WithFill(IExpectFillPattern fillSpecification);
 
-        IBuildingCellFormatSpecification WithBorder(IBorderSpecification borderSpecification);
+        IBuildingCellFormatSpecification WithBorder(IExpectBorderSpecification borderSpecification);
 
-        IBuildingCellFormatSpecification WithNumberFormat(INumberFormatSpecification numberFormatSpecification);
+        IBuildingCellFormatSpecification WithNumberFormat(IExpectNumberFormatSpecification numberFormatSpecification);
 
         IBuildingCellFormatSpecification WithAlignment(IAlignmentSpecification alignmentSpecification);
     }
