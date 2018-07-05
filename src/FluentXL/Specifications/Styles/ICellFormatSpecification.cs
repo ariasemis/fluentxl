@@ -10,7 +10,7 @@ namespace FluentXL.Specifications.Styles
 
         IBuildingCellFormatSpecification WithBorder(IExpectBorderSpecification borderSpecification);
 
-        IBuildingCellFormatSpecification WithNumberFormat(IExpectNumberFormatSpecification numberFormatSpecification);
+        IBuildingCellFormatSpecification WithNumberFormat(INumberFormatSpecification numberFormatSpecification);
 
         IBuildingCellFormatSpecification WithAlignment(IAlignmentSpecification alignmentSpecification);
     }

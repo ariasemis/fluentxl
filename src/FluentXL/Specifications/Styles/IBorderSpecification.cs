@@ -17,15 +17,10 @@ namespace FluentXL.Specifications.Styles
 
     public interface IExpectBorderOutlineSpecification : IExpectBorderSpecification
     {
-        IExpectBorderStylesheetSpecification WithOutline(BorderStyle style, IBuilderSpecification<Color> colorSpecification);
+        IBuilderSpecification<Border> WithOutline(BorderStyle style, IBuilderSpecification<Color> colorSpecification);
     }
 
-    public interface IExpectBorderStylesheetSpecification
-    {
-        IBuilderSpecification<Border> OnStylesheet(IStylesheetSpecification stylesheet);
-    }
-
-    public interface IBorderSpecification : IExpectBorderSpecification, IExpectBorderStylesheetSpecification
+    public interface IBorderSpecification : IExpectBorderSpecification, IBuilderSpecification<Border>
     {
     }
 }

@@ -2,15 +2,10 @@
 
 namespace FluentXL.Specifications.Styles
 {
-    public interface IExpectNumberFormatSpecification
+    public interface INumberFormatSpecification
     {
-        IExpectNumberFormatStylesheetSpecification WithFormat(string format);
+        IBuilderSpecification<Border> WithFormat(string format);
 
         IBuilderSpecification<NumberFormat> WithFormat(StandardNumberFormat format);
-    }
-
-    public interface IExpectNumberFormatStylesheetSpecification
-    {
-        IBuilderSpecification<NumberFormat> OnStylesheet(IStylesheetSpecification stylesheet);
     }
 }
