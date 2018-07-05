@@ -50,7 +50,7 @@ namespace FluentXL.Specifications.Cells
             return new CellSpecification { Column = Column, CellType = CellType, Content = Content, Row = index };
         }
 
-        public Cell Build()
+        public Cell Build(IBuildContext context)
         {
             return new Cell(
                 Row,

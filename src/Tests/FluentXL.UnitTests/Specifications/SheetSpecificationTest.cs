@@ -9,6 +9,7 @@ namespace FluentXL.UnitTests.Specifications
     [TestClass]
     public class SheetSpecificationTest
     {
+        private Mock<IBuildContext> contextMock;
         private Mock<IBuilderSpecification<Column>> columnSpecificationMock;
         private Mock<IBuilderSpecification<Row>> rowSpecificationMock;
         private Mock<IBuilderSpecification<MergeCell>> mergeCellSpecificationMock;
@@ -16,6 +17,7 @@ namespace FluentXL.UnitTests.Specifications
         [TestInitialize]
         public void Init()
         {
+            contextMock = new Mock<IBuildContext>();
             columnSpecificationMock = new Mock<IBuilderSpecification<Column>>();
             rowSpecificationMock = new Mock<IBuilderSpecification<Row>>();
             mergeCellSpecificationMock = new Mock<IBuilderSpecification<MergeCell>>();
@@ -28,7 +30,7 @@ namespace FluentXL.UnitTests.Specifications
             var spec = Specification.Sheet().WithName("sheet 1");
 
             // act
-            var sheet = spec.Build();
+            var sheet = spec.Build(contextMock.Object);
 
             // assert
             Assert.IsNotNull(sheet);
@@ -39,9 +41,9 @@ namespace FluentXL.UnitTests.Specifications
         public void Build_WithAllChildren_Succeeds()
         {
             // arrange
-            columnSpecificationMock.Setup(x => x.Build()).Returns(new Column(1, 100));
-            rowSpecificationMock.Setup(x => x.Build()).Returns(new Row(1, null));
-            mergeCellSpecificationMock.Setup(x => x.Build()).Returns(new MergeCell("test"));
+            columnSpecificationMock.Setup(x => x.Build(contextMock.Object)).Returns(new Column(1, 100));
+            rowSpecificationMock.Setup(x => x.Build(contextMock.Object)).Returns(new Row(1, null));
+            mergeCellSpecificationMock.Setup(x => x.Build(contextMock.Object)).Returns(new MergeCell("test"));
 
             var spec = Specification
                 .Sheet()
@@ -51,7 +53,7 @@ namespace FluentXL.UnitTests.Specifications
                 .WithMergedCell(mergeCellSpecificationMock.Object);
 
             // act
-            var sheet = spec.Build();
+            var sheet = spec.Build(contextMock.Object);
 
             // assert
             Assert.IsNotNull(sheet);

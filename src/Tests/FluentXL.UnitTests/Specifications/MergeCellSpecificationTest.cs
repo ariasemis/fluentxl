@@ -1,10 +1,14 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using FluentXL.Specifications;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 
 namespace FluentXL.UnitTests.Specifications
 {
     [TestClass]
     public class MergeCellSpecificationTest
     {
+        private readonly Mock<IBuildContext> contextMock = new Mock<IBuildContext>();
+
         [TestMethod]
         public void Build_WithValidRange_SetsValidReference()
         {
@@ -15,7 +19,7 @@ namespace FluentXL.UnitTests.Specifications
                 .To(2, 2);
 
             // act
-            var mergeCell = spec.Build();
+            var mergeCell = spec.Build(contextMock.Object);
 
             // assert
             Assert.IsNotNull(mergeCell);

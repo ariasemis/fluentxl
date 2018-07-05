@@ -92,14 +92,14 @@ namespace FluentXL.Specifications.Sheets
             return new SheetSpecification(name, columnSpecifications, rowSpecifications, merge);
         }
 
-        public Sheet Build()
+        public Sheet Build(IBuildContext context)
         {
-            var mergeCells = mergeCellSpecifications.Select(x => x.Build()).ToList();
+            var mergeCells = mergeCellSpecifications.Select(x => x.Build(context)).ToList();
 
             return new Sheet(
                 name,
-                columnSpecifications.Select(x => x.Build()),
-                rowSpecifications.Select(x => x.Build()),
+                columnSpecifications.Select(x => x.Build(context)),
+                rowSpecifications.Select(x => x.Build(context)),
                 new MergeCellCollection(mergeCells.Count, mergeCells));
         }
     }

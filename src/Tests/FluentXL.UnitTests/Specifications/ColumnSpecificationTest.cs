@@ -1,16 +1,20 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using FluentXL.Specifications;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 
 namespace FluentXL.UnitTests.Specifications
 {
     [TestClass]
     public class ColumnSpecificationTest
     {
+        private readonly Mock<IBuildContext> contextMock = new Mock<IBuildContext>();
+
         [TestMethod]
         public void Build_WithValidValues_SetExpectedValues()
         {
             var spec = Specification.Column().With(1, 100);
 
-            var col = spec.Build();
+            var col = spec.Build(contextMock.Object);
 
             Assert.IsNotNull(col);
             Assert.AreEqual(1u, col.Index);
@@ -22,8 +26,8 @@ namespace FluentXL.UnitTests.Specifications
         {
             var spec = Specification.Column();
 
-            var col1 = spec.With(1, 1).Build();
-            var col2 = spec.With(2, 1).Build();
+            var col1 = spec.With(1, 1).Build(contextMock.Object);
+            var col2 = spec.With(2, 1).Build(contextMock.Object);
 
             Assert.IsNotNull(col1);
             Assert.IsNotNull(col2);

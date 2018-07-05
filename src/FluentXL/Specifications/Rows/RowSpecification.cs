@@ -42,11 +42,11 @@ namespace FluentXL.Specifications.Rows
             };
         }
 
-        public Row Build()
+        public Row Build(IBuildContext context)
         {
             return new Row(
                 Index,
-                CellSpecifications.Select(x => x.Build()));
+                CellSpecifications.Select(x => x.Build(context)));
         }
     }
 }

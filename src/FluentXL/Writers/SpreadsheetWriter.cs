@@ -30,10 +30,11 @@ namespace FluentXL.Writers
         {
             using (var document = SpreadsheetDocument.Create(stream, SpreadsheetDocumentType.Workbook))
             {
+                var context = new BuildContext();
                 var workbookPart = document.AddWorkbookPart();
 
                 WriteWorkbookStyles(workbookPart);
-                var sheets = WriteWorksheet(workbookPart);
+                var sheets = WriteWorksheet(workbookPart, context);
                 WriteWorkbook(workbookPart, sheets);
             }
         }
@@ -140,11 +141,11 @@ namespace FluentXL.Writers
             stylesheet.Borders.Count++;
         }
 
-        private List<OpenXml.Sheet> WriteWorksheet(WorkbookPart workbookPart)
+        private List<OpenXml.Sheet> WriteWorksheet(WorkbookPart workbookPart, IBuildContext context)
         {
             var workbookSheets = new List<OpenXml.Sheet>();
 
-            foreach (var sheet in WorkSheets.Select(x => x.Build()))
+            foreach (var sheet in WorkSheets.Select(x => x.Build(context)))
             {
                 var worksheetPart = workbookPart.AddNewPart<WorksheetPart>();
 

@@ -1,5 +1,7 @@
-﻿using FluentXL.Specifications.Styles;
+﻿using FluentXL.Specifications;
+using FluentXL.Specifications.Styles;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 using System;
 
 namespace FluentXL.UnitTests.Specifications
@@ -7,6 +9,8 @@ namespace FluentXL.UnitTests.Specifications
     [TestClass]
     public class ColorSpecificationTest
     {
+        private readonly Mock<IBuildContext> contextMock = new Mock<IBuildContext>();
+
         [TestMethod]
         public void Build_FromRgbWithValidHex_Succeeds()
         {
@@ -32,7 +36,7 @@ namespace FluentXL.UnitTests.Specifications
             // act & assert
             foreach (var value in values)
             {
-                var color = ColorSpecification.New().FromRgb(value).Build();
+                var color = ColorSpecification.New().FromRgb(value).Build(contextMock.Object);
 
                 Assert.IsNotNull(color);
                 Assert.AreEqual(value.Replace("#", ""), color.Rgb);
@@ -76,7 +80,7 @@ namespace FluentXL.UnitTests.Specifications
             var spec = ColorSpecification.New().FromRgb(66, 134, 244);
 
             // act
-            var color = spec.Build();
+            var color = spec.Build(contextMock.Object);
 
             // assert
             Assert.IsNotNull(color);

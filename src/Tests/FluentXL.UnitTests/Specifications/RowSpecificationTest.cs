@@ -11,12 +11,15 @@ namespace FluentXL.UnitTests.Specifications
     public class RowSpecificationTest
     {
         private Mock<IExpectCellRow> cellSpecificationMock;
+        private Mock<IBuildContext> contextMock;
 
         [TestInitialize]
         public void Init()
         {
+            contextMock = new Mock<IBuildContext>();
+
             var specificationBuilderMock = new Mock<IBuilderSpecification<Cell>>();
-            specificationBuilderMock.Setup(x => x.Build()).Returns(new Cell(1u, 1u, CellType.String, "text"));
+            specificationBuilderMock.Setup(x => x.Build(contextMock.Object)).Returns(new Cell(1u, 1u, CellType.String, "text"));
 
             cellSpecificationMock = new Mock<IExpectCellRow>();
             cellSpecificationMock.Setup(x => x.OnRow(It.IsAny<uint>())).Returns(specificationBuilderMock.Object);
@@ -31,7 +34,7 @@ namespace FluentXL.UnitTests.Specifications
                 .OnIndex(1);
 
             // act
-            var row = spec.Build();
+            var row = spec.Build(contextMock.Object);
 
             // assert
             Assert.IsNotNull(row);
@@ -54,7 +57,7 @@ namespace FluentXL.UnitTests.Specifications
                 });
 
             // act
-            var row = spec.Build();
+            var row = spec.Build(contextMock.Object);
 
             // assert
             Assert.IsNotNull(row);

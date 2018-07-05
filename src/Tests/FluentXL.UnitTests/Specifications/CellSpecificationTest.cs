@@ -1,5 +1,7 @@
 ﻿using FluentXL.Models;
+using FluentXL.Specifications;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 using System;
 
 namespace FluentXL.UnitTests.Specifications
@@ -7,6 +9,8 @@ namespace FluentXL.UnitTests.Specifications
     [TestClass]
     public class CellSpecificationTest
     {
+        private readonly Mock<IBuildContext> contextMock = new Mock<IBuildContext>();
+
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void Build_WithNullContent_ThrowsNullException()
@@ -19,7 +23,7 @@ namespace FluentXL.UnitTests.Specifications
                 .OnRow(1);
 
             // act
-            var cell = spec.Build();
+            var cell = spec.Build(contextMock.Object);
         }
 
         [TestMethod]
@@ -33,7 +37,7 @@ namespace FluentXL.UnitTests.Specifications
                 .OnRow(1);
 
             // act
-            var cell = spec.Build();
+            var cell = spec.Build(contextMock.Object);
 
             // assert
             Assert.IsNotNull(cell);
@@ -52,7 +56,7 @@ namespace FluentXL.UnitTests.Specifications
                 .OnRow(1);
 
             // act
-            var cell = spec.Build();
+            var cell = spec.Build(contextMock.Object);
 
             // assert
             Assert.IsNotNull(cell);
@@ -71,7 +75,7 @@ namespace FluentXL.UnitTests.Specifications
                 .OnRow(1);
 
             // act
-            var cell = spec.Build();
+            var cell = spec.Build(contextMock.Object);
 
             // assert
             Assert.IsNotNull(cell);
@@ -90,7 +94,7 @@ namespace FluentXL.UnitTests.Specifications
                 .OnRow(1);
 
             // act
-            var cell = spec.Build();
+            var cell = spec.Build(contextMock.Object);
 
             // assert
             Assert.IsNotNull(cell);
@@ -111,8 +115,8 @@ namespace FluentXL.UnitTests.Specifications
             var spec2 = spec.OnRow(2);
 
             // act
-            var cell1 = spec1.Build();
-            var cell2 = spec2.Build();
+            var cell1 = spec1.Build(contextMock.Object);
+            var cell2 = spec2.Build(contextMock.Object);
 
             // assert
             Assert.IsNotNull(cell1);

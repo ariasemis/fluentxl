@@ -23,7 +23,7 @@ namespace FluentXL.Specifications.Columns
             };
         }
 
-        public Column Build()
+        public Column Build(IBuildContext context)
         {
             return new Column(Index, Width);
         }

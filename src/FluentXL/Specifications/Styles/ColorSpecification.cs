@@ -13,7 +13,7 @@ namespace FluentXL.Specifications.Styles
         public static IColorSpecification New()
             => new ColorSpecification();
 
-        public Color Build()
+        public Color Build(IBuildContext context)
             => new Color(rgb);
 
         public IBuilderSpecification<Color> FromRgb(string value)

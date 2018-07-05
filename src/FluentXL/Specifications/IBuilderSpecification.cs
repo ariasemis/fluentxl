@@ -9,7 +9,8 @@
         /// <summary>
         /// Returns a new instance of the specified object.
         /// </summary>
+        /// <param name="context">Context object with values needed to build the object</param>
         /// <returns>A new instance of type T.</returns>
-        T Build();
+        T Build(IBuildContext context);
     }
 }

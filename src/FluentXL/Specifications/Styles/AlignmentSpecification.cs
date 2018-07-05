@@ -34,7 +34,7 @@ namespace FluentXL.Specifications.Styles
         public static IAlignmentSpecification New()
             => new AlignmentSpecification();
 
-        public Alignment Build()
+        public Alignment Build(IBuildContext context)
         {
             return new Alignment(
                 Horizontal,

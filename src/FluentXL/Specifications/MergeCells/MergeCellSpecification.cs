@@ -32,7 +32,7 @@ namespace FluentXL.Specifications.MergeCells
             };
         }
 
-        public MergeCell Build()
+        public MergeCell Build(IBuildContext context)
         {
             var reference = $"{FromReference}:{ToReference}";
             return new MergeCell(reference);
