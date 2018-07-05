@@ -68,5 +68,19 @@ namespace FluentXL.UnitTests.Specifications
                     Assert.Fail($"An argument exception was expected for value = {value}, but not thrown");
             }
         }
+
+        [TestMethod]
+        public void Build_FromRgbWithBytes_Succeeds()
+        {
+            // arrange
+            var spec = ColorSpecification.New().FromRgb(66, 134, 244);
+
+            // act
+            var color = spec.Build();
+
+            // assert
+            Assert.IsNotNull(color);
+            Assert.AreEqual("4286F4", color.Rgb);
+        }
     }
 }
