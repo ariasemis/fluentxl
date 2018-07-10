@@ -1,11 +1,11 @@
 ﻿using FluentXL.Specifications;
+using FluentXL.Specifications.Styles;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace FluentXL.Writers
 {
     internal class BuildContext : IBuildContext
     {
+        public IStylesheetSpecification Stylesheet => throw new NotImplementedException();
     }
 }

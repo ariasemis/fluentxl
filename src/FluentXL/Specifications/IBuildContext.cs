@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using FluentXL.Specifications.Styles;
 
 namespace FluentXL.Specifications
 {
     public interface IBuildContext
     {
+        IStylesheetSpecification Stylesheet { get; }
     }
 }

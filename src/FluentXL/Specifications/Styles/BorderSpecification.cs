@@ -30,16 +30,19 @@ namespace FluentXL.Specifications.Styles
 
         public Border Build(IBuildContext context)
         {
-            //TODO: generate id from context
-            uint id = 0;
+            var id = context.Stylesheet.GenerateBorderId();
 
-            return new Border(
+            var border = new Border(
                 id,
                 Top == null ? null : new BorderSide(Top.Item1, Top.Item2.Build(context)),
                 Bottom == null ? null : new BorderSide(Bottom.Item1, Bottom.Item2.Build(context)),
                 Left == null ? null : new BorderSide(Left.Item1, Left.Item2.Build(context)),
                 Right == null ? null : new BorderSide(Right.Item1, Right.Item2.Build(context)),
                 Diagonal == null ? null : new DiagonalBorderSide(Diagonal.Item1, Diagonal.Item2.Build(context), Diagonal.Item3));
+
+            context.Stylesheet.Add(border);
+
+            return border;
         }
 
         public IBuilderSpecification<Border> WithOutline(BorderStyle style, IBuilderSpecification<Color> colorSpecification)
