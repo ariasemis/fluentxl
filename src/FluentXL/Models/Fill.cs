@@ -2,6 +2,16 @@
 {
     public sealed class Fill
     {
+        public Fill(
+            uint id,
+            PatternFill patternFill,
+            GradientFill gradientFill)
+        {
+            Id = id;
+            PatternFill = patternFill;
+            GradientFill = gradientFill;
+        }
+
         public uint Id { get; }
         public PatternFill PatternFill { get; set; }
         public GradientFill GradientFill { get; set; }
@@ -26,11 +36,27 @@
 
     public class GradientFill
     {
-        public FillGradient Type { get; set; }
-        public double Degree { get; set; }
-        public double Left { get; set; }
-        public double Right { get; set; }
-        public double Top { get; set; }
-        public double Bottom { get; set; }
+        public GradientFill(
+            FillGradient type,
+            double degree,
+            double left,
+            double right,
+            double top,
+            double bottom)
+        {
+            Type = type;
+            Degree = degree;
+            Left = left;
+            Right = right;
+            Top = top;
+            Bottom = bottom;
+        }
+
+        public FillGradient Type { get; }
+        public double Degree { get; }
+        public double Left { get; }
+        public double Right { get; }
+        public double Top { get; }
+        public double Bottom { get; }
     }
 }

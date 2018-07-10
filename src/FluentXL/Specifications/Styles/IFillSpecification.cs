@@ -11,9 +11,10 @@ namespace FluentXL.Specifications.Styles
 
     public interface IExpectFillColor
     {
-        IExpectFillColor WithBackgroundColor(IBuilderSpecification<Color> colorSpecification);
+        IFillSpecification WithBackgroundColor(IBuilderSpecification<Color> colorSpecification);
 
-        IExpectFillColor WithForegroundColor(IBuilderSpecification<Color> colorSpecification);
-
+        IFillSpecification WithForegroundColor(IBuilderSpecification<Color> colorSpecification);
     }
+
+    public interface IFillSpecification : IBuilderSpecification<Fill>, IExpectFillColor { }
 }
