@@ -1,22 +1,18 @@
-﻿namespace FluentXL.Specifications.Styles
+﻿using FluentXL.Models;
+
+namespace FluentXL.Specifications.Styles
 {
     public interface IExpectFontName
     {
-        IExpectFontSize WithFont(string name);
+        IExpectFontOptions WithFont(string name);
     }
 
-    public interface IExpectFontSize : IExpectFontColor
+    public interface IExpectFontOptions : IBuilderSpecification<Font>
     {
-        IExpectFontColor WithSize(double size);
-    }
+        IExpectFontOptions WithSize(double size);
 
-    public interface IExpectFontColor : IExpectFontOptions
-    {
-        IExpectFontOptions WithColor(IColorSpecification colorSpecification);
-    }
+        IExpectFontOptions WithColor(IBuilderSpecification<Color> colorSpecification);
 
-    public interface IExpectFontOptions
-    {
         IExpectFontOptions Bold();
 
         IExpectFontOptions Italic();
