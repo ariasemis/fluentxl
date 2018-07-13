@@ -1,6 +1,7 @@
 ﻿using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
 using FluentXL.Models;
+using FluentXL.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -62,9 +63,9 @@ namespace FluentXL.Writers
             writer.WriteEndElement();
         }
 
-        void Write(MergeCellCollection mergeCells)
+        void Write(CountedCollection<MergeCell> mergeCells)
         {
-            IWriter<MergeCellCollection> mergeCellWriter = new MergeCellWriter(writer);
+            IWriter<CountedCollection<MergeCell>> mergeCellWriter = new MergeCellWriter(writer);
             mergeCellWriter.Write(mergeCells);
         }
     }

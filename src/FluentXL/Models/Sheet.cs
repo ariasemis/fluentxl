@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using FluentXL.Utils;
+using System.Collections.Generic;
 
 namespace FluentXL.Models
 {
     public class Sheet
     {
-        public Sheet(string name, IEnumerable<Column> columns, IEnumerable<Row> rows, MergeCellCollection mergeCells)
+        public Sheet(string name, IEnumerable<Column> columns, IEnumerable<Row> rows, CountedCollection<MergeCell> mergeCells)
         {
             Name = name;
             Columns = columns;
@@ -15,6 +16,6 @@ namespace FluentXL.Models
         public string Name { get; }
         public IEnumerable<Column> Columns { get; }
         public IEnumerable<Row> Rows { get; }
-        public MergeCellCollection MergeCells { get; }
+        public CountedCollection<MergeCell> MergeCells { get; }
     }
 }

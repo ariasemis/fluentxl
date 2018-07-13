@@ -1,4 +1,5 @@
 ﻿using FluentXL.Models;
+using FluentXL.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -100,7 +101,7 @@ namespace FluentXL.Specifications.Sheets
                 name,
                 columnSpecifications.Select(x => x.Build(context)),
                 rowSpecifications.Select(x => x.Build(context)),
-                new MergeCellCollection(mergeCells.Count, mergeCells));
+                new CountedCollection<MergeCell>(mergeCells.Count, mergeCells));
         }
     }
 }
