@@ -1,8 +1,8 @@
 ﻿using FluentXL.Models;
 
-namespace FluentXL.Specifications.Styles
+namespace FluentXL.Specifications
 {
-    public interface IStylesheetSpecification
+    public interface IStylesheetBuilder
     {
         uint GenerateFontId();
 
