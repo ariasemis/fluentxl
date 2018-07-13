@@ -1,17 +1,31 @@
-﻿using System.Collections.Generic;
+﻿using FluentXL.Utils;
 
 namespace FluentXL.Models
 {
     public class Stylesheet
     {
-        public IList<Font> Fonts { get; set; }
+        public Stylesheet(
+            CountedCollection<Font> fonts,
+            CountedCollection<Fill> fills,
+            CountedCollection<Border> borders,
+            CountedCollection<CellFormat> cellFormats,
+            CountedCollection<NumberFormat> numberFormats)
+        {
+            Fonts = fonts;
+            Fills = fills;
+            Borders = borders;
+            CellFormats = cellFormats;
+            NumberFormats = numberFormats;
+        }
 
-        public IList<Fill> Fills { get; set; }
+        public CountedCollection<Font> Fonts { get; }
 
-        public IList<Border> Borders { get; set; }
+        public CountedCollection<Fill> Fills { get; }
 
-        public IList<CellFormat> CellFormats { get; set; }
+        public CountedCollection<Border> Borders { get; }
 
-        public IList<NumberFormat> NumberFormats { get; set; }
+        public CountedCollection<CellFormat> CellFormats { get; }
+
+        public CountedCollection<NumberFormat> NumberFormats { get; }
     }
 }

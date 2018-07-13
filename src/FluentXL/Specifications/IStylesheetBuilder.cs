@@ -23,5 +23,7 @@ namespace FluentXL.Specifications
         void Add(CellFormat cellFormat);
 
         void Add(NumberFormat numberFormat);
+
+        Stylesheet Build();
     }
 }
