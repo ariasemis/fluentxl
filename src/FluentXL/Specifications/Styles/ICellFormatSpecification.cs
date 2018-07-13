@@ -2,20 +2,20 @@
 
 namespace FluentXL.Specifications.Styles
 {
-    interface ICellFormatSpecification
+    public interface ICellFormatSpecification
     {
-        IBuildingCellFormatSpecification WithFont(IExpectFontName fontSpecification);
+        IBuildingCellFormatSpecification WithFont(IBuilderSpecification<Font> fontSpecification);
 
-        IBuildingCellFormatSpecification WithFill(IExpectFillPattern fillSpecification);
+        IBuildingCellFormatSpecification WithFill(IBuilderSpecification<Fill> fillSpecification);
 
-        IBuildingCellFormatSpecification WithBorder(IExpectBorderSpecification borderSpecification);
+        IBuildingCellFormatSpecification WithBorder(IBuilderSpecification<Border> borderSpecification);
 
-        IBuildingCellFormatSpecification WithNumberFormat(INumberFormatSpecification numberFormatSpecification);
+        IBuildingCellFormatSpecification WithNumberFormat(IBuilderSpecification<NumberFormat> numberFormatSpecification);
 
-        IBuildingCellFormatSpecification WithAlignment(IAlignmentSpecification alignmentSpecification);
+        IBuildingCellFormatSpecification WithAlignment(IBuilderSpecification<Alignment> alignmentSpecification);
     }
 
-    interface IBuildingCellFormatSpecification : IBuilderSpecification<CellFormat>, ICellFormatSpecification
+    public interface IBuildingCellFormatSpecification : IBuilderSpecification<CellFormat>, ICellFormatSpecification
     {
     }
 }
