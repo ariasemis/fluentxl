@@ -1,4 +1,6 @@
-﻿namespace FluentXL.Models
+﻿using System;
+
+namespace FluentXL.Models
 {
     public class Color
     {
@@ -9,6 +11,9 @@
             uint? theme = null,
             double? tint = null)
         {
+            if (string.IsNullOrEmpty(rgb))
+                throw new ArgumentNullException(nameof(rgb));
+
             Rgb = rgb;
             Auto = auto;
             Indexed = indexed;

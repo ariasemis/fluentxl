@@ -39,39 +39,69 @@ namespace FluentXL.Writers
             if (border == null)
                 throw new ArgumentNullException(nameof(border));
 
-            var b = new OpenXml.Border();
+            var b = new OpenXml.Border
+            {
+                LeftBorder = new OpenXml.LeftBorder(),
+                RightBorder = new OpenXml.RightBorder(),
+                TopBorder = new OpenXml.TopBorder(),
+                BottomBorder = new OpenXml.BottomBorder(),
+                DiagonalBorder = new OpenXml.DiagonalBorder()
+            };
 
-            b.LeftBorder = new OpenXml.LeftBorder();
             if (border.Left != null)
-            {
-                //TODO: set properties
-            }
+                SetBorderProperties(b.LeftBorder, border.Left);
 
-            b.RightBorder = new OpenXml.RightBorder();
             if (border.Right != null)
-            {
-                //TODO: set properties
-            }
+                SetBorderProperties(b.RightBorder, border.Right);
 
-            b.TopBorder = new OpenXml.TopBorder();
             if (border.Top != null)
-            {
-                //TODO: set properties
-            }
+                SetBorderProperties(b.TopBorder, border.Top);
 
-            b.BottomBorder = new OpenXml.BottomBorder();
             if (border.Bottom != null)
-            {
-                //TODO: set properties
-            }
+                SetBorderProperties(b.BottomBorder, border.Bottom);
 
-            b.DiagonalBorder = new OpenXml.DiagonalBorder();
             if (border.Diagonal != null)
             {
-                //TODO: set properties
+                SetBorderProperties(b.DiagonalBorder, border.Diagonal);
+
+                b.DiagonalUp = border.Diagonal.Diagonal == BorderDiagonal.Up || border.Diagonal.Diagonal == BorderDiagonal.Both;
+                b.DiagonalDown = border.Diagonal.Diagonal == BorderDiagonal.Down || border.Diagonal.Diagonal == BorderDiagonal.Both;
             }
 
             stylesheet.Borders.Append(b);
+        }
+
+        private void SetBorderProperties(OpenXml.BorderPropertiesType borderProperties, BorderSide borderSide)
+        {
+            borderProperties.Style = MapBorderStyle(borderSide.Style);
+
+            if (borderSide.Color != null)
+                borderProperties.Color = MapColor(borderSide.Color);
+        }
+
+        private static OpenXml.BorderStyleValues MapBorderStyle(BorderStyle style)
+        {
+            var raw = (int)style;
+            return (OpenXml.BorderStyleValues)raw;
+        }
+
+        private static OpenXml.Color MapColor(Color color)
+        {
+            var c = new OpenXml.Color
+            {
+                Rgb = color.Rgb
+            };
+
+            if (color.Auto.HasValue)
+                c.Auto = color.Auto.Value;
+            if (color.Indexed.HasValue)
+                c.Indexed = color.Indexed.Value;
+            if (color.Theme.HasValue)
+                c.Theme = color.Theme.Value;
+            if (color.Tint.HasValue)
+                c.Tint = color.Tint.Value;
+
+            return c;
         }
     }
 }
