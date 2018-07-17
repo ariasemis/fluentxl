@@ -76,32 +76,13 @@ namespace FluentXL.Writers
             borderProperties.Style = MapBorderStyle(borderSide.Style);
 
             if (borderSide.Color != null)
-                borderProperties.Color = MapColor(borderSide.Color);
+                borderProperties.Color = borderSide.Color.MapToColor();
         }
 
         private static OpenXml.BorderStyleValues MapBorderStyle(BorderStyle style)
         {
             var raw = (int)style;
             return (OpenXml.BorderStyleValues)raw;
-        }
-
-        private static OpenXml.Color MapColor(Color color)
-        {
-            var c = new OpenXml.Color
-            {
-                Rgb = color.Rgb
-            };
-
-            if (color.Auto.HasValue)
-                c.Auto = color.Auto.Value;
-            if (color.Indexed.HasValue)
-                c.Indexed = color.Indexed.Value;
-            if (color.Theme.HasValue)
-                c.Theme = color.Theme.Value;
-            if (color.Tint.HasValue)
-                c.Tint = color.Tint.Value;
-
-            return c;
         }
     }
 }

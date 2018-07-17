@@ -46,10 +46,10 @@ namespace FluentXL.Writers
                 f.PatternFill = new OpenXml.PatternFill { PatternType = MapFillPattern(fill.PatternFill.PatternType) };
 
                 if (fill.PatternFill.ForegroundColor != null)
-                    f.PatternFill.Append(new OpenXml.ForegroundColor { Rgb = fill.PatternFill.ForegroundColor.Rgb });
+                    f.PatternFill.Append(fill.PatternFill.ForegroundColor.MapToForegroundColor());
 
                 if (fill.PatternFill.BackgroundColor != null)
-                    f.PatternFill.Append(new OpenXml.BackgroundColor { Rgb = fill.PatternFill.BackgroundColor.Rgb });
+                    f.PatternFill.Append(fill.PatternFill.BackgroundColor.MapToBackgroundColor());
             }
 
             stylesheet.Fills.Append(f);
