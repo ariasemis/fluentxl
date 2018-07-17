@@ -1,8 +1,9 @@
 ﻿using FluentXL.Utils;
+using System;
 
 namespace FluentXL.Models
 {
-    public class Stylesheet
+    public sealed class Stylesheet
     {
         public Stylesheet(
             CountedCollection<Font> fonts,
@@ -11,11 +12,11 @@ namespace FluentXL.Models
             CountedCollection<CellFormat> cellFormats,
             CountedCollection<NumberFormat> numberFormats)
         {
-            Fonts = fonts;
-            Fills = fills;
-            Borders = borders;
-            CellFormats = cellFormats;
-            NumberFormats = numberFormats;
+            Fonts = fonts ?? throw new ArgumentNullException(nameof(fonts));
+            Fills = fills ?? throw new ArgumentNullException(nameof(fills));
+            Borders = borders ?? throw new ArgumentNullException(nameof(borders));
+            CellFormats = cellFormats ?? throw new ArgumentNullException(nameof(cellFormats));
+            NumberFormats = numberFormats ?? throw new ArgumentNullException(nameof(numberFormats));
         }
 
         public CountedCollection<Font> Fonts { get; }

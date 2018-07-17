@@ -86,9 +86,6 @@ namespace FluentXL.Specifications
             => (uint)Fonts.Count;
 
         public uint GenerateNumberFormatId()
-        {
-            const uint NUMBER_FORMAT_INITIAL_ID = 164;
-            return NUMBER_FORMAT_INITIAL_ID + (uint)NumberFormats.Count;
-        }
+            => NumberFormat.NUMBER_FORMAT_INITIAL_ID + (uint)NumberFormats.Count;
     }
 }
