@@ -41,11 +41,11 @@ namespace FluentXL.Writers
 
             var f = new OpenXml.Font();
 
-            if (!string.IsNullOrEmpty(font.Name))
-                f.Append(new OpenXml.FontName { Val = font.Name });
-
             if (font.Size.HasValue)
                 f.Append(new OpenXml.FontSize { Val = font.Size.Value });
+
+            if (!string.IsNullOrEmpty(font.Name))
+                f.Append(new OpenXml.FontName { Val = font.Name });
 
             if (font.Bold ?? false)
                 f.Append(new OpenXml.Bold());

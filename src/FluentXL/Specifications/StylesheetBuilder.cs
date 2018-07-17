@@ -13,6 +13,11 @@ namespace FluentXL.Specifications
         private IList<CellFormat> CellFormats { get; set; } = new List<CellFormat>();
         private IList<NumberFormat> NumberFormats { get; set; } = new List<NumberFormat>();
 
+        public StylesheetBuilder()
+        {
+            AddDefaultStyles();
+        }
+
         public Stylesheet Build()
         {
             return new Stylesheet(
@@ -87,5 +92,12 @@ namespace FluentXL.Specifications
 
         public uint GenerateNumberFormatId()
             => NumberFormat.INITIAL_ID + (uint)NumberFormats.Count;
+
+        private void AddDefaultStyles()
+        {
+            Fonts.Add(new Font(0, "Calibri", size: 11));
+            Fills.Add(new Fill(0, new PatternFill(FillPattern.None, null, null), null));
+            Borders.Add(new Border(0));
+        }
     }
 }
