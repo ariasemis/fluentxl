@@ -2,7 +2,7 @@
 {
     public sealed class NumberFormat
     {
-        public const uint NUMBER_FORMAT_INITIAL_ID = 164;
+        public const uint INITIAL_ID = 164;
 
         public NumberFormat(
             uint id,

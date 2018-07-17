@@ -27,7 +27,7 @@ namespace FluentXL.Writers
                 return;
 
             //TODO: check this works properly
-            stylesheet.NumberingFormats.Count = (uint)numberFormats.Count + NumberFormat.NUMBER_FORMAT_INITIAL_ID;
+            stylesheet.NumberingFormats.Count = (uint)numberFormats.Count + NumberFormat.INITIAL_ID;
 
             foreach (var numberFormat in numberFormats)
             {
