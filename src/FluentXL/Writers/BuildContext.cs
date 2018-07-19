@@ -4,6 +4,6 @@ namespace FluentXL.Writers
 {
     internal class BuildContext : IBuildContext
     {
-        public IStylesheetBuilder Stylesheet => new StylesheetBuilder();
+        public IStylesheetBuilder Stylesheet { get; } = new StylesheetBuilder();
     }
 }

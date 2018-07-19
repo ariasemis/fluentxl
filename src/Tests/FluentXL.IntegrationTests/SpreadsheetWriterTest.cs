@@ -47,7 +47,20 @@ namespace FluentXL.IntegrationTests
                                         Specification
                                             .Cell()
                                             .OnColumn(2)
-                                            .WithContent("Hello World!!")))
+                                            .WithContent("Hello World!!")
+                                            .WithStyle(
+                                                Specification
+                                                    .CellFormat()
+                                                    .WithFill(Specification
+                                                        .Fill()
+                                                        .WithPattern(Models.FillPattern.Solid)
+                                                        .WithBackgroundColor(Specification.Color().FromRgb("FF696969"))
+                                                        .WithForegroundColor(Specification.Color().FromRgb("FF696969")))
+                                                    .WithBorder(Specification
+                                                        .Border()
+                                                        .WithOutline(
+                                                            Models.BorderStyle.Medium,
+                                                            Specification.Color().FromRgb("#00000000"))))))
                             .WithMergedCell(
                                 Specification
                                     .MergeCell()

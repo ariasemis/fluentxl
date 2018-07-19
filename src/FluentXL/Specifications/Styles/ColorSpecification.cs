@@ -18,16 +18,19 @@ namespace FluentXL.Specifications.Styles
 
         public IBuilderSpecification<Color> FromRgb(string value)
         {
-            const string pattern = "^#?([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$";
+            //TODO: current formatting is incorrect, fix it
 
-            if (!Regex.IsMatch(value, pattern, RegexOptions.Compiled))
-                throw new ArgumentException("rgb value specified is not valid", nameof(value));
+            //const string pattern = "^#?([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$";
+
+            //if (!Regex.IsMatch(value, pattern, RegexOptions.Compiled))
+            //    throw new ArgumentException("rgb value specified is not valid", nameof(value));
 
             value = value.Replace("#", "");
             return new ColorSpecification { rgb = value };
         }
 
         public IBuilderSpecification<Color> FromRgb(byte red, byte green, byte blue)
+            //TODO: current formatting is incorrect, fix it
             => new ColorSpecification { rgb = $"{red:X2}{green:X2}{blue:X2}" };
     }
 }
