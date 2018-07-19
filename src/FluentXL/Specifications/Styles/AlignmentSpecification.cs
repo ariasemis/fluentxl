@@ -10,7 +10,7 @@ namespace FluentXL.Specifications.Styles
         private ReadingOrder ReadingOrder { get; set; } = ReadingOrder.LeftToRight;
         private uint? TextRotation { get; set; } = null;
         private uint? Indent { get; set; } = null;
-        private uint? RelativeIndent { get; set; } = null;
+        private int? RelativeIndent { get; set; } = null;
         private bool? JustifyLastLine { get; set; } = null;
         private bool? Shrink { get; set; } = null;
         private string MergeCell { get; set; } = null;

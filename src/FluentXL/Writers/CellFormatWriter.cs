@@ -53,6 +53,12 @@ namespace FluentXL.Writers
                 cf.ApplyNumberFormat = true;
             }
 
+            if (cellFormat.Alignment != null)
+            {
+                IWriter<Alignment> alignmentWriter = new AlignmentWriter(cf);
+                alignmentWriter.Write(cellFormat.Alignment);
+            }
+
             stylesheet.CellFormats.Append(cf);
         }
     }

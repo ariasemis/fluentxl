@@ -9,7 +9,7 @@
             ReadingOrder readingOrder,
             uint? textRotation = null,
             uint? indent = null,
-            uint? relativeIndent = null,
+            int? relativeIndent = null,
             bool? justifyLastLine = null,
             bool? shrinkToFit = null,
             string mergeCell = null)
@@ -38,7 +38,7 @@
 
         public uint? Indent { get; }
 
-        public uint? RelativeIndent { get; }
+        public int? RelativeIndent { get; }
 
         public bool? JustifyLastLine { get; }
 

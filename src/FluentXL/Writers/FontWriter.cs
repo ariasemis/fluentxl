@@ -53,6 +53,9 @@ namespace FluentXL.Writers
             if (font.Bold ?? false)
                 f.Append(new OpenXml.Bold());
 
+            if (font.Italic ?? false)
+                f.Append(new OpenXml.Italic());
+
             stylesheet.Fonts.Append(f);
         }
     }

@@ -1,6 +1,6 @@
 ﻿namespace FluentXL.Models
 {
-    public enum ReadingOrder
+    public enum ReadingOrder : uint
     {
         ContextDependent = 0,
         LeftToRight = 1,
