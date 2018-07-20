@@ -28,44 +28,42 @@ namespace FluentXL.IntegrationTests
                 Assert.Inconclusive("test cannot be performed because the output file is locked");
             }
 
+            var cellFormat = Specification
+                .CellFormat()
+                .WithFill(Specification
+                    .Fill()
+                    .WithPattern(Models.FillPattern.Solid)
+                    .WithBackgroundColor(Specification.Color().FromArgb("FF696969"))
+                    .WithForegroundColor(Specification.Color().FromArgb("FF696969")))
+                .WithBorder(Specification
+                    .Border()
+                    .WithOutline(
+                        Models.BorderStyle.Medium,
+                        Specification.Color().FromArgb("#00000000")));
+
+            var cell = Specification
+                .Cell()
+                .OnColumn(2)
+                .WithContent("Hello World!!")
+                .WithStyle(cellFormat);
+
             var doc =
                 Spreadsheet
                     .New()
-                    .WithSheet(
-                        Specification
-                            .Sheet()
-                            .WithName("test sheet")
-                            .WithColumn(
-                                Specification
-                                    .Column()
-                                    .With(index: 1, width: 50))
-                            .WithRow(
-                                Specification
-                                    .Row()
-                                    .OnIndex(2)
-                                    .WithCell(
-                                        Specification
-                                            .Cell()
-                                            .OnColumn(2)
-                                            .WithContent("Hello World!!")
-                                            .WithStyle(
-                                                Specification
-                                                    .CellFormat()
-                                                    .WithFill(Specification
-                                                        .Fill()
-                                                        .WithPattern(Models.FillPattern.Solid)
-                                                        .WithBackgroundColor(Specification.Color().FromArgb("FF696969"))
-                                                        .WithForegroundColor(Specification.Color().FromArgb("FF696969")))
-                                                    .WithBorder(Specification
-                                                        .Border()
-                                                        .WithOutline(
-                                                            Models.BorderStyle.Medium,
-                                                            Specification.Color().FromArgb("#00000000"))))))
-                            .WithMergedCell(
-                                Specification
-                                    .MergeCell()
-                                    .From(row: 2, column: 2)
-                                    .To(row: 2, column: 3)));
+                    .WithSheet(Specification
+                        .Sheet()
+                        .WithName("test sheet")
+                        .WithColumn(Specification
+                            .Column()
+                            .With(index: 1, width: 50))
+                        .WithRow(Specification
+                            .Row()
+                            .OnIndex(2)
+                            .WithCell(cell))
+                        .WithMergedCell(Specification
+                            .MergeCell()
+                            .From(row: 2, column: 2)
+                            .To(row: 2, column: 3)));
 
             // act
             using (var spreadsheet = new MemoryStream())
