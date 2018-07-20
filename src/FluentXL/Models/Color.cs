@@ -5,23 +5,23 @@ namespace FluentXL.Models
     public class Color
     {
         public Color(
-            string rgb,
+            string argb,
             bool? auto = null,
             uint? indexed = null,
             uint? theme = null,
             double? tint = null)
         {
-            if (string.IsNullOrEmpty(rgb))
-                throw new ArgumentNullException(nameof(rgb));
+            if (string.IsNullOrEmpty(argb))
+                throw new ArgumentNullException(nameof(argb));
 
-            Rgb = rgb;
+            Argb = argb;
             Auto = auto;
             Indexed = indexed;
             Theme = theme;
             Tint = tint;
         }
 
-        public string Rgb { get; }
+        public string Argb { get; }
 
         public bool? Auto { get; }
 

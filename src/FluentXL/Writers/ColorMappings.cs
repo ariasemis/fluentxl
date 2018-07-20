@@ -28,7 +28,7 @@ namespace FluentXL.Writers
 
         private static void MapColor(OpenXml.ColorType destination, Color origin)
         {
-            destination.Rgb = origin.Rgb;
+            destination.Rgb = origin.Argb;
 
             if (origin.Auto.HasValue)
                 destination.Auto = origin.Auto.Value;

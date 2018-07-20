@@ -11,52 +11,41 @@ namespace FluentXL.UnitTests.Specifications
     {
         private readonly Mock<IBuildContext> contextMock = new Mock<IBuildContext>();
 
-        //TODO: ignored test until proper hex handling in place
-
         [TestMethod]
-        [Ignore]
         public void Build_FromRgbWithValidHex_Succeeds()
         {
             // arrange
             var values = new[]
             {
                 // with #
-                "#1a0f1F",
-                "#AFAFAF",
-                "#008080",
-                "#F00",
-                "#AbC",
-                "#888",
+                "#111a0f1F",
+                "#AFAFAFAF",
+                "#11008080",
                 // only values
-                "1AFFa1",
-                "cbbEba",
-                "794044",
-                "f0f",
-                "AFA",
-                "666"
+                "FF1AFFa1",
+                "1fcbbEba",
+                "11794044"
             };
 
             // act & assert
             foreach (var value in values)
             {
-                var color = ColorSpecification.New().FromRgb(value).Build(contextMock.Object);
+                var color = ColorSpecification.New().FromArgb(value).Build(contextMock.Object);
 
                 Assert.IsNotNull(color);
-                Assert.AreEqual(value.Replace("#", ""), color.Rgb);
+                Assert.AreEqual(value.Replace("#", ""), color.Argb);
             }
         }
 
         [TestMethod]
-        [Ignore]
         public void FromRgb_WithInvalidHex_Throws()
         {
             // arrange
             var values = new[]
             {
-                "#afafah",
-                "123abce",
-                "#afaf",
-                "F0h"
+                "#afafafah",
+                "1234abcef",
+                "#afafafa"
             };
 
             // act & assert
@@ -65,7 +54,7 @@ namespace FluentXL.UnitTests.Specifications
                 var exThrown = false;
                 try
                 {
-                    var color = ColorSpecification.New().FromRgb(value);
+                    var color = ColorSpecification.New().FromArgb(value);
                 }
                 catch (ArgumentException)
                 {
@@ -78,18 +67,17 @@ namespace FluentXL.UnitTests.Specifications
         }
 
         [TestMethod]
-        [Ignore]
         public void Build_FromRgbWithBytes_Succeeds()
         {
             // arrange
-            var spec = ColorSpecification.New().FromRgb(66, 134, 244);
+            var spec = ColorSpecification.New().FromArgb(255, 66, 134, 244);
 
             // act
             var color = spec.Build(contextMock.Object);
 
             // assert
             Assert.IsNotNull(color);
-            Assert.AreEqual("4286F4", color.Rgb);
+            Assert.AreEqual("FF4286F4", color.Argb);
         }
     }
 }

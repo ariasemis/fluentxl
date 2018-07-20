@@ -54,13 +54,13 @@ namespace FluentXL.IntegrationTests
                                                     .WithFill(Specification
                                                         .Fill()
                                                         .WithPattern(Models.FillPattern.Solid)
-                                                        .WithBackgroundColor(Specification.Color().FromRgb("FF696969"))
-                                                        .WithForegroundColor(Specification.Color().FromRgb("FF696969")))
+                                                        .WithBackgroundColor(Specification.Color().FromArgb("FF696969"))
+                                                        .WithForegroundColor(Specification.Color().FromArgb("FF696969")))
                                                     .WithBorder(Specification
                                                         .Border()
                                                         .WithOutline(
                                                             Models.BorderStyle.Medium,
-                                                            Specification.Color().FromRgb("#00000000"))))))
+                                                            Specification.Color().FromArgb("#00000000"))))))
                             .WithMergedCell(
                                 Specification
                                     .MergeCell()

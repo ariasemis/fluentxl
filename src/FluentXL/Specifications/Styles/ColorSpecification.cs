@@ -6,7 +6,7 @@ namespace FluentXL.Specifications.Styles
 {
     public class ColorSpecification : IColorSpecification, IBuilderSpecification<Color>
     {
-        private string rgb { get; set; }
+        private string Argb { get; set; }
 
         private ColorSpecification() { }
 
@@ -14,23 +14,20 @@ namespace FluentXL.Specifications.Styles
             => new ColorSpecification();
 
         public Color Build(IBuildContext context)
-            => new Color(rgb);
+            => new Color(Argb);
 
-        public IBuilderSpecification<Color> FromRgb(string value)
+        public IBuilderSpecification<Color> FromArgb(string value)
         {
-            //TODO: current formatting is incorrect, fix it
+            const string pattern = "^#?[A-Fa-f0-9]{8}$";
 
-            //const string pattern = "^#?([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$";
-
-            //if (!Regex.IsMatch(value, pattern, RegexOptions.Compiled))
-            //    throw new ArgumentException("rgb value specified is not valid", nameof(value));
+            if (!Regex.IsMatch(value, pattern, RegexOptions.Compiled))
+                throw new ArgumentException("rgb value specified is not valid", nameof(value));
 
             value = value.Replace("#", "");
-            return new ColorSpecification { rgb = value };
+            return new ColorSpecification { Argb = value };
         }
 
-        public IBuilderSpecification<Color> FromRgb(byte red, byte green, byte blue)
-            //TODO: current formatting is incorrect, fix it
-            => new ColorSpecification { rgb = $"{red:X2}{green:X2}{blue:X2}" };
+        public IBuilderSpecification<Color> FromArgb(byte alpha, byte red, byte green, byte blue)
+            => new ColorSpecification { Argb = $"{alpha:X2}{red:X2}{green:X2}{blue:X2}" };
     }
 }
