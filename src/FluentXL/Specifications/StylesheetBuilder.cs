@@ -7,6 +7,8 @@ namespace FluentXL.Specifications
 {
     internal class StylesheetBuilder : IStylesheetBuilder
     {
+        //TODO: redesign to reuse styles when they have the same values
+
         private IList<Font> Fonts { get; set; } = new List<Font>();
         private IList<Fill> Fills { get; set; } = new List<Fill>();
         private IList<Border> Borders { get; set; } = new List<Border>();

@@ -39,14 +39,7 @@ namespace FluentXL.Writers
             if (cellFormat == null)
                 throw new ArgumentNullException(nameof(cellFormat));
 
-            var cf = new OpenXml.CellFormat
-            {
-                NumberFormatId = 0,
-                FontId = 0,
-                FillId = 0,
-                BorderId = 0,
-                //FormatId = 0
-            };
+            var cf = new OpenXml.CellFormat();
 
             if (cellFormat.FontId.HasValue)
             {

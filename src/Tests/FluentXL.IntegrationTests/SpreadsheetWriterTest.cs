@@ -33,8 +33,7 @@ namespace FluentXL.IntegrationTests
                 .WithFill(Specification
                     .Fill()
                     .WithPattern(Models.FillPattern.Solid)
-                    .WithBackgroundColor(Specification.Color().FromArgb("FF696969"))
-                    .WithForegroundColor(Specification.Color().FromArgb("FF696969")))
+                    .WithBackgroundColor(Specification.Color().FromArgb("FF696969")))
                 .WithBorder(Specification
                     .Border()
                     .WithOutline(

@@ -21,6 +21,7 @@ namespace FluentXL.Specifications.Cells
             => new CellSpecification { Column = index };
 
         public IExpectCellFormat WithContent(DateTime value)
+            //TODO: for datetime, add a default style with short date numbering format
             => WithContent(value.ToOADate().ToString(CultureInfo.InvariantCulture), CellType.Date);
 
         public IExpectCellFormat WithContent(int value)
