@@ -33,7 +33,7 @@ namespace FluentXL.Demo
         private static CommandParts GetInputParts(string input)
         {
             //TODO: add more robust implementation
-            var parts = input.Split(' ');
+            var parts = input.Trim().Split(' ');
 
             return new CommandParts
             {
