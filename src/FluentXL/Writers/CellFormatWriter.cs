@@ -44,25 +44,25 @@ namespace FluentXL.Writers
             if (cellFormat.FontId.HasValue)
             {
                 cf.FontId = cellFormat.FontId.Value;
-                cf.ApplyFont = true;
+                cf.ApplyFont = cellFormat.FontId != 0;
             }
 
             if (cellFormat.FillId.HasValue)
             {
                 cf.FillId = cellFormat.FillId.Value;
-                cf.ApplyFill = true;
+                cf.ApplyFill = cellFormat.FillId != 0;
             }
 
             if (cellFormat.BorderId.HasValue)
             {
                 cf.BorderId = cellFormat.BorderId.Value;
-                cf.ApplyBorder = true;
+                cf.ApplyBorder = cellFormat.BorderId != 0;
             }
 
             if (cellFormat.NumberFormatId.HasValue)
             {
                 cf.NumberFormatId = cellFormat.NumberFormatId.Value;
-                cf.ApplyNumberFormat = true;
+                cf.ApplyNumberFormat = cellFormat.NumberFormatId != 0;
             }
 
             if (cellFormat.Alignment != null)
