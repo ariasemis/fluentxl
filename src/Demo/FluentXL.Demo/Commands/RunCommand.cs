@@ -8,7 +8,12 @@ namespace FluentXL.Demo.Commands
 {
     public class RunCommand : ICommand
     {
-        //TODO: use arguments to decide sample to generate and where
+        private readonly Input input;
+
+        public RunCommand(Input input)
+        {
+            this.input = input ?? throw new ArgumentNullException(nameof(input));
+        }
 
         public bool Execute()
         {
