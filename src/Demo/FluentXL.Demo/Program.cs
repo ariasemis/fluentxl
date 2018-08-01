@@ -13,7 +13,9 @@ namespace FluentXL.Demo
             Console.CancelKeyPress += Console_CancelKeyPress;
 
             // display info
-            Console.WriteLine("Hello World!");
+            Console.WriteLine("Welcome to the FluentXL demo application.");
+            Console.WriteLine("See 'help' for more information.");
+            Console.WriteLine();
 
             // run
             while (!exitRequested)

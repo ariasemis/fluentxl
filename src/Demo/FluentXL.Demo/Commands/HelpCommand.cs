@@ -6,15 +6,18 @@ namespace FluentXL.Demo.Commands
     {
         public bool Execute()
         {
-            Console.WriteLine("Usage: run [arguments] [options]");
+            Console.WriteLine("Usage: [options] [command]");
             Console.WriteLine();
-            Console.WriteLine("Arguments:");
-            Console.WriteLine(" sample              String         name of the sample you want to run");
-            Console.WriteLine();
+
             Console.WriteLine("Options:");
             Console.WriteLine(" -h | -? | --help    Show help information");
-            Console.WriteLine(" -f | --file         String         File path where the sample will be generated");
             Console.WriteLine();
+
+            Console.WriteLine("Commands:");
+            Console.WriteLine(" run              executes the sample");
+            Console.WriteLine();
+
+            Console.WriteLine("Use '[command] --help' for more information about a command.");
 
             return false;
         }

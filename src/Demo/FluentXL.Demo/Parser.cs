@@ -17,6 +17,8 @@ namespace FluentXL.Demo
             {
                 //TODO: handle common exit codes
                 case "exit":
+                case "quit":
+                case "close":
                     return new ExitCommand();
                 case "help":
                 case "--help":
@@ -59,7 +61,7 @@ namespace FluentXL.Demo
                         }
                         else
                         {
-                            //TODO: currently we are not supporting options with multiple arguments
+                            // we are not supporting options with multiple arguments
                             result.Options.Add(part, next);
                             i = j;
                         }
