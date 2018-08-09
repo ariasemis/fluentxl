@@ -7,7 +7,7 @@
     {
         public ISpreadsheetWriter Run()
         {
-            // define styles
+            // we start by defining the style for the header rows
             var headerStyle = Specification.CellFormat()
                 .WithFont(Specification.Font()
                     .WithFont("Arial")
@@ -17,20 +17,23 @@
                     Models.BorderStyle.Thin,
                     Specification.Color().FromArgb("FF000000")));
 
-            // define header
+            // we'll use the first couple of rows as a kind of "header" where we'll display some titles for the columns
+            // for the first row, we group the columns in 2 groups depending on the kind of data displayed
+            // so we create a title for each group and add them to the first row
             var header = Specification.Row()
                 .OnIndex(1)
                 .WithCell(Specification.Cell().OnColumn(1).WithContent("CLIENT INFORMATION").WithStyle(headerStyle))
                 .WithCell(Specification.Cell().OnColumn(3).WithContent("OTHER INFORMATION").WithStyle(headerStyle));
 
-            // define sub header
+            // in the second row we display a title for each column
             var subHeader = Specification.Row()
                 .OnIndex(2)
                 .WithCell(Specification.Cell().OnColumn(1).WithContent("Code").WithStyle(headerStyle))
                 .WithCell(Specification.Cell().OnColumn(2).WithContent("Name").WithStyle(headerStyle))
                 .WithCell(Specification.Cell().OnColumn(3).WithContent("Debt").WithStyle(headerStyle));
 
-            // define data
+            // now, we start by defining the result data we want to export in the excel file
+            // in this case, we just hardcoded an array of objects
             var data = new[]
             {
                 new { Code = "#0000001", Name = "John Smith", Debt = 1000M },
@@ -45,7 +48,11 @@
                 new { Code = "#0002201", Name = "J. Random X", Debt = 11098.75M }
             };
 
-            // define document
+            // finally we tie everything together:
+            // we create a document with one sheet
+            // add the previously created rows
+            // then create the rows for the data exported
+            // and at the end we merge the cells corresponding to the header groups
             var doc = Spreadsheet.New()
                 .WithSheet(Specification.Sheet()
                     .WithName("sample 1")
@@ -64,6 +71,17 @@
                     })
                     .WithMergedCell(Specification.MergeCell().From(1, 1).To(1, 2)));
 
+            // the exported excel should look something like this:
+            /* ------------------------------------------
+             * | CLIENT INFORMATION | OTHER INFORMATION |
+             * ------------------------------------------
+             * | Code   | Name      | Debt              |
+             * ------------------------------------------
+             * | 001    | Smith     | 1000              |
+             * ------------------------------------------
+             * | ...    | ...       | ...               |             * 
+             * ------------------------------------------
+             * */
             return doc;
         }
     }
