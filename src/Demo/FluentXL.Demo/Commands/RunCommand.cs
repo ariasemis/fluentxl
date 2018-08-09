@@ -1,15 +1,16 @@
 ﻿using FluentXL.Demo.Samples;
-using FluentXL.Demo.Utils;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 
 namespace FluentXL.Demo.Commands
 {
     public class RunCommand : ICommand
     {
+        private const string DEFAULT_FILE_NAME = "sample.xlsx";
+        private const string FILE_EXTENSION = ".xlsx";
+
         private readonly Input input;
 
         public RunCommand(Input input)
@@ -79,8 +80,45 @@ namespace FluentXL.Demo.Commands
 
         private string ResolveFilename()
         {
-            //TODO
-            return Path.Combine(FileHelper.GetOutputDirectory(), "sample.xlsx");
+            var result = string.Empty;
+
+            var fileInput = input.Options
+                .Where(x => x.Key.Equals("-f") || x.Key.Equals("--file"))
+                .Select(x => (KeyValuePair<string, string>?)x)
+                .FirstOrDefault();
+
+            if (!fileInput.HasValue || fileInput.Value.Value == null)
+            {
+                result = Path.GetFullPath(DEFAULT_FILE_NAME);
+            }
+            else
+            {
+                var path = fileInput.Value.Value.Trim();
+
+                var filename = Path.GetFileName(path);
+                var directory = Path.GetDirectoryName(path);
+
+                if (string.IsNullOrWhiteSpace(filename))
+                {
+                    filename = DEFAULT_FILE_NAME;
+                }
+                else
+                {
+                    if (Path.HasExtension(filename))
+                    {
+                        if (Path.GetExtension(filename) != FILE_EXTENSION)
+                            throw new ArgumentException("file extension not supported");
+                    }
+                    else
+                    {
+                        filename += ".xlsx";
+                    }
+                }
+
+                result = Path.Combine(directory, filename);
+            }
+
+            return result;
         }
     }
 }
