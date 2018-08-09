@@ -83,7 +83,7 @@ namespace FluentXL.Demo.Commands
             var result = string.Empty;
 
             var fileInput = input.Options
-                .Where(x => x.Key.Equals("-f") || x.Key.Equals("--file"))
+                .Where(x => IsFile(x.Key))
                 .Select(x => (KeyValuePair<string, string>?)x)
                 .FirstOrDefault();
 
