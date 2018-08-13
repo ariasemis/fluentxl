@@ -1,8 +1,10 @@
-﻿using FluentXL.Demo.Samples;
+﻿using FluentXL.Demo.Extensions;
+using FluentXL.Demo.Samples;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 
 namespace FluentXL.Demo.Commands
 {
@@ -27,9 +29,13 @@ namespace FluentXL.Demo.Commands
             else
             {
                 var sample = ResolveSample();
-                var filename = ResolveFilename();
 
-                GenerateSample(sample, filename);
+                if (sample != null)
+                {
+                    var filename = ResolveFilename();
+
+                    GenerateSample(sample, filename);
+                }
             }
 
             return false;
@@ -74,8 +80,39 @@ namespace FluentXL.Demo.Commands
 
         private ISample ResolveSample()
         {
-            //TODO
-            return new Sample1();
+            ISample sample;
+
+            if (input.Arguments.Any())
+            {
+                var inputName = input.Arguments.First();
+                var typeName = inputName.ToAlphanumeric().ToLowerInvariant();
+
+                var contract = typeof(ISample);
+                var type = Assembly
+                    .GetExecutingAssembly()
+                    .GetTypes()
+                    .Where(x => contract.IsAssignableFrom(x) && x.Name.Equals(typeName, StringComparison.InvariantCultureIgnoreCase))
+                    .FirstOrDefault();
+
+                if (type == null)
+                {
+                    sample = null;
+
+                    Console.WriteLine($"sample with name = '{inputName}' not found");
+                    Console.WriteLine("aborting sample generation...");
+                    Console.WriteLine();
+                }
+                else
+                {
+                    sample = Activator.CreateInstance(type) as ISample;
+                }
+            }
+            else
+            {
+                sample = new Sample1();
+            }
+
+            return sample;
         }
 
         private string ResolveFilename()

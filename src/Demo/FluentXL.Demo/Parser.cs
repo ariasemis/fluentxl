@@ -66,9 +66,9 @@ namespace FluentXL.Demo
                             i = j;
                         }
                     }
-                    else
+                    else if (!string.IsNullOrWhiteSpace(part))
                     {
-                        result.Arguments.Add(part);
+                        result.Arguments.Add(part.Trim());
                     }
 
                     i++;
