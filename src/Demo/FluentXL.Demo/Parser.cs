@@ -1,4 +1,5 @@
 ﻿using FluentXL.Demo.Commands;
+using FluentXL.Demo.Extensions;
 using System;
 using System.Collections.Generic;
 
@@ -34,8 +35,7 @@ namespace FluentXL.Demo
 
         private static Input GetInput(string input)
         {
-            //TODO: add more robust implementation
-            var parts = input.Trim().Split(' ');
+            var parts = input.Trim().SplitWithQuotedText();
 
             var result = new Input
             {
@@ -68,6 +68,7 @@ namespace FluentXL.Demo
                     }
                     else if (!string.IsNullOrWhiteSpace(part))
                     {
+                        part = part.Trim('"');
                         result.Arguments.Add(part.Trim());
                     }
 
