@@ -20,7 +20,10 @@
                     .Bold())
                 .WithBorder(Specification.Border().WithOutline(
                     Models.BorderStyle.Thin,
-                    Specification.Color().FromArgb("FF000000")));
+                    Specification.Color().FromArgb("FF000000")))
+                .WithFill(Specification.Fill()
+                    .WithPattern(Models.FillPattern.Solid)
+                    .WithForegroundColor(Specification.Color().FromArgb("FFC6EFCE")));
 
             // we'll use the first couple of rows as a kind of "header" where we'll display some titles for the columns
             // for the first row, we group the columns in 2 groups depending on the kind of data displayed
@@ -84,7 +87,7 @@
              * ------------------------------------------
              * | 001    | Smith     | 1000              |
              * ------------------------------------------
-             * | ...    | ...       | ...               |             * 
+             * | ...    | ...       | ...               |
              * ------------------------------------------
              * */
             return doc;

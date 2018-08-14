@@ -99,6 +99,7 @@ namespace FluentXL.Specifications
         {
             Fonts.Add(new Font(0, "Calibri", size: 11));
             Fills.Add(new Fill(0, new PatternFill(FillPattern.None, null, null), null));
+            Fills.Add(new Fill(0, new PatternFill(FillPattern.Gray125, null, null), null));
             Borders.Add(new Border(0));
             CellFormats.Add(new CellFormat(0, null, 0, 0, 0, 0));
         }
