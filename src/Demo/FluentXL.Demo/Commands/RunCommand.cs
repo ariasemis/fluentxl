@@ -85,26 +85,17 @@ namespace FluentXL.Demo.Commands
             if (input.Arguments.Any())
             {
                 var inputName = input.Arguments.First();
-                var typeName = inputName.ToAlphanumeric().ToLowerInvariant();
 
-                var contract = typeof(ISample);
-                var type = Assembly
+                sample = Assembly
                     .GetExecutingAssembly()
-                    .GetTypes()
-                    .Where(x => contract.IsAssignableFrom(x) && x.Name.Equals(typeName, StringComparison.InvariantCultureIgnoreCase))
-                    .FirstOrDefault();
+                    .ResolveSample(inputName);
 
-                if (type == null)
+                if (sample == null)
                 {
-                    sample = null;
-
                     Console.WriteLine($"sample with name = '{inputName}' not found");
-                    Console.WriteLine("aborting sample generation...");
+                    Console.WriteLine("sample generation was cancelled");
                     Console.WriteLine();
-                }
-                else
-                {
-                    sample = Activator.CreateInstance(type) as ISample;
+                    Console.WriteLine("See 'sample' command for a list of available samples");
                 }
             }
             else

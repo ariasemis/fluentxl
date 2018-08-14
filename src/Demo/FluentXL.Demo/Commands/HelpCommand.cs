@@ -15,6 +15,7 @@ namespace FluentXL.Demo.Commands
 
             Console.WriteLine("Commands:");
             Console.WriteLine(" run              executes the sample");
+            Console.WriteLine(" sample           Show information about available samples");
             Console.WriteLine();
 
             Console.WriteLine("Use '[command] --help' for more information about a command.");

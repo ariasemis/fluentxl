@@ -1,7 +1,6 @@
 ﻿using FluentXL.Demo.Commands;
 using FluentXL.Demo.Extensions;
 using System;
-using System.Collections.Generic;
 
 namespace FluentXL.Demo
 {
@@ -16,7 +15,6 @@ namespace FluentXL.Demo
 
             switch (input.Command.ToLower())
             {
-                //TODO: handle common exit codes
                 case "exit":
                 case "quit":
                 case "close":
@@ -28,6 +26,8 @@ namespace FluentXL.Demo
                     return new HelpCommand();
                 case "run":
                     return new RunCommand(input);
+                case "sample":
+                    return new SampleCommand(input);
                 default:
                     return new UnknownCommand(input.Command);
             }

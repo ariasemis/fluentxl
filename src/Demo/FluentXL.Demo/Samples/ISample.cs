@@ -3,5 +3,7 @@
     public interface ISample
     {
         ISpreadsheetWriter Run();
+
+        string GetInfo();
     }
 }

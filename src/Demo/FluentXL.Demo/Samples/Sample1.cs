@@ -5,6 +5,11 @@
     /// </summary>
     public class Sample1 : ISample
     {
+        public string GetInfo()
+        {
+            return "Creates a basic spreadsheet with a header, a subheader and a list of data";
+        }
+
         public ISpreadsheetWriter Run()
         {
             // we start by defining the style for the header rows

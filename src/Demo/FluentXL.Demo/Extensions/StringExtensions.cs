@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace FluentXL.Demo.Extensions
 {
@@ -19,5 +20,13 @@ namespace FluentXL.Demo.Extensions
         /// <returns></returns>
         public static string[] SplitWithQuotedText(this string input)
             => Regex.Split(input, "(?<=^[^\"]*(?:\"[^\"]*\"[^\"]*)*) (?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
+
+        /// <summary>
+        /// Returns a new string from the input with separate words delimited with a hyphen
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public static string ToKebabCase(this string input)
+            => string.Concat(input.ToLower().Select((x, i) => i > 0 && char.IsUpper(x) ? "-" + x.ToString() : x.ToString()));
     }
 }
