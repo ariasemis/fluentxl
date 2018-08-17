@@ -5,16 +5,13 @@ namespace FluentXL.Models
     public sealed class Fill : IEquatable<Fill>
     {
         public Fill(
-            uint id,
             PatternFill patternFill,
             GradientFill gradientFill)
         {
-            Id = id;
             PatternFill = patternFill;
             GradientFill = gradientFill;
         }
 
-        public uint Id { get; }
         public PatternFill PatternFill { get; set; }
         public GradientFill GradientFill { get; set; }
 

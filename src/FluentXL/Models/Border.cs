@@ -5,7 +5,6 @@ namespace FluentXL.Models
     public sealed class Border : IEquatable<Border>
     {
         public Border(
-            uint id,
             BorderSide top = null,
             BorderSide bottom = null,
             BorderSide left = null,
@@ -13,7 +12,6 @@ namespace FluentXL.Models
             DiagonalBorderSide diagonal = null,
             bool? outline = null)
         {
-            Id = id;
             Top = top;
             Bottom = bottom;
             Left = left;
@@ -22,7 +20,6 @@ namespace FluentXL.Models
             Outline = outline;
         }
 
-        public uint Id { get; }
         public BorderSide Top { get; }
         public BorderSide Bottom { get; }
         public BorderSide Left { get; }

@@ -30,15 +30,12 @@ namespace FluentXL.Specifications.Styles
 
         public Border Build(IBuildContext context)
         {
-            var border = new Border(
-                0,
+            return new Border(
                 Top == null ? null : new BorderSide(Top.Item1, Top.Item2.Build(context)),
                 Bottom == null ? null : new BorderSide(Bottom.Item1, Bottom.Item2.Build(context)),
                 Left == null ? null : new BorderSide(Left.Item1, Left.Item2.Build(context)),
                 Right == null ? null : new BorderSide(Right.Item1, Right.Item2.Build(context)),
                 Diagonal == null ? null : new DiagonalBorderSide(Diagonal.Item1, Diagonal.Item2.Build(context), Diagonal.Item3));
-
-            return border;
         }
 
         public IBuilderSpecification<Border> WithOutline(BorderStyle style, IBuilderSpecification<Color> colorSpecification)

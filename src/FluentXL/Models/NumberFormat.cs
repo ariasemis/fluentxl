@@ -39,13 +39,23 @@ namespace FluentXL.Models
             if (other is null)
                 return false;
 
-            return FormatCode == other.FormatCode;
+            return Id == other.Id && FormatCode == other.FormatCode;
         }
 
         public override bool Equals(object obj)
             => obj is NumberFormat && Equals(obj as NumberFormat);
 
         public override int GetHashCode()
-            => FormatCode.GetHashCode();
+        {
+            unchecked
+            {
+                int hash = 17;
+
+                hash = hash * 23 + Id.GetHashCode();
+                hash = hash * 23 + FormatCode.GetHashCode();
+
+                return hash;
+            }
+        }
     }
 }

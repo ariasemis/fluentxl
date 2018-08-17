@@ -66,7 +66,7 @@ namespace FluentXL.Specifications.Cells
                 Column,
                 CellType,
                 Content,
-                cellFormat == null ? (uint?)null : context.Stylesheet.AddCellFormat(cellFormat));
+                cellFormat == null ? (uint?)null : context.Stylesheet.Add(cellFormat));
         }
     }
 }

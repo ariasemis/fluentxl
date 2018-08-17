@@ -15,12 +15,9 @@ namespace FluentXL.Specifications.Styles
 
         public Fill Build(IBuildContext context)
         {
-            var fill = new Fill(
-                0,
+            return new Fill(
                 new PatternFill(PatternType, ForegroundColor?.Build(context), BackgroundColor?.Build(context)),
                 null);
-
-            return fill;
         }
 
         public IExpectFillColor WithPattern(FillPattern pattern)

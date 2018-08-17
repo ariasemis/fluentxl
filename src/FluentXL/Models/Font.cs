@@ -5,7 +5,6 @@ namespace FluentXL.Models
     public sealed class Font : IEquatable<Font>
     {
         public Font(
-            uint id,
             string name,
             double? size = null,
             int? fontFamily = null,
@@ -21,7 +20,6 @@ namespace FluentXL.Models
             Color color = null,
             FontScheme? fontScheme = null)
         {
-            Id = id;
             Name = name ?? throw new ArgumentNullException(nameof(name));
             Size = size;
             FontFamily = FontFamily;
@@ -38,7 +36,6 @@ namespace FluentXL.Models
             FontScheme = fontScheme;
         }
 
-        public uint Id { get; }
         public string Name { get; set; }
         public double? Size { get; set; }
         public int? FontFamily { get; set; }

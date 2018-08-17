@@ -36,15 +36,12 @@ namespace FluentXL.Specifications.Styles
             var numberFormat = NumberFormatSpecification?.Build(context);
             var alignment = AlignmentSpecification?.Build(context);
 
-            var cellFormat = new CellFormat(
-                0,
-                fontId: font == null ? (uint?)null : context.Stylesheet.AddFont(font),
-                fillId: fill == null ? (uint?)null : context.Stylesheet.AddFill(fill),
-                borderId: border == null ? (uint?)null : context.Stylesheet.AddBorder(border),
-                numberFormatId: numberFormat == null ? (uint?)null : context.Stylesheet.AddNumberFormat(numberFormat),
+            return new CellFormat(
+                fontId: font == null ? (uint?)null : context.Stylesheet.Add(font),
+                fillId: fill == null ? (uint?)null : context.Stylesheet.Add(fill),
+                borderId: border == null ? (uint?)null : context.Stylesheet.Add(border),
+                numberFormatId: numberFormat?.Id,
                 alignment: alignment);
-
-            return cellFormat;
         }
 
         public IBuildingCellFormatSpecification WithAlignment(IBuilderSpecification<Alignment> alignmentSpecification)

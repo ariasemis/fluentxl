@@ -5,7 +5,6 @@ namespace FluentXL.Models
     public class CellFormat : IEquatable<CellFormat>
     {
         public CellFormat(
-            uint id,
             uint? formatId = null,
             uint? fontId = null,
             uint? fillId = null,
@@ -16,7 +15,6 @@ namespace FluentXL.Models
             Alignment alignment = null,
             Protection protection = null)
         {
-            Id = id;
             FormatId = formatId;
             FontId = fontId;
             FillId = fillId;
@@ -27,8 +25,6 @@ namespace FluentXL.Models
             Alignment = alignment;
             Protection = protection;
         }
-
-        public uint Id { get; }
 
         public uint? FormatId { get; }
 

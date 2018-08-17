@@ -2,13 +2,12 @@
 using FluentXL.Utils;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace FluentXL.Specifications
 {
     internal class StylesheetBuilder : IStylesheetBuilder
     {
-        //TODO: redesign to reuse styles when they have the same values
-
         private IList<Font> Fonts { get; set; } = new List<Font>();
         private IList<Fill> Fills { get; set; } = new List<Fill>();
         private IList<Border> Borders { get; set; } = new List<Border>();
@@ -30,9 +29,7 @@ namespace FluentXL.Specifications
                 new CountedCollection<NumberFormat>(NumberFormats.Count, NumberFormats));
         }
 
-        #region Refactor
-
-        public uint AddFont(Font font)
+        public uint Add(Font font)
         {
             if (font == null)
                 throw new ArgumentNullException(nameof(font));
@@ -48,7 +45,7 @@ namespace FluentXL.Specifications
             return (uint)i;
         }
 
-        public uint AddFill(Fill fill)
+        public uint Add(Fill fill)
         {
             if (fill == null)
                 throw new ArgumentNullException(nameof(fill));
@@ -64,7 +61,7 @@ namespace FluentXL.Specifications
             return (uint)i;
         }
 
-        public uint AddBorder(Border border)
+        public uint Add(Border border)
         {
             if (border == null)
                 throw new ArgumentNullException(nameof(border));
@@ -80,7 +77,7 @@ namespace FluentXL.Specifications
             return (uint)i;
         }
 
-        public uint AddCellFormat(CellFormat cellFormat)
+        public uint Add(CellFormat cellFormat)
         {
             if (cellFormat == null)
                 throw new ArgumentNullException(nameof(cellFormat));
@@ -96,96 +93,36 @@ namespace FluentXL.Specifications
             return (uint)i;
         }
 
-        public uint AddNumberFormat(NumberFormat numberFormat)
-        {
-            if (numberFormat == null)
-                throw new ArgumentNullException(nameof(numberFormat));
-
-            var i = NumberFormats.IndexOf(numberFormat);
-
-            if (i < 0)
-            {
-                i = NumberFormats.Count;
-                NumberFormats.Add(numberFormat);
-            }
-
-            return (uint)i;
-        }
-
-        #endregion
-
-        public void Add(Font font)
-        {
-            if (font == null)
-                throw new ArgumentNullException(nameof(font));
-            if (font.Id != GenerateFontId())
-                throw new ArgumentException("The font id does not match the current position in the stylesheet");
-
-            Fonts.Add(font);
-        }
-
-        public void Add(Fill fill)
-        {
-            if (fill == null)
-                throw new ArgumentNullException(nameof(fill));
-            if (fill.Id != GenerateFillId())
-                throw new ArgumentException("The fill id does not match the current position in the stylesheet");
-
-            Fills.Add(fill);
-        }
-
-        public void Add(Border border)
-        {
-            if (border == null)
-                throw new ArgumentNullException(nameof(border));
-            if (border.Id != GenerateBorderId())
-                throw new ArgumentException("The border id does not match the current position in the stylesheet");
-
-            Borders.Add(border);
-        }
-
-        public void Add(CellFormat cellFormat)
-        {
-            if (cellFormat == null)
-                throw new ArgumentNullException(nameof(cellFormat));
-            if (cellFormat.Id != GenerateCellFormatId())
-                throw new ArgumentException("The cell format id does not match the current position in the stylesheet");
-
-            CellFormats.Add(cellFormat);
-        }
-
         public void Add(NumberFormat numberFormat)
         {
             if (numberFormat == null)
                 throw new ArgumentNullException(nameof(numberFormat));
-            if (numberFormat.Id != GenerateNumberFormatId())
-                throw new ArgumentException("The number format id does not match the current position in the stylesheet");
+            if (numberFormat.Id != GetIndexForNumberFormat(numberFormat.FormatCode))
+                throw new ArgumentException("The number format id does not match its current position in the stylesheet");
 
-            NumberFormats.Add(numberFormat);
+            if (!NumberFormats.Contains(numberFormat))
+                NumberFormats.Add(numberFormat);
         }
 
-        public uint GenerateBorderId()
-            => (uint)Borders.Count;
+        public uint GetIndexForNumberFormat(string formatCode)
+        {
+            if (formatCode == null)
+                throw new ArgumentNullException(nameof(formatCode));
 
-        public uint GenerateCellFormatId()
-            => (uint)CellFormats.Count;
+            var existing = NumberFormats.FirstOrDefault(x => x.FormatCode == formatCode);
 
-        public uint GenerateFillId()
-            => (uint)Fills.Count;
-
-        public uint GenerateFontId()
-            => (uint)Fonts.Count;
-
-        public uint GenerateNumberFormatId()
-            => NumberFormat.INITIAL_ID + (uint)NumberFormats.Count;
+            return (existing == null)
+                ? NumberFormat.INITIAL_ID + (uint)NumberFormats.Count
+                : existing.Id;
+        }
 
         private void AddDefaultStyles()
         {
-            Fonts.Add(new Font(0, "Calibri", size: 11));
-            Fills.Add(new Fill(0, new PatternFill(FillPattern.None, null, null), null));
-            Fills.Add(new Fill(0, new PatternFill(FillPattern.Gray125, null, null), null));
-            Borders.Add(new Border(0));
-            CellFormats.Add(new CellFormat(0, null, 0, 0, 0, 0));
+            Fonts.Add(new Font("Calibri", size: 11));
+            Fills.Add(new Fill(new PatternFill(FillPattern.None, null, null), null));
+            Fills.Add(new Fill(new PatternFill(FillPattern.Gray125, null, null), null));
+            Borders.Add(new Border());
+            CellFormats.Add(new CellFormat(null, 0, 0, 0, 0));
         }
     }
 }

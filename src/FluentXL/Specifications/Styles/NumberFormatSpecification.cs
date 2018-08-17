@@ -5,7 +5,7 @@ namespace FluentXL.Specifications.Styles
 {
     public class NumberFormatSpecification : INumberFormatSpecification, IBuilderSpecification<NumberFormat>
     {
-        private Func<uint, NumberFormat> BuildFunc { get; set; }
+        private Func<IBuildContext, NumberFormat> BuildFunc { get; set; }
 
         private NumberFormatSpecification() { }
 
@@ -13,13 +13,23 @@ namespace FluentXL.Specifications.Styles
             => new NumberFormatSpecification();
 
         public NumberFormat Build(IBuildContext context)
-        {
-            var numberFormat = BuildFunc(0);
-            return numberFormat;
-        }
+            => BuildFunc(context);
 
         public IBuilderSpecification<NumberFormat> WithFormat(string format)
-            => new NumberFormatSpecification { BuildFunc = id => new NumberFormat(id, format) };
+        {
+            return new NumberFormatSpecification
+            {
+                BuildFunc = context =>
+                {
+                    var id = context.Stylesheet.GetIndexForNumberFormat(format);
+                    var nf = new NumberFormat(id, format);
+
+                    context.Stylesheet.Add(nf);
+
+                    return nf;
+                }
+            };
+        }
 
         public IBuilderSpecification<NumberFormat> WithFormat(StandardNumberFormat format)
             => new NumberFormatSpecification { BuildFunc = _ => new NumberFormat((uint)format, string.Empty) };

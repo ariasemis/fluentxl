@@ -26,14 +26,11 @@ namespace FluentXL.Specifications.Styles
 
         public Font Build(IBuildContext context)
         {
-            var font = new Font(
-                id: 0,
+            return new Font(
                 name: Name,
                 color: ColorSpecification?.Build(context),
                 bold: BoldValue,
                 italic: ItalicValue);
-
-            return font;
         }
 
         public IExpectFontOptions WithFont(string name)
