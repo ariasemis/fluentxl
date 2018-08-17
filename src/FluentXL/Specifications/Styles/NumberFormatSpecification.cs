@@ -14,12 +14,7 @@ namespace FluentXL.Specifications.Styles
 
         public NumberFormat Build(IBuildContext context)
         {
-            var id = context.Stylesheet.GenerateNumberFormatId();
-
-            var numberFormat = BuildFunc(id);
-
-            context.Stylesheet.Add(numberFormat);
-
+            var numberFormat = BuildFunc(0);
             return numberFormat;
         }
 

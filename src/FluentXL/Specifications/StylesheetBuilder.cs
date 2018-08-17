@@ -30,6 +30,90 @@ namespace FluentXL.Specifications
                 new CountedCollection<NumberFormat>(NumberFormats.Count, NumberFormats));
         }
 
+        #region Refactor
+
+        public uint AddFont(Font font)
+        {
+            if (font == null)
+                throw new ArgumentNullException(nameof(font));
+
+            var i = Fonts.IndexOf(font);
+
+            if (i < 0)
+            {
+                i = Fonts.Count;
+                Fonts.Add(font);
+            }
+
+            return (uint)i;
+        }
+
+        public uint AddFill(Fill fill)
+        {
+            if (fill == null)
+                throw new ArgumentNullException(nameof(fill));
+
+            var i = Fills.IndexOf(fill);
+
+            if (i < 0)
+            {
+                i = Fills.Count;
+                Fills.Add(fill);
+            }
+
+            return (uint)i;
+        }
+
+        public uint AddBorder(Border border)
+        {
+            if (border == null)
+                throw new ArgumentNullException(nameof(border));
+
+            var i = Borders.IndexOf(border);
+
+            if (i < 0)
+            {
+                i = Borders.Count;
+                Borders.Add(border);
+            }
+
+            return (uint)i;
+        }
+
+        public uint AddCellFormat(CellFormat cellFormat)
+        {
+            if (cellFormat == null)
+                throw new ArgumentNullException(nameof(cellFormat));
+
+            var i = CellFormats.IndexOf(cellFormat);
+
+            if (i < 0)
+            {
+                i = CellFormats.Count;
+                CellFormats.Add(cellFormat);
+            }
+
+            return (uint)i;
+        }
+
+        public uint AddNumberFormat(NumberFormat numberFormat)
+        {
+            if (numberFormat == null)
+                throw new ArgumentNullException(nameof(numberFormat));
+
+            var i = NumberFormats.IndexOf(numberFormat);
+
+            if (i < 0)
+            {
+                i = NumberFormats.Count;
+                NumberFormats.Add(numberFormat);
+            }
+
+            return (uint)i;
+        }
+
+        #endregion
+
         public void Add(Font font)
         {
             if (font == null)

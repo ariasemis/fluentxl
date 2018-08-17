@@ -26,16 +26,12 @@ namespace FluentXL.Specifications.Styles
 
         public Font Build(IBuildContext context)
         {
-            var id = context.Stylesheet.GenerateFontId();
-
             var font = new Font(
-                id: id,
+                id: 0,
                 name: Name,
                 color: ColorSpecification?.Build(context),
                 bold: BoldValue,
                 italic: ItalicValue);
-
-            context.Stylesheet.Add(font);
 
             return font;
         }

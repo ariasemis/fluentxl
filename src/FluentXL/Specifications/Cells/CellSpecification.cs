@@ -59,12 +59,14 @@ namespace FluentXL.Specifications.Cells
 
         public Cell Build(IBuildContext context)
         {
+            var cellFormat = CellFormat?.Build(context);
+
             return new Cell(
                 Row,
                 Column,
                 CellType,
                 Content,
-                CellFormat?.Build(context).Id);
+                cellFormat == null ? (uint?)null : context.Stylesheet.AddCellFormat(cellFormat));
         }
     }
 }

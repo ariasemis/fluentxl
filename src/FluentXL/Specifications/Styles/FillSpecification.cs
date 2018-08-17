@@ -15,14 +15,10 @@ namespace FluentXL.Specifications.Styles
 
         public Fill Build(IBuildContext context)
         {
-            var id = context.Stylesheet.GenerateFillId();
-
             var fill = new Fill(
-                id,
+                0,
                 new PatternFill(PatternType, ForegroundColor?.Build(context), BackgroundColor?.Build(context)),
                 null);
-
-            context.Stylesheet.Add(fill);
 
             return fill;
         }

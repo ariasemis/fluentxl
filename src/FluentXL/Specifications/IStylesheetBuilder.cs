@@ -4,6 +4,18 @@ namespace FluentXL.Specifications
 {
     public interface IStylesheetBuilder
     {
+        uint AddFont(Font font);
+
+        uint AddFill(Fill fill);
+
+        uint AddBorder(Border border);
+
+        uint AddCellFormat(CellFormat cellFormat);
+
+        uint AddNumberFormat(NumberFormat numberFormat);
+        
+        //
+
         uint GenerateFontId();
 
         uint GenerateFillId();

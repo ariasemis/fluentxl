@@ -30,17 +30,19 @@ namespace FluentXL.Specifications.Styles
 
         public CellFormat Build(IBuildContext context)
         {
-            var id = context.Stylesheet.GenerateCellFormatId();
+            var font = FontSpecification?.Build(context);
+            var fill = FillSpecification?.Build(context);
+            var border = BorderSpecification?.Build(context);
+            var numberFormat = NumberFormatSpecification?.Build(context);
+            var alignment = AlignmentSpecification?.Build(context);
 
             var cellFormat = new CellFormat(
-                id,
-                fontId: FontSpecification?.Build(context).Id,
-                fillId: FillSpecification?.Build(context).Id,
-                borderId: BorderSpecification?.Build(context).Id,
-                numberFormatId: NumberFormatSpecification?.Build(context).Id,
-                alignment: AlignmentSpecification?.Build(context));
-
-            context.Stylesheet.Add(cellFormat);
+                0,
+                fontId: font == null ? (uint?)null : context.Stylesheet.AddFont(font),
+                fillId: fill == null ? (uint?)null : context.Stylesheet.AddFill(fill),
+                borderId: border == null ? (uint?)null : context.Stylesheet.AddBorder(border),
+                numberFormatId: numberFormat == null ? (uint?)null : context.Stylesheet.AddNumberFormat(numberFormat),
+                alignment: alignment);
 
             return cellFormat;
         }
