@@ -1,6 +1,8 @@
-﻿namespace FluentXL.Models
+﻿using System;
+
+namespace FluentXL.Models
 {
-    public sealed class Fill
+    public sealed class Fill : IEquatable<Fill>
     {
         public Fill(
             uint id,
@@ -15,48 +17,46 @@
         public uint Id { get; }
         public PatternFill PatternFill { get; set; }
         public GradientFill GradientFill { get; set; }
-    }
 
-    public class PatternFill
-    {
-        public PatternFill(
-            FillPattern patternType,
-            Color foregroundColor,
-            Color backgroundColor)
+        public static bool operator ==(Fill a, Fill b)
         {
-            PatternType = patternType;
-            ForegroundColor = foregroundColor;
-            BackgroundColor = backgroundColor;
+            if (ReferenceEquals(a, b))
+                return true;
+
+            if (a is null || b is null)
+                return false;
+
+            return Equals(a, b);
         }
 
-        public FillPattern PatternType { get; }
-        public Color ForegroundColor { get; }
-        public Color BackgroundColor { get; }
-    }
+        public static bool operator !=(Fill a, Fill b)
+            => !(a == b);
 
-    public class GradientFill
-    {
-        public GradientFill(
-            FillGradient type,
-            double degree,
-            double left,
-            double right,
-            double top,
-            double bottom)
+        public bool Equals(Fill other)
         {
-            Type = type;
-            Degree = degree;
-            Left = left;
-            Right = right;
-            Top = top;
-            Bottom = bottom;
+            if (ReferenceEquals(this, other))
+                return true;
+            if (other is null)
+                return false;
+
+            return PatternFill == other.PatternFill
+                && GradientFill == other.GradientFill;
         }
 
-        public FillGradient Type { get; }
-        public double Degree { get; }
-        public double Left { get; }
-        public double Right { get; }
-        public double Top { get; }
-        public double Bottom { get; }
+        public override bool Equals(object obj)
+            => obj is Fill && Equals(obj as Fill);
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int hash = 397;
+
+                hash = hash * 17 + PatternFill?.GetHashCode() ?? 0;
+                hash = hash * 17 + GradientFill?.GetHashCode() ?? 0;
+
+                return hash;
+            };
+        }
     }
 }
