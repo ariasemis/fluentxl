@@ -8,10 +8,10 @@ namespace FluentXL.Specifications.Sheets
 {
     public class SheetSpecification : IExpectSheetName, IExpectSheetContent
     {
-        private string name;
-        private IEnumerable<IBuilderSpecification<Column>> columnSpecifications;
-        private IEnumerable<IBuilderSpecification<Row>> rowSpecifications;
-        private IEnumerable<IBuilderSpecification<MergeCell>> mergeCellSpecifications;
+        private readonly string name;
+        private readonly IEnumerable<IBuilderSpecification<Column>> columnSpecifications;
+        private readonly IEnumerable<IBuilderSpecification<Row>> rowSpecifications;
+        private readonly IEnumerable<IBuilderSpecification<MergeCell>> mergeCellSpecifications;
 
         private SheetSpecification(
             string name,

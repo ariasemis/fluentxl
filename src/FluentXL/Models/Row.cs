@@ -1,12 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace FluentXL.Models
 {
     public class Row
     {
         public Row(
-            uint index, 
-            IEnumerable<Cell> cells, 
+            uint index,
+            IEnumerable<Cell> cells,
             double? height = null,
             bool? collapsed = null,
             bool? hidden = null,
@@ -16,7 +17,7 @@ namespace FluentXL.Models
             bool? thickTop = null)
         {
             Index = index;
-            Cells = cells;
+            Cells = cells ?? throw new ArgumentNullException(nameof(cells));
             Height = height;
             Collapsed = collapsed;
             Hidden = hidden;
@@ -27,12 +28,19 @@ namespace FluentXL.Models
         }
 
         public uint Index { get; }
+
         public bool? Collapsed { get; }
+
         public double? Height { get; }
+
         public bool? Hidden { get; }
+
         public byte? OutlineLevel { get; }
+
         public uint? Style { get; }
+
         public bool? ThickBottom { get; }
+
         public bool? ThickTop { get; }
 
         public IEnumerable<Cell> Cells { get; }

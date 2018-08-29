@@ -42,7 +42,7 @@ namespace FluentXL.UnitTests.Specifications
         {
             // arrange
             columnSpecificationMock.Setup(x => x.Build(contextMock.Object)).Returns(new Column(1, 100));
-            rowSpecificationMock.Setup(x => x.Build(contextMock.Object)).Returns(new Row(1, null));
+            rowSpecificationMock.Setup(x => x.Build(contextMock.Object)).Returns(new Row(1, Enumerable.Empty<Cell>()));
             mergeCellSpecificationMock.Setup(x => x.Build(contextMock.Object)).Returns(new MergeCell("test"));
 
             var spec = Specification

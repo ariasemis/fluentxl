@@ -9,10 +9,10 @@ namespace FluentXL.Utils
 
         static IEnumerable<string> excelStrings = CreateExcelStrings();
 
-        static Dictionary<uint, string> columnsByIndex = excelStrings.Select((entry, index) => new { Entry = entry, Index = index + 1 })
+        static readonly Dictionary<uint, string> columnsByIndex = excelStrings.Select((entry, index) => new { Entry = entry, Index = index + 1 })
                                                                     .ToDictionary(x => (uint)x.Index, x => x.Entry);
 
-        static Dictionary<string, uint> indexByColumns = excelStrings.Select((entry, index) => new { Entry = entry, Index = index + 1 })
+        static readonly Dictionary<string, uint> indexByColumns = excelStrings.Select((entry, index) => new { Entry = entry, Index = index + 1 })
                                                                      .ToDictionary(x => x.Entry, x => (uint)x.Index);
 
         public static string GetReference(uint row, uint column)
