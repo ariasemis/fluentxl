@@ -70,7 +70,8 @@ namespace FluentXL.Specifications.Cells
 
         public Cell Build(IBuildContext context)
         {
-            var cellFormat = Compose(DefaultCellFormat, CellFormat)(context);
+            var formatSpec = new Styles.CompositeCellFormatSpecification(DefaultCellFormat, CellFormat);
+            var cellFormat = formatSpec.Build(context);
 
             return new Cell(
                 Row,
@@ -78,29 +79,6 @@ namespace FluentXL.Specifications.Cells
                 CellType,
                 Content,
                 cellFormat == null ? (uint?)null : context.Stylesheet.Add(cellFormat));
-        }
-
-        private static Func<IBuildContext, CellFormat> Compose(IBuilderSpecification<CellFormat> defaultSpec, IBuilderSpecification<CellFormat> spec)
-        {
-            return (context) =>
-            {
-                var defaultFormat = defaultSpec?.Build(context);
-                var format = spec?.Build(context);
-
-                if (format == null && defaultFormat == null)
-                    return null;
-
-                return new CellFormat(
-                    formatId: format?.FormatId ?? defaultFormat?.FormatId,
-                    fontId: format?.FontId ?? defaultFormat?.FontId,
-                    fillId: format?.FillId ?? defaultFormat?.FillId,
-                    borderId: format?.BorderId ?? defaultFormat?.BorderId,
-                    numberFormatId: format?.NumberFormatId ?? defaultFormat?.NumberFormatId,
-                    hasPivotButton: format?.HasPivotButton ?? defaultFormat?.HasPivotButton,
-                    hasQuotePrefix: format?.HasQuotePrefix ?? defaultFormat?.HasQuotePrefix,
-                    alignment: format?.Alignment ?? defaultFormat?.Alignment,
-                    protection: format?.Protection ?? defaultFormat?.Protection);
-            };
         }
     }
 }
