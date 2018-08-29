@@ -14,11 +14,20 @@ namespace FluentXL.Specifications.Cells
 
         private CellSpecification() { }
 
+        private CellSpecification(CellSpecification cellSpecification)
+        {
+            Row = cellSpecification.Row;
+            Column = cellSpecification.Column;
+            CellType = cellSpecification.CellType;
+            Content = cellSpecification.Content;
+            CellFormat = cellSpecification.CellFormat;
+        }
+
         public static IExpectCellColumn New()
             => new CellSpecification();
 
         public IExpectCellContent OnColumn(uint index)
-            => new CellSpecification { Column = index };
+            => new CellSpecification(this) { Column = index };
 
         public IExpectCellFormat WithContent(DateTime value)
             //TODO: for datetime, add a default style with short date numbering format
@@ -44,18 +53,14 @@ namespace FluentXL.Specifications.Cells
             if (value == null)
                 throw new ArgumentNullException(nameof(value));
 
-            return new CellSpecification { Column = Column, CellType = type, Content = value };
+            return new CellSpecification(this) { CellType = type, Content = value };
         }
 
         public IExpectCellRow WithStyle(IBuilderSpecification<CellFormat> formatSpecification)
-        {
-            return new CellSpecification { Column = Column, CellType = CellType, Content = Content, CellFormat = formatSpecification };
-        }
+            => new CellSpecification(this) { CellFormat = formatSpecification };
 
         public IBuilderSpecification<Cell> OnRow(uint index)
-        {
-            return new CellSpecification { Column = Column, CellType = CellType, Content = Content, CellFormat = CellFormat, Row = index };
-        }
+            => new CellSpecification(this) { Row = index };
 
         public Cell Build(IBuildContext context)
         {
