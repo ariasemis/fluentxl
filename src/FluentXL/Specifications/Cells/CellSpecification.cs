@@ -11,6 +11,7 @@ namespace FluentXL.Specifications.Cells
         private CellType CellType { get; set; }
         private string Content { get; set; }
         private IBuilderSpecification<CellFormat> CellFormat { get; set; } = null;
+        private IBuilderSpecification<CellFormat> DefaultCellFormat { get; set; } = null;
 
         private CellSpecification() { }
 
@@ -21,6 +22,7 @@ namespace FluentXL.Specifications.Cells
             CellType = cellSpecification.CellType;
             Content = cellSpecification.Content;
             CellFormat = cellSpecification.CellFormat;
+            DefaultCellFormat = cellSpecification.DefaultCellFormat;
         }
 
         public static IExpectCellColumn New()
@@ -30,8 +32,12 @@ namespace FluentXL.Specifications.Cells
             => new CellSpecification(this) { Column = index };
 
         public IExpectCellFormat WithContent(DateTime value)
-            //TODO: for datetime, add a default style with short date numbering format
-            => WithContent(value.ToOADate().ToString(CultureInfo.InvariantCulture), CellType.Date);
+        {
+            DefaultCellFormat = Specification.CellFormat()
+                .WithNumberFormat(Specification.NumberFormat().WithFormat(StandardNumberFormat.ShortDate));
+
+            return WithContent(value.ToOADate().ToString(CultureInfo.InvariantCulture), CellType.Date);
+        }
 
         public IExpectCellFormat WithContent(int value)
             => WithContent(value.ToString(CultureInfo.InvariantCulture), CellType.Number);
@@ -64,7 +70,7 @@ namespace FluentXL.Specifications.Cells
 
         public Cell Build(IBuildContext context)
         {
-            var cellFormat = CellFormat?.Build(context);
+            var cellFormat = Compose(DefaultCellFormat, CellFormat)(context);
 
             return new Cell(
                 Row,
@@ -72,6 +78,29 @@ namespace FluentXL.Specifications.Cells
                 CellType,
                 Content,
                 cellFormat == null ? (uint?)null : context.Stylesheet.Add(cellFormat));
+        }
+
+        private static Func<IBuildContext, CellFormat> Compose(IBuilderSpecification<CellFormat> defaultSpec, IBuilderSpecification<CellFormat> spec)
+        {
+            return (context) =>
+            {
+                var defaultFormat = defaultSpec?.Build(context);
+                var format = spec?.Build(context);
+
+                if (format == null && defaultFormat == null)
+                    return null;
+
+                return new CellFormat(
+                    formatId: format?.FormatId ?? defaultFormat?.FormatId,
+                    fontId: format?.FontId ?? defaultFormat?.FontId,
+                    fillId: format?.FillId ?? defaultFormat?.FillId,
+                    borderId: format?.BorderId ?? defaultFormat?.BorderId,
+                    numberFormatId: format?.NumberFormatId ?? defaultFormat?.NumberFormatId,
+                    hasPivotButton: format?.HasPivotButton ?? defaultFormat?.HasPivotButton,
+                    hasQuotePrefix: format?.HasQuotePrefix ?? defaultFormat?.HasQuotePrefix,
+                    alignment: format?.Alignment ?? defaultFormat?.Alignment,
+                    protection: format?.Protection ?? defaultFormat?.Protection);
+            };
         }
     }
 }
