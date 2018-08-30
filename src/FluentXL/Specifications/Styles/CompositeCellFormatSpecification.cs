@@ -24,15 +24,15 @@ namespace FluentXL.Specifications.Styles
                         return null;
 
                     var format = new CellFormat(
-                        formatId: first?.FormatId ?? second?.FormatId,
-                        fontId: first?.FontId ?? second?.FontId,
-                        fillId: first?.FillId ?? second?.FillId,
-                        borderId: first?.BorderId ?? second?.BorderId,
-                        numberFormatId: first?.NumberFormatId ?? second?.NumberFormatId,
-                        hasPivotButton: first?.HasPivotButton ?? second?.HasPivotButton,
-                        hasQuotePrefix: first?.HasQuotePrefix ?? second?.HasQuotePrefix,
-                        alignment: first?.Alignment ?? second?.Alignment,
-                        protection: first?.Protection ?? second?.Protection);
+                        formatId: second?.FormatId ?? first?.FormatId,
+                        fontId: second?.FontId ?? first?.FontId,
+                        fillId: second?.FillId ?? first?.FillId,
+                        borderId: second?.BorderId ?? first?.BorderId,
+                        numberFormatId: second?.NumberFormatId ?? first?.NumberFormatId,
+                        hasPivotButton: second?.HasPivotButton ?? first?.HasPivotButton,
+                        hasQuotePrefix: second?.HasQuotePrefix ?? first?.HasQuotePrefix,
+                        alignment: second?.Alignment ?? first?.Alignment,
+                        protection: second?.Protection ?? first?.Protection);
 
                     return format;
                 });
