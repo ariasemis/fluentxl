@@ -10,6 +10,13 @@ namespace FluentXL.UnitTests.Specifications
     public class CellSpecificationTest
     {
         private readonly Mock<IBuildContext> contextMock = new Mock<IBuildContext>();
+        private readonly Mock<IStylesheetBuilder> stylesheetBuilderMock = new Mock<IStylesheetBuilder>();
+
+        [TestInitialize]
+        public void Init()
+        {
+            contextMock.Setup(x => x.Stylesheet).Returns(stylesheetBuilderMock.Object);
+        }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
@@ -124,6 +131,101 @@ namespace FluentXL.UnitTests.Specifications
             Assert.AreNotEqual(cell1, cell2);
             Assert.AreEqual(1u, cell1.Row);
             Assert.AreEqual(2u, cell2.Row);
+        }
+
+        [TestMethod]
+        public void Build_WithDateContent_SetCorrectFormat()
+        {
+            // arrange
+            CellFormat cellFormat = null;
+            stylesheetBuilderMock
+                .Setup(x => x.Add(It.IsAny<CellFormat>()))
+                .Callback<CellFormat>(x => cellFormat = x)
+                .Returns(1);
+
+            var spec = Specification
+                .Cell()
+                .OnColumn(1)
+                .WithContent(new DateTime(2018, 1, 1))
+                .OnRow(1);
+
+            // act
+            var cell = spec.Build(contextMock.Object);
+
+            // assert
+            Assert.IsNotNull(cell);
+            Assert.AreEqual("43101", cell.Value);
+            Assert.AreEqual(CellType.Date, cell.Type);
+
+            Assert.AreEqual(1u, cell.Style);
+            Assert.IsNotNull(cellFormat);
+            Assert.AreEqual((uint)StandardNumberFormat.ShortDate, cellFormat.NumberFormatId);
+        }
+
+        [TestMethod]
+        public void Build_WithDateContentWithCustomStyle_DefaultNumberFormat()
+        {
+            // arrange
+            CellFormat cellFormat = null;
+            stylesheetBuilderMock
+                .Setup(x => x.Add(It.IsAny<CellFormat>()))
+                .Callback<CellFormat>(x => cellFormat = x)
+                .Returns(1);
+
+            var cellFormatSpecMock = new Mock<IBuilderSpecification<CellFormat>>();
+            cellFormatSpecMock
+                .Setup(x => x.Build(It.IsAny<IBuildContext>()))
+                .Returns(new CellFormat(fontId: 1));
+
+            var spec = Specification
+                .Cell()
+                .OnColumn(1)
+                .WithContent(DateTime.Today)
+                .WithStyle(cellFormatSpecMock.Object)
+                .OnRow(1);
+
+            // act
+            var cell = spec.Build(contextMock.Object);
+
+            // assert
+            Assert.IsNotNull(cell);
+            Assert.AreEqual(1u, cell.Style);
+            Assert.IsNotNull(cellFormat);
+            Assert.AreEqual((uint)StandardNumberFormat.ShortDate, cellFormat.NumberFormatId);
+            Assert.AreEqual(1u, cellFormat.FontId);
+        }
+
+        [TestMethod]
+        public void Build_WithDateContentWithCustomStyle_OverrideNumberFormat()
+        {
+            // arrange
+            CellFormat cellFormat = null;
+            stylesheetBuilderMock
+                .Setup(x => x.Add(It.IsAny<CellFormat>()))
+                .Callback<CellFormat>(x => cellFormat = x)
+                .Returns(1);
+
+            var cellFormatSpecMock = new Mock<IBuilderSpecification<CellFormat>>();
+            cellFormatSpecMock
+                .Setup(x => x.Build(It.IsAny<IBuildContext>()))
+                .Returns(new CellFormat(fontId: 1, numberFormatId: (uint)StandardNumberFormat.LongDate));
+
+            var spec = Specification
+                .Cell()
+                .OnColumn(1)
+                .WithContent(DateTime.Today)
+                .WithStyle(cellFormatSpecMock.Object)
+                .OnRow(1);
+
+            // act
+            var cell = spec.Build(contextMock.Object);
+
+            // assert
+            Assert.IsNotNull(cell);
+            Assert.AreEqual(1u, cell.Style);
+            Assert.IsNotNull(cellFormat);
+            Assert.AreEqual((uint)StandardNumberFormat.LongDate, cellFormat.NumberFormatId);
+            Assert.AreEqual(1u, cellFormat.FontId);
         }
     }
 }
