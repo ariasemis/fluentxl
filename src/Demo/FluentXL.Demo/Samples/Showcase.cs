@@ -1,11 +1,12 @@
-﻿using System;
+﻿using FluentXL.Models;
+using System;
 
 namespace FluentXL.Demo.Samples
 {
     /// <summary>
     /// This sample shows how to create a new workbook from scratch.
     /// </summary>
-    public class Sample1 : ISample
+    public class Showcase : ISample
     {
         public string GetInfo()
         {
@@ -21,10 +22,10 @@ namespace FluentXL.Demo.Samples
                     .WithSize(10)
                     .Bold())
                 .WithBorder(Specification.Border().WithOutline(
-                    Models.BorderStyle.Thin,
+                    BorderStyle.Thin,
                     Specification.Color().FromArgb("FF000000")))
                 .WithFill(Specification.Fill()
-                    .WithPattern(Models.FillPattern.Solid)
+                    .WithPattern(FillPattern.Solid)
                     .WithForegroundColor(Specification.Color().FromArgb("FFC6EFCE")));
 
             // we'll use the first couple of rows as a kind of "header" where we'll display some titles for the columns

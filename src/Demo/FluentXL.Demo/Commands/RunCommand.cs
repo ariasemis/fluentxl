@@ -100,7 +100,7 @@ namespace FluentXL.Demo.Commands
             }
             else
             {
-                sample = new Sample1();
+                sample = new Showcase();
             }
 
             return sample;
