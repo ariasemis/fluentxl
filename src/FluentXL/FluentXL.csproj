@@ -2,6 +2,19 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <Version>0.0.1</Version>
+    <Authors>Arias Emilio</Authors>
+    <Description>FluentXL is a high-performance library to write Excel files in a fluent, declarative way.</Description>
+    <PackageLicenseUrl>https://github.com/ariasemis/fluentxl/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/ariasemis/fluentxl</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/ariasemis/fluentxl</RepositoryUrl>
+    <PackageTags>xlsx excel office spreadsheet ooxml</PackageTags>
+    <PackageReleaseNotes></PackageReleaseNotes>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>bin\Debug\netstandard2.0\FluentXL.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
