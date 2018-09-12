@@ -38,6 +38,8 @@ Run the following command in the Package Manager Console
 PM> Install-Package FluentXL
 ```
 
+_**Important:** Current version is marked as prerelease and is not meant to be used in production yet. There may be breaking changes with future versions until a stable version is reached._
+
 ## Contributing
 
 Contributions are more than welcome:
