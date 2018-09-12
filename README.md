@@ -1,6 +1,6 @@
 # FluentXL
 
-FluentXL is a .NET Standard library that allows you to work with Excel files in a fluent, declarative way.
+FluentXL is a high-performance .NET Standard library that allows you to work with Excel files in a fluent, declarative way.
 
 ## Usage
 
