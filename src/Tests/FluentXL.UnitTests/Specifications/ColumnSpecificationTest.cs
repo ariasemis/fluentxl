@@ -1,6 +1,7 @@
 ﻿using FluentXL.Specifications;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using System;
 
 namespace FluentXL.UnitTests.Specifications
 {
@@ -32,6 +33,20 @@ namespace FluentXL.UnitTests.Specifications
             Assert.IsNotNull(col1);
             Assert.IsNotNull(col2);
             Assert.AreNotEqual(col1, col2);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void With_IndexWithZeroValue_ThrowsArgumentException()
+        {
+            Specification.Column().With(0, 0);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void With_IndexWithMoreThanMaxValue_ThrowsArgumentException()
+        {
+            Specification.Column().With(16385, 0);
         }
     }
 }

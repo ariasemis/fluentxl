@@ -3,6 +3,7 @@ using FluentXL.Specifications;
 using FluentXL.Specifications.Cells;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using System;
 using System.Linq;
 
 namespace FluentXL.UnitTests.Specifications
@@ -63,6 +64,20 @@ namespace FluentXL.UnitTests.Specifications
             Assert.IsNotNull(row);
             Assert.AreEqual(2u, row.Index);
             Assert.AreEqual(3, row.Cells.Count());
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void OnIndex_WithZeroValue_ThrowsArgumentException()
+        {
+            Specification.Row().OnIndex(0);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void OnIndex_WithMoreThanMillion_ThrowsArgumentException()
+        {
+            Specification.Row().OnIndex(1048577);
         }
     }
 }

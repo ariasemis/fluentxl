@@ -1,5 +1,6 @@
 ﻿using FluentXL.Models;
 using FluentXL.Specifications.Cells;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -17,6 +18,11 @@ namespace FluentXL.Specifications.Rows
 
         public IExpectCells OnIndex(uint index)
         {
+            if (index < Row.MIN_INDEX)
+                throw new ArgumentException($"The index value must be greater or equal to {Row.MIN_INDEX}", nameof(index));
+            if (index > Row.MAX_INDEX)
+                throw new ArgumentException($"The index value must be less or equal to {Row.MAX_INDEX}", nameof(index));
+
             return new RowSpecification
             {
                 Index = index,

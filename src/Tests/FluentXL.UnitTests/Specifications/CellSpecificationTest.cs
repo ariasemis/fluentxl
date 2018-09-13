@@ -227,5 +227,39 @@ namespace FluentXL.UnitTests.Specifications
             Assert.AreEqual((uint)StandardNumberFormat.LongDate, cellFormat.NumberFormatId);
             Assert.AreEqual(1u, cellFormat.FontId);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void OnColumn_WithZeroValue_ThrowsArgumentException()
+        {
+            Specification.Cell().OnColumn(0);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void OnColumn_WithMoreThanMaxValue_ThrowsArgumentException()
+        {
+            Specification.Cell().OnColumn(16385);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void OnRow_WithZeroValue_ThrowsArgumentException()
+        {
+            Specification.Cell()
+                .OnColumn(1)
+                .WithContent("test")
+                .OnRow(0);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void OnRow_WithMoreThanMillion_ThrowsArgumentException()
+        {
+            Specification.Cell()
+                .OnColumn(1)
+                .WithContent("test")
+                .OnRow(1048577);
+        }
     }
 }

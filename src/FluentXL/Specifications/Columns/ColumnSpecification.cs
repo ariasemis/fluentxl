@@ -1,4 +1,5 @@
 ﻿using FluentXL.Models;
+using System;
 
 namespace FluentXL.Specifications.Columns
 {
@@ -16,6 +17,11 @@ namespace FluentXL.Specifications.Columns
 
         public IBuilderSpecification<Column> With(uint index, double width)
         {
+            if (index < Column.MIN_INDEX)
+                throw new ArgumentException($"The index value must be greater or equal to {Column.MIN_INDEX}", nameof(index));
+            if (index > Column.MAX_INDEX)
+                throw new ArgumentException($"The index value must be less or equal to {Column.MAX_INDEX}", nameof(index));
+
             return new ColumnSpecification
             {
                 Index = index,
@@ -24,8 +30,6 @@ namespace FluentXL.Specifications.Columns
         }
 
         public Column Build(IBuildContext context)
-        {
-            return new Column(Index, Width);
-        }
+            => new Column(Index, Width);
     }
 }

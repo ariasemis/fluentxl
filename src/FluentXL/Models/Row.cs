@@ -5,6 +5,9 @@ namespace FluentXL.Models
 {
     public class Row
     {
+        public const uint MIN_INDEX = 1;
+        public const uint MAX_INDEX = 1048576;
+
         public Row(
             uint index,
             IEnumerable<Cell> cells,
@@ -16,6 +19,11 @@ namespace FluentXL.Models
             bool? thickBottom = null,
             bool? thickTop = null)
         {
+            if (index < MIN_INDEX)
+                throw new ArgumentException($"The index value must be greater or equal to {MIN_INDEX}", nameof(index));
+            if (index > MAX_INDEX)
+                throw new ArgumentException($"The index value must be less or equal to {MAX_INDEX}", nameof(index));
+
             Index = index;
             Cells = cells ?? throw new ArgumentNullException(nameof(cells));
             Height = height;

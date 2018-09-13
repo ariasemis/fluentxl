@@ -29,7 +29,14 @@ namespace FluentXL.Specifications.Cells
             => new CellSpecification();
 
         public IExpectCellContent OnColumn(uint index)
-            => new CellSpecification(this) { Column = index };
+        {
+            if (index < Models.Column.MIN_INDEX)
+                throw new ArgumentException($"The index value must be greater or equal to {Models.Column.MIN_INDEX}", nameof(index));
+            if (index > Models.Column.MAX_INDEX)
+                throw new ArgumentException($"The index value must be less or equal to {Models.Column.MAX_INDEX}", nameof(index));
+
+            return new CellSpecification(this) { Column = index };
+        }
 
         public IExpectCellFormat WithContent(DateTime value)
         {
@@ -66,7 +73,14 @@ namespace FluentXL.Specifications.Cells
             => new CellSpecification(this) { CellFormat = formatSpecification };
 
         public IBuilderSpecification<Cell> OnRow(uint index)
-            => new CellSpecification(this) { Row = index };
+        {
+            if (index < Models.Row.MIN_INDEX)
+                throw new ArgumentException($"The index value must be greater or equal to {Models.Row.MIN_INDEX}", nameof(index));
+            if (index > Models.Row.MAX_INDEX)
+                throw new ArgumentException($"The index value must be less or equal to {Models.Row.MAX_INDEX}", nameof(index));
+
+            return new CellSpecification(this) { Row = index };
+        }
 
         public Cell Build(IBuildContext context)
         {
