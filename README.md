@@ -1,6 +1,6 @@
 # FluentXL
 
-FluentXL is a .NET Standard library that allows you to work with Excel files in a fluent, declarative way.
+FluentXL is a high-performance .NET Standard library that allows you to work with Excel files in a fluent, declarative way.
 
 ## Usage
 
@@ -30,12 +30,15 @@ _For more examples and usage, please refer to the [Wiki][wiki]._
 
 ## Installation
 
-Currently there aren't binaries available to download, so in order to use the library you need to:
+FluentXL can be installed [directly from NuGet](https://www.nuget.org/packages/FluentXL/)
 
-1. Clone the repository
-2. Build it on release
-3. Go to the bin folder and copy the FluentXL.dll library
-4. Import it on your project
+Run the following command in the Package Manager Console
+
+```
+PM> Install-Package FluentXL
+```
+
+_**Important:** Current version is marked as prerelease and is not meant to be used in production yet. There may be breaking changes with future versions until a stable version is reached._
 
 ## Contributing
 
