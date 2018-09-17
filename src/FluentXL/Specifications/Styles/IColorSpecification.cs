@@ -8,7 +8,7 @@ namespace FluentXL.Specifications.Styles
         /// Specifies the color value.
         /// </summary>
         /// <param name="value">The ARGB value</param>
-        /// <returns>An instance of IBuilderSpecification<Color></returns>
+        /// <returns>An instance of <see cref="IBuilderSpecification{Color}"/></returns>
         IBuilderSpecification<Color> FromArgb(string value);
 
         /// <summary>
@@ -18,7 +18,7 @@ namespace FluentXL.Specifications.Styles
         /// <param name="red">The red value</param>
         /// <param name="green">The green value</param>
         /// <param name="blue">The blue value</param>
-        /// <returns>An instance of IBuilderSpecification<Color></returns>
+        /// <returns>An instance of <see cref="IBuilderSpecification{Color}"/></returns>
         IBuilderSpecification<Color> FromArgb(byte alpha, byte red, byte green, byte blue);
     }
 }

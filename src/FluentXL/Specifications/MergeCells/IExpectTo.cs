@@ -9,7 +9,7 @@ namespace FluentXL.Specifications.MergeCells
         /// </summary>
         /// <param name="row">The row index of the cell.</param>
         /// <param name="column">The column index of the cell.</param>
-        /// <returns>A new instance of IBuilderSpecification<MergeCell>.</returns>
+        /// <returns>A new instance of <see cref="IBuilderSpecification{MergeCell}"/>.</returns>
         IBuilderSpecification<MergeCell> To(uint row, uint column);
     }
 }

@@ -9,7 +9,7 @@ namespace FluentXL.Specifications.Styles
         /// </summary>
         /// <param name="style">A border style</param>
         /// <param name="colorSpecification">A color specification</param>
-        /// <returns>An instance of IBorderSpecification</returns>
+        /// <returns>An instance of <see cref="IBorderSpecification"/></returns>
         IBorderSpecification WithTop(BorderStyle style, IBuilderSpecification<Color> colorSpecification);
 
         /// <summary>
@@ -17,7 +17,7 @@ namespace FluentXL.Specifications.Styles
         /// </summary>
         /// <param name="style">A border style</param>
         /// <param name="colorSpecification">A color specification</param>
-        /// <returns>An instance of IBorderSpecification</returns>
+        /// <returns>An instance of <see cref="IBorderSpecification"/></returns>
         IBorderSpecification WithBottom(BorderStyle style, IBuilderSpecification<Color> colorSpecification);
 
         /// <summary>
@@ -25,7 +25,7 @@ namespace FluentXL.Specifications.Styles
         /// </summary>
         /// <param name="style">A border style</param>
         /// <param name="colorSpecification">A color specification</param>
-        /// <returns>An instance of IBorderSpecification</returns>
+        /// <returns>An instance of <see cref="IBorderSpecification"/></returns>
         IBorderSpecification WithLeft(BorderStyle style, IBuilderSpecification<Color> colorSpecification);
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace FluentXL.Specifications.Styles
         /// </summary>
         /// <param name="style">A border style</param>
         /// <param name="colorSpecification">A color specification</param>
-        /// <returns>An instance of IBorderSpecification</returns>
+        /// <returns>An instance of <see cref="IBorderSpecification"/></returns>
         IBorderSpecification WithRight(BorderStyle style, IBuilderSpecification<Color> colorSpecification);
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace FluentXL.Specifications.Styles
         /// <param name="style">A border style</param>
         /// <param name="colorSpecification">A color specification</param>
         /// <param name="diagonal">The diagonals affected</param>
-        /// <returns>An instance of IBorderSpecification</returns>
+        /// <returns>An instance of <see cref="IBorderSpecification"/></returns>
         IBorderSpecification WithDiagonal(BorderStyle style, IBuilderSpecification<Color> colorSpecification, BorderDiagonal diagonal);
     }
 
@@ -53,7 +53,7 @@ namespace FluentXL.Specifications.Styles
         /// </summary>
         /// <param name="style">A border style</param>
         /// <param name="colorSpecification">A color specification</param>
-        /// <returns>An instance of IBuilderSpecification<Border></returns>
+        /// <returns>An instance of <see cref="IBuilderSpecification{Border}"/></returns>
         IBuilderSpecification<Border> WithOutline(BorderStyle style, IBuilderSpecification<Color> colorSpecification);
     }
 
