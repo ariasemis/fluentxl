@@ -16,6 +16,15 @@ namespace FluentXL.UnitTests.Utils
         }
 
         [TestMethod]
+        public void GetReference_WithLastIndex_ReturnsLastCell()
+        {
+            var result = ReferenceHelper.GetReference(1048576, 16384);
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual("XFD1048576", result);
+        }
+
+        [TestMethod]
         public void GetNextReference_WithIndex1_ReturnsSecondCell()
         {
             var result = ReferenceHelper.GetNextReference(1, 1);
@@ -31,6 +40,15 @@ namespace FluentXL.UnitTests.Utils
 
             Assert.IsNotNull(result);
             Assert.AreEqual("A", result);
+        }
+
+        [TestMethod]
+        public void GetColumnLetter_WithMaxIndex_ReturnsLastColumnLetter()
+        {
+            var result = ReferenceHelper.GetColumnLetter(16384);
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual("XFD", result);
         }
 
         [TestMethod]
