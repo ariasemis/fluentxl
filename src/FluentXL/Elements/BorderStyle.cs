@@ -1,4 +1,4 @@
-﻿namespace FluentXL.Models
+﻿namespace FluentXL.Elements
 {
     public enum BorderStyle
     {

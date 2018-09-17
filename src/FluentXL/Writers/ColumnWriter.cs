@@ -1,5 +1,5 @@
 ﻿using DocumentFormat.OpenXml;
-using FluentXL.Models;
+using FluentXL.Elements;
 using System;
 using System.Collections.Generic;
 using OpenXml = DocumentFormat.OpenXml.Spreadsheet;

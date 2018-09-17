@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FluentXL.Models
+namespace FluentXL.Elements
 {
     public class Column
     {

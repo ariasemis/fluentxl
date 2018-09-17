@@ -1,4 +1,4 @@
-﻿using FluentXL.Models;
+﻿using FluentXL.Elements;
 using FluentXL.Specifications.Cells;
 using System;
 using System.Collections.Generic;

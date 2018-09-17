@@ -1,4 +1,4 @@
-﻿using FluentXL.Models;
+﻿using FluentXL.Elements;
 using FluentXL.Specifications;
 using FluentXL.Specifications.Cells;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

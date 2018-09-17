@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FluentXL.Models
+namespace FluentXL.Elements
 {
     public sealed class Color : IEquatable<Color>
     {

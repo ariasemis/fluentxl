@@ -1,4 +1,4 @@
-﻿using FluentXL.Models;
+﻿using FluentXL.Elements;
 using System;
 using System.Globalization;
 
@@ -30,10 +30,10 @@ namespace FluentXL.Specifications.Cells
 
         public IExpectCellContent OnColumn(uint index)
         {
-            if (index < Models.Column.MIN_INDEX)
-                throw new ArgumentException($"The index value must be greater or equal to {Models.Column.MIN_INDEX}", nameof(index));
-            if (index > Models.Column.MAX_INDEX)
-                throw new ArgumentException($"The index value must be less or equal to {Models.Column.MAX_INDEX}", nameof(index));
+            if (index < Elements.Column.MIN_INDEX)
+                throw new ArgumentException($"The index value must be greater or equal to {Elements.Column.MIN_INDEX}", nameof(index));
+            if (index > Elements.Column.MAX_INDEX)
+                throw new ArgumentException($"The index value must be less or equal to {Elements.Column.MAX_INDEX}", nameof(index));
 
             return new CellSpecification(this) { Column = index };
         }
@@ -74,10 +74,10 @@ namespace FluentXL.Specifications.Cells
 
         public IBuilderSpecification<Cell> OnRow(uint index)
         {
-            if (index < Models.Row.MIN_INDEX)
-                throw new ArgumentException($"The index value must be greater or equal to {Models.Row.MIN_INDEX}", nameof(index));
-            if (index > Models.Row.MAX_INDEX)
-                throw new ArgumentException($"The index value must be less or equal to {Models.Row.MAX_INDEX}", nameof(index));
+            if (index < Elements.Row.MIN_INDEX)
+                throw new ArgumentException($"The index value must be greater or equal to {Elements.Row.MIN_INDEX}", nameof(index));
+            if (index > Elements.Row.MAX_INDEX)
+                throw new ArgumentException($"The index value must be less or equal to {Elements.Row.MAX_INDEX}", nameof(index));
 
             return new CellSpecification(this) { Row = index };
         }

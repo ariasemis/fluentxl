@@ -1,4 +1,4 @@
-﻿using FluentXL.Models;
+﻿using FluentXL.Elements;
 using OpenXml = DocumentFormat.OpenXml.Spreadsheet;
 
 namespace FluentXL.Writers

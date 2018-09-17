@@ -1,4 +1,4 @@
-﻿using FluentXL.Models;
+﻿using FluentXL.Elements;
 using System;
 
 namespace FluentXL.Specifications.Columns

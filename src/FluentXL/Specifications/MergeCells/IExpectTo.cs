@@ -1,4 +1,4 @@
-﻿using FluentXL.Models;
+﻿using FluentXL.Elements;
 
 namespace FluentXL.Specifications.MergeCells
 {

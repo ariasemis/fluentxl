@@ -1,7 +1,7 @@
 ﻿using FluentXL.Utils;
 using System;
 
-namespace FluentXL.Models
+namespace FluentXL.Elements
 {
     public sealed class Stylesheet
     {

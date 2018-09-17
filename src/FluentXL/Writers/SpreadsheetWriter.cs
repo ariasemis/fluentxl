@@ -1,6 +1,6 @@
 ﻿using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
-using FluentXL.Models;
+using FluentXL.Elements;
 using FluentXL.Specifications;
 using System.Collections.Generic;
 using System.IO;

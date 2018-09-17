@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace FluentXL.Models
+namespace FluentXL.Elements
 {
     public class Row
     {

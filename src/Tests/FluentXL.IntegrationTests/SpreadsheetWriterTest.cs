@@ -32,12 +32,12 @@ namespace FluentXL.IntegrationTests
                 .CellFormat()
                 .WithFill(Specification
                     .Fill()
-                    .WithPattern(Models.FillPattern.Solid)
+                    .WithPattern(Elements.FillPattern.Solid)
                     .WithForegroundColor(Specification.Color().FromArgb("FFC6EFCE")))
                 .WithBorder(Specification
                     .Border()
                     .WithOutline(
-                        Models.BorderStyle.Medium,
+                        Elements.BorderStyle.Medium,
                         Specification.Color().FromArgb("#00000000")));
 
             var cell = Specification
