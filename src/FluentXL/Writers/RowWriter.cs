@@ -22,13 +22,10 @@ namespace FluentXL.Writers
 
             writer.WriteStartElement(template, GetAttributes(row));
 
-            if (row.Cells != null)
+            IWriter<Cell> cellWriter = new CellWriter(writer);
+            foreach (var cell in row.Cells)
             {
-                IWriter<Cell> cellWriter = new CellWriter(writer);
-                foreach (var cell in row.Cells)
-                {
-                    cellWriter.Write(cell);
-                }
+                cellWriter.Write(cell);
             }
 
             writer.WriteEndElement();
