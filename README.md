@@ -1,6 +1,7 @@
 # FluentXL
 
 ![nuget](https://img.shields.io/nuget/v/FluentXL.svg)
+[![License](https://img.shields.io/github/license/ariasemis/fluentxl?label=License)](https://opensource.org/licenses/MPL-2.0)
 
 FluentXL is a high-performance .NET Standard library that allows you to work with Excel files in a fluent, declarative way.
 
